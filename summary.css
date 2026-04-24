@@ -1,0 +1,71 @@
+:root {
+    --accent: #4f46e5;
+    --text-main: #0f172a;
+    --text-soft: #475569;
+    --surface: #ffffff;
+    --surface-alt: #f8fafc;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--surface-alt);
+    color: var(--text-main);
+}
+
+.top-bar {
+    backdrop-filter: blur(10px);
+}
+
+.book-cover {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 16px 35px rgba(15, 23, 42, 0.18);
+}
+
+.reading-mode {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-soft);
+}
+
+.reading-mode p {
+    margin-bottom: 1.1rem;
+}
+
+.audio-player {
+    background: rgba(255, 255, 255, 0.95);
+    border-top: 1px solid #e2e8f0;
+    box-shadow: 0 -8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.play-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    transition: transform 0.2s ease;
+}
+
+.play-btn:hover {
+    transform: scale(1.05);
+}
+
+.progress-track {
+    height: 8px;
+    background: #cbd5e1;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-value {
+    height: 100%;
+    width: 38%;
+    background: var(--accent);
+}

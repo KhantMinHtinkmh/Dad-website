@@ -1,0 +1,129 @@
+/* Custom styles to mimic the premium Bookey UI */
+
+:root {
+    --primary: #4f46e5;
+    --text-dark: #0f172a;
+    --text-light: #64748b;
+    --glass-bg: rgba(255, 255, 255, 0.8);
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #f8fafc;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+/* Floating Navigation Bar */
+.navbar-glass {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px border rgba(226, 232, 240, 0.5);
+    transition: all 0.3s ease;
+}
+
+.logo {
+    font-weight: 800;
+    font-size: 1.25rem;
+    letter-spacing: -0.025em;
+}
+
+.nav-link {
+    font-size: 0.925rem;
+    font-weight: 600;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    position: relative;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--primary);
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary);
+    border-radius: 2px;
+}
+
+/* Buttons and UI Elements */
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 99px;
+    font-weight: 700;
+    font-size: 0.875rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+    transition: transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    background-color: #4338ca;
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 100px 20px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 24px;
+}
+
+.hero-subtitle {
+    color: var(--text-light);
+    font-size: 1.25rem;
+    margin-bottom: 40px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: #eef2ff;
+    color: var(--primary);
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.book-card-main {
+    width: 240px;
+    height: 340px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    transform: rotate(-2deg);
+}
+
+.book-card-main img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.skeleton-card {
+    height: 300px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+}
