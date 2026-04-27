@@ -50,5 +50,14 @@ body {
 
 .book-card:hover .cover { transform: translateY(-10px) scale(1.02); }
 
+.home-book-grid {
+    justify-items: stretch;
+}
+
+.home-book-grid .book-card {
+    width: 100%;
+    max-width: none;
+}
+
 .btn-primary { background: var(--primary); color: white; border-radius: 99px; font-weight: 700; transition: 0.3s; }
 .btn-primary:hover { box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3); }
