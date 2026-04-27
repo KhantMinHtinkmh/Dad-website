@@ -18,15 +18,81 @@ body {
     border-bottom: 1px solid #f1f5f9;
 }
 
-.nav-link { font-size: 0.9rem; font-weight: 600; color: var(--text-light); transition: 0.2s; }
-.nav-link:hover, .nav-link.active { color: var(--primary); }
+.nav-link {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-light);
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    background: transparent;
+    transition: all 0.25s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary);
+    border-color: #c7d2fe;
+    background: #eef2ff;
+    box-shadow: 0 8px 18px rgba(79, 70, 229, 0.12);
+    transform: translateY(-1px);
+}
+
+.nav-dropdown-btn {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-light);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid #e2e8f0;
+    background: linear-gradient(180deg, #ffffff, #f8fafc);
+    transition: all 0.25s ease;
+}
+
+.group:hover .nav-dropdown-btn {
+    color: var(--primary);
+    border-color: #c7d2fe;
+    box-shadow: 0 8px 18px rgba(79, 70, 229, 0.16);
+    transform: translateY(-1px);
+}
+
+.dropdown-arrow {
+    font-size: 0.8rem;
+    transition: transform 0.25s ease;
+}
+
+.group:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
 
 .dropdown-menu {
     position: absolute; top: 100%; left: 0; width: 220px;
-    background: white; border-radius: 12px; padding: 10px;
+    background: white; border-radius: 14px; padding: 8px;
+    border: 1px solid #e2e8f0;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: none;
 }
 .group:hover .dropdown-menu { display: block; }
+
+.dropdown-menu a {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-light);
+    padding: 8px 10px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.dropdown-menu a:hover {
+    color: var(--primary);
+    background: #eef2ff;
+    transform: translateX(2px);
+}
 
 /* Hero Section */
 .hero-section { padding: 100px 0; background: radial-gradient(circle at top right, #f5f3ff, #ffffff); }
