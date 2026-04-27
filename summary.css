@@ -34,6 +34,38 @@ body {
     margin-bottom: 1.1rem;
 }
 
+.reading-mode h2,
+.reading-mode h3,
+.reading-mode h4 {
+    color: var(--text-main);
+    font-weight: 800;
+    line-height: 1.25;
+    margin-top: 1.25rem;
+    margin-bottom: 0.6rem;
+}
+
+.reading-mode h2 {
+    font-size: 1.6rem;
+}
+
+.reading-mode h3 {
+    font-size: 1.3rem;
+}
+
+.reading-mode h4 {
+    font-size: 1.1rem;
+}
+
+.reading-mode a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.reading-mode a:hover {
+    opacity: 0.85;
+}
+
 .audio-player {
     background: rgba(255, 255, 255, 0.95);
     border-top: 1px solid #e2e8f0;
