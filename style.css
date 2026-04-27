@@ -51,12 +51,41 @@ body {
 .book-card:hover .cover { transform: translateY(-10px) scale(1.02); }
 
 .home-book-grid {
-    justify-items: stretch;
+    justify-items: center;
+    justify-content: center;
 }
 
 .home-book-grid .book-card {
     width: 100%;
-    max-width: none;
+    max-width: 220px;
+    justify-self: center;
+    padding: 0.75rem;
+    border-color: #f1f5f9;
+    border-radius: 0.9rem;
+}
+
+.home-book-grid .book-card .cover {
+    margin-bottom: 10px;
+    border-radius: 12px;
+}
+
+.home-book-grid .book-card h3 {
+    margin-bottom: 0.2rem;
+}
+
+.home-book-grid .book-card p {
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .home-book-grid {
+        grid-template-columns: repeat(3, minmax(0, 220px)) !important;
+        gap: 12px !important;
+    }
+
+    #sales .home-book-grid {
+        grid-template-columns: repeat(4, minmax(0, 220px)) !important;
+    }
 }
 
 .btn-primary { background: var(--primary); color: white; border-radius: 99px; font-weight: 700; transition: 0.3s; }
