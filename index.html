@@ -36,7 +36,7 @@
                 <a href="#" class="nav-link">Training</a>
                 <a href="#" class="nav-link">About</a>
             </nav>
-            <button class="btn-primary">Get Started</button>
+            <button id="openAuthModal" class="btn-get-started">Get Started</button>
         </div>
     </header>
 
@@ -198,5 +198,99 @@
             </div>
     </main>
 
+    <div id="authModal" class="auth-modal hidden" aria-hidden="true">
+        <div class="auth-overlay" data-close-modal="true"></div>
+        <div class="auth-panel" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+            <button class="auth-close-btn" id="closeAuthModal" aria-label="Close">✕</button>
+            <h2 id="authModalTitle" class="text-2xl font-800 mb-2">Welcome Back</h2>
+            <p class="text-slate-500 mb-6">Login or create your account to continue.</p>
+
+            <div class="auth-tabs mb-5">
+                <button id="loginTabBtn" class="auth-tab active" type="button">Login</button>
+                <button id="signupTabBtn" class="auth-tab" type="button">Sign Up</button>
+            </div>
+
+            <form id="loginForm" class="auth-form">
+                <label class="auth-label" for="loginEmail">Email</label>
+                <input id="loginEmail" class="auth-input" type="email" placeholder="you@example.com" required>
+                <label class="auth-label" for="loginPassword">Password</label>
+                <input id="loginPassword" class="auth-input" type="password" placeholder="••••••••" required>
+                <button class="btn-primary w-full py-3 mt-2" type="submit">Login</button>
+            </form>
+
+            <form id="signupForm" class="auth-form hidden">
+                <label class="auth-label" for="signupName">Full Name</label>
+                <input id="signupName" class="auth-input" type="text" placeholder="Your full name" required>
+                <label class="auth-label" for="signupEmail">Email</label>
+                <input id="signupEmail" class="auth-input" type="email" placeholder="you@example.com" required>
+                <label class="auth-label" for="signupPassword">Password</label>
+                <input id="signupPassword" class="auth-input" type="password" placeholder="Create password" required>
+                <button class="btn-primary w-full py-3 mt-2" type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const openAuthModalBtn = document.getElementById("openAuthModal");
+        const authModal = document.getElementById("authModal");
+        const closeAuthModalBtn = document.getElementById("closeAuthModal");
+        const loginTabBtn = document.getElementById("loginTabBtn");
+        const signupTabBtn = document.getElementById("signupTabBtn");
+        const loginForm = document.getElementById("loginForm");
+        const signupForm = document.getElementById("signupForm");
+
+        function showLoginTab() {
+            loginTabBtn.classList.add("active");
+            signupTabBtn.classList.remove("active");
+            loginForm.classList.remove("hidden");
+            signupForm.classList.add("hidden");
+        }
+
+        function showSignupTab() {
+            signupTabBtn.classList.add("active");
+            loginTabBtn.classList.remove("active");
+            signupForm.classList.remove("hidden");
+            loginForm.classList.add("hidden");
+        }
+
+        function openModal() {
+            authModal.classList.remove("hidden");
+            authModal.setAttribute("aria-hidden", "false");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal() {
+            authModal.classList.add("hidden");
+            authModal.setAttribute("aria-hidden", "true");
+            document.body.style.overflow = "";
+        }
+
+        openAuthModalBtn.addEventListener("click", openModal);
+        closeAuthModalBtn.addEventListener("click", closeModal);
+        loginTabBtn.addEventListener("click", showLoginTab);
+        signupTabBtn.addEventListener("click", showSignupTab);
+
+        authModal.addEventListener("click", function (event) {
+            if (event.target && event.target.dataset && event.target.dataset.closeModal === "true") {
+                closeModal();
+            }
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape" && !authModal.classList.contains("hidden")) {
+                closeModal();
+            }
+        });
+
+        loginForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            closeModal();
+        });
+
+        signupForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            closeModal();
+        });
+    </script>
 </body>
 </html>
