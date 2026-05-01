@@ -143,6 +143,75 @@ body {
     margin: 0;
 }
 
+/* Cover-focused tile grid (like Bookey screenshots) */
+.book-grid-tiles {
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    gap: 18px 14px;
+    grid-template-columns: repeat(2, minmax(0, 180px));
+}
+
+@media (min-width: 640px) {
+    .book-grid-tiles {
+        grid-template-columns: repeat(3, minmax(0, 190px));
+    }
+}
+
+@media (min-width: 768px) {
+    .book-grid-tiles {
+        grid-template-columns: repeat(4, minmax(0, 200px));
+    }
+}
+
+@media (min-width: 1024px) {
+    .book-grid-tiles {
+        grid-template-columns: repeat(5, minmax(0, 210px));
+    }
+}
+
+.book-tile {
+    width: 100%;
+    max-width: 210px;
+    text-align: center;
+    transition: transform 0.22s ease, filter 0.22s ease;
+}
+
+.book-tile:hover {
+    transform: translateY(-4px);
+    filter: brightness(0.98);
+}
+
+.book-tile .tile-cover {
+    aspect-ratio: 2 / 3;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 18px 30px rgba(15, 23, 42, 0.10);
+    background: #f8fafc;
+}
+
+.book-tile .tile-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.book-tile .tile-title {
+    margin-top: 10px;
+    font-weight: 800;
+    font-size: 0.92rem;
+    line-height: 1.2;
+    color: var(--text-dark);
+}
+
+.book-tile .tile-author {
+    margin-top: 4px;
+    font-size: 0.78rem;
+    color: var(--text-light);
+    font-style: normal;
+}
+
 @media (min-width: 768px) {
     .home-book-grid {
         grid-template-columns: repeat(3, minmax(0, 220px)) !important;
