@@ -40,6 +40,9 @@
             </div>
             <span id="durationText" class="text-sm font-700 text-indigo-600">15 min</span>
         </div>
+        <div class="max-w-5xl mx-auto px-4 md:px-6 pb-3 md:pb-4">
+            <div id="audioStatus" class="text-xs md:text-sm font-700 text-slate-600 hidden"></div>
+        </div>
         <audio id="bookAudio" preload="metadata"></audio>
     </aside>
 
@@ -529,6 +532,8 @@
         const progressValue = document.getElementById("progressValue");
         const summaryHeading = document.getElementById("summaryHeading");
         const summaryContent = document.getElementById("summaryContent");
+        const audioStatus = document.getElementById("audioStatus");
+        const playPauseBtn = document.getElementById("playPauseBtn");
 
         function escapeHtml(value) {
             return String(value)
@@ -629,13 +634,35 @@
             document.getElementById("bookCover").src = selectedBook.cover;
             document.getElementById("bookCover").alt = selectedBook.title + " cover";
             document.title = "Phath Mat Tway | " + selectedBook.title;
-            audioElement.src = selectedBook.audio;
+            const defaultAudioSrc = "audio/" + key + ".mp3";
+            audioElement.src = selectedBook.audio || defaultAudioSrc;
             renderSummary(selectedBook);
         } else {
             renderSummary(null);
         }
 
-        const playPauseBtn = document.getElementById("playPauseBtn");
+        function setAudioStatus(message) {
+            if (!audioStatus) return;
+            audioStatus.textContent = message || "";
+            audioStatus.classList.toggle("hidden", !message);
+        }
+
+        function setPlayableState({ playable }) {
+            playPauseBtn.disabled = !playable;
+            playPauseBtn.setAttribute("aria-disabled", playable ? "false" : "true");
+            playPauseBtn.style.opacity = playable ? "" : "0.5";
+            playPauseBtn.style.cursor = playable ? "" : "not-allowed";
+        }
+
+        if (selectedBook) {
+            setPlayableState({ playable: true });
+            setAudioStatus("");
+        } else {
+            setPlayableState({ playable: false });
+            setAudioStatus("Unknown book. Please open this page from the library links.");
+            durationText.textContent = "";
+        }
+
         playPauseBtn.addEventListener("click", function () {
             if (!audioElement.src) {
                 return;
@@ -669,6 +696,15 @@
                 const percent = (audioElement.currentTime / audioElement.duration) * 100;
                 progressValue.style.width = percent + "%";
             }
+        });
+
+        audioElement.addEventListener("error", function () {
+            // Common causes: file missing, wrong path, server not serving static files.
+            setPlayableState({ playable: false });
+            setAudioStatus("Audio file not found. Add the MP3 in the `audio/` folder or fix the `audio:` path in summary.html.");
+            playPauseBtn.textContent = "▶";
+            durationText.textContent = "";
+            progressValue.style.width = "0%";
         });
     </script>
 </body>

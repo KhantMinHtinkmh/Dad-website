@@ -1,3 +1,26 @@
+## Audio files for book summaries
+
+Put your `.mp3` files in this folder.
+
+The player on `summary.html` loads audio based on the `audio:` path inside the `books` object, e.g.:
+
+- `audio/the-coaching-habit.mp3`
+- `audio/zero-to-one.mp3`
+
+### Recommended naming
+
+Use the same slug as the `?book=` query param:
+
+`audio/<book-slug>.mp3`
+
+Example:
+
+- `summary.html?book=the-coaching-habit` → `audio/the-coaching-habit.mp3`
+
+### If your filename is different
+
+Edit the `audio:` field for that book inside `summary.html`.
+
 # Book Audio Files
 
 Add all book audio files in this `audio` folder.

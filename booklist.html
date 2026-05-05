@@ -10,7 +10,7 @@
 </head>
 <body>
     <header class="navbar-glass">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between relative">
             <div class="logo text-xl font-800">Phath Mat <span class="text-indigo-600">Tway</span></div>
             <nav class="hidden lg:flex items-center space-x-6">
                 <a href="index.html" class="nav-link">Home</a>
@@ -20,7 +20,24 @@
                 <a href="#" class="nav-link">Training</a>
                 <a href="#" class="nav-link">About</a>
             </nav>
-            <a href="index.html" class="btn-primary px-6 py-2">Back Home</a>
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="btn-primary px-6 py-2">Back Home</a>
+                <button id="mobileNavBtn" type="button" class="nav-hamburger lg:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNavPanel">
+                    ☰
+                </button>
+            </div>
+
+            <div id="mobileNavPanel" class="mobile-nav-panel hidden lg:hidden" role="menu" aria-label="Mobile navigation">
+                <div class="mobile-nav-section">
+                    <div class="mobile-nav-title">Menu</div>
+                    <a href="index.html" class="nav-link" role="menuitem">Home</a>
+                    <a href="#" class="nav-link active" role="menuitem">Booklist</a>
+                    <a href="index.html#business" class="nav-link" role="menuitem">Business Coach</a>
+                    <a href="index.html#psychology" class="nav-link" role="menuitem">Personality Test</a>
+                    <a href="#" class="nav-link" role="menuitem">Training</a>
+                    <a href="#" class="nav-link" role="menuitem">About</a>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -249,5 +266,51 @@
             </div>
         </section>
     </main>
+
+    <script>
+        // Mobile nav dropdown
+        const mobileNavBtn = document.getElementById("mobileNavBtn");
+        const mobileNavPanel = document.getElementById("mobileNavPanel");
+
+        function closeMobileNav() {
+            if (!mobileNavPanel || !mobileNavBtn) return;
+            mobileNavPanel.classList.add("hidden");
+            mobileNavBtn.setAttribute("aria-expanded", "false");
+        }
+
+        function toggleMobileNav() {
+            if (!mobileNavPanel || !mobileNavBtn) return;
+            const isHidden = mobileNavPanel.classList.contains("hidden");
+            mobileNavPanel.classList.toggle("hidden", !isHidden);
+            mobileNavBtn.setAttribute("aria-expanded", isHidden ? "true" : "false");
+        }
+
+        if (mobileNavBtn && mobileNavPanel) {
+            mobileNavBtn.addEventListener("click", function (event) {
+                event.stopPropagation();
+                toggleMobileNav();
+            });
+
+            mobileNavPanel.addEventListener("click", function (event) {
+                const link = event.target && event.target.closest ? event.target.closest("a") : null;
+                if (link) {
+                    closeMobileNav();
+                }
+            });
+
+            document.addEventListener("click", function (event) {
+                if (mobileNavPanel.classList.contains("hidden")) return;
+                if (event.target === mobileNavBtn || mobileNavBtn.contains(event.target)) return;
+                if (mobileNavPanel.contains(event.target)) return;
+                closeMobileNav();
+            });
+
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "Escape") {
+                    closeMobileNav();
+                }
+            });
+        }
+    </script>
 </body>
 </html>
