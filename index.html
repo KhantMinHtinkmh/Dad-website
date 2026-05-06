@@ -88,14 +88,12 @@
         </section>
 
         <div class="max-w-7xl mx-auto px-6 py-16">
-            <section id="bookResultsView" class="view-transition view-hidden" aria-live="polite">
+            <section id="allBooks" class="view-transition" aria-live="polite">
                 <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-8">
-                    <h2 id="bookResultsHeading" class="section-heading mb-0">Books</h2>
-                    <button id="clearCategoryFilter" type="button" class="nav-link">
-                        ← Back to Categories
-                    </button>
+                    <h2 class="section-heading mb-0">All Books</h2>
+                    <a href="#categories" class="nav-link">↑ Back to Categories</a>
                 </div>
-                <div id="bookResultsGrid" class="book-grid-tiles"></div>
+                <div id="allBooksContainer" class="space-y-14"></div>
             </section>
         </div>
     </main>
@@ -154,10 +152,10 @@
                         img: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=400"
                     },
                     {
-                        id: "coaching-for-performance",
-                        title: "Coaching for Performance",
+                        id: "The Earned Life",
+                        title: "The Earned Life",
                         author: "John Whitmore",
-                        href: "summary.html?book=coaching-for-performance",
+                        href: "summary.html?book=The Earned Life",
                         img: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=400"
                     },
                     {
@@ -480,10 +478,7 @@
         ];
 
         const categoryViewEl = document.getElementById("categoryView");
-        const bookResultsViewEl = document.getElementById("bookResultsView");
-        const bookResultsHeadingEl = document.getElementById("bookResultsHeading");
-        const bookResultsGridEl = document.getElementById("bookResultsGrid");
-        const clearCategoryFilterBtn = document.getElementById("clearCategoryFilter");
+        const allBooksContainerEl = document.getElementById("allBooksContainer");
 
         function escapeHtml(value) {
             return String(value)
@@ -494,67 +489,50 @@
                 .replaceAll("'", "&#039;");
         }
 
-        function setView({ showCategories }) {
-            // This just toggles the books area.
-            if (showCategories) {
-                bookResultsViewEl.classList.add("view-hidden");
-                return;
-            }
-            bookResultsViewEl.classList.remove("view-hidden");
-        }
+        function renderAllBooks() {
+            if (!allBooksContainerEl) return;
 
-        function setActiveCategory(categoryId) {
-            document.querySelectorAll("[data-category]").forEach((el) => {
-                el.classList.toggle("is-active", el.dataset.category === categoryId);
-            });
-        }
+            allBooksContainerEl.innerHTML = HOME_BOOK_CATEGORIES
+                .map((category) => {
+                    const booksHtml = category.books
+                        .map((book) => {
+                            return `
+                                <a class="book-tile" href="${escapeHtml(book.href)}">
+                                    <div class="tile-cover ${escapeHtml(category.coverShadowClass)}">
+                                        <img src="${escapeHtml(book.img)}" alt="${escapeHtml(book.title)} cover">
+                                    </div>
+                                    <div class="tile-title">${escapeHtml(book.title)}</div>
+                                    <div class="tile-author">${escapeHtml(book.author)}</div>
+                                </a>
+                            `;
+                        })
+                        .join("");
 
-        function renderBooksForCategory(categoryId) {
-            const category = HOME_BOOK_CATEGORIES.find((c) => c.id === categoryId);
-            if (!category) return;
-
-            const books = category.books.slice(0, 6);
-            bookResultsHeadingEl.textContent = category.heading;
-
-            bookResultsGridEl.innerHTML = books
-                .map((book) => {
                     return `
-                        <a class="book-tile" href="${escapeHtml(book.href)}">
-                            <div class="tile-cover ${escapeHtml(category.coverShadowClass)}">
-                                <img src="${escapeHtml(book.img)}" alt="${escapeHtml(book.title)} cover">
-                            </div>
-                            <div class="tile-title">${escapeHtml(book.title)}</div>
-                            <div class="tile-author">${escapeHtml(book.author)}</div>
-                        </a>
+                        <section id="cat-${escapeHtml(category.id)}">
+                            <h3 class="text-2xl font-800 mb-5">${escapeHtml(category.heading)}</h3>
+                            <div class="book-grid-tiles">${booksHtml}</div>
+                        </section>
                     `;
                 })
                 .join("");
-
-            setActiveCategory(categoryId);
-            setView({ showCategories: false });
-
-            // Slight scroll to keep transition feeling intentional
-            bookResultsViewEl.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-
-        function clearCategoryFilter() {
-            setView({ showCategories: true });
-            bookResultsHeadingEl.textContent = "Books";
-            bookResultsGridEl.innerHTML = "";
-            setActiveCategory(null);
         }
 
         categoryViewEl.addEventListener("click", (event) => {
             const btn = event.target && event.target.closest ? event.target.closest("[data-category]") : null;
             if (!btn) return;
-            renderBooksForCategory(btn.dataset.category);
+            const target = document.getElementById("cat-" + btn.dataset.category);
+            if (target) {
+                target.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
         });
 
-        clearCategoryFilterBtn.addEventListener("click", clearCategoryFilter);
-
-        // Open with one default category selected
-        const DEFAULT_CATEGORY_ID = "coaching";
-        renderBooksForCategory(DEFAULT_CATEGORY_ID);
+        // On first load, show the hero/top (do not auto-open a category).
+        // If a URL hash is present (e.g. #categories), keep normal browser behavior.
+        renderAllBooks();
+        if (!window.location.hash) {
+            window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+        }
 
         const openAuthModalBtn = document.getElementById("openAuthModal");
         const authModal = document.getElementById("authModal");
