@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phath Mat Tway | Deep Dive</title>
+    <title>Phat Hmat Tway | Deep Dive</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="summary.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
@@ -93,9 +93,9 @@
             },
             "The Earned Life": {
                 title: "The Earned Life",
-                author: "John Whitmore",
+                author: "JMarshall Goldsmith",
                 description: "Marshall Goldsmith နှင့် Mark Reiter တို့ ရေးသားထားသော **The Earned Life** စာအုပ်မသည် **နောင်တကင်းဝေး၍ စိတ်ကျေနပ်မှုအပြည့်ရှိသော ဘဝ**ကို မည်သို့တည်ဆောက်ရမည်ကို လမ်းညွှန်ထားသည်။ စာရေးသူက ကျွန်ုပ်တို့၏ဘဝသည် **နောင်တ (Regret)** နှင့် **ပြည့်စုံမှု (Fulfillment)** ကြားတွင် အမြဲကူးလူးနေပြီး၊ မိမိတို့ပြုလုပ်သမျှ ရွေးချယ်မှုတိုင်းသည် ပန်းတိုင်တစ်ခုခုနှင့် ချိတ်ဆက်နေရမည်ဟု ဆိုသည်။ ဘဝကို အဓိပ္ပာယ်ရှိစေရန်အတွက် **ရည်ရွယ်ချက်၊ အောင်မြင်မှုနှင့် ပျော်ရွှင်မှု** အစရှိသည့် အချက်များကို အခြေခံ၍ နေ့စဉ်ဘဝကို ကြိုးစားအားထုတ်ရန် တိုက်တွန်းထားသည်။ ထို့အပြင် အတိတ်က အမှားများကို သင်ခန်းစာယူ၍ **လက်ရှိပစ္စုပ္ပန်တည့်တည့်တွင် အကောင်းဆုံးရှင်သန်ရန်** ဗုဒ္ဓ၏အဆုံးအမဖြစ်သော 'ထွက်သက်ဝင်သက်တိုင်းသည် ဘဝအသစ်ဖြစ်သည်' ဟူသည့် အယူအဆကို အသုံးချရန် ဖော်ပြထားသည်။ အောင်မြင်ကျော်ကြားသော ခေါင်းဆောင်များ၏ အဆိုအမိန့်များမှတစ်ဆင့် မိမိကိုယ်တိုင် စီမံခန့်ခွဲနိုင်သော **အမှန်တကယ် ထိုက်တန်သည့်ဘဝ**ကို ပိုင်ဆိုင်နိုင်မည့် နည်းလမ်းများကို ဤစာအုပ်က အဓိကမီးမောင်းထိုးပြထားပါသည်။",
-                cover: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800",
+                cover: "/bookcovers/the-earned-life.jpg",
                 audio: "audio/coaching-for-performance.mp3",
                 summaryHeading: "<h2>အသက်ရှင်ရကျိုးနပ်သော ဘဝကို တည်ဆောက်ခြင်း - နောင်တကင်းမဲ့ပြီး ပြည့်စုံလုံလောက်မှုရှိသော ဘဝဆီသို့</h2>",
                 summaryParagraphs: [
@@ -721,7 +721,7 @@
             descEl.classList.toggle("hidden", !selectedBook.description);
             document.getElementById("bookCover").src = selectedBook.cover;
             document.getElementById("bookCover").alt = selectedBook.title + " cover";
-            document.title = "Phath Mat Tway | " + selectedBook.title;
+            document.title = "Phat Hmat Tway | " + selectedBook.title;
             const defaultAudioSrc = "audio/" + key + ".mp3";
             audioElement.src = selectedBook.audio || defaultAudioSrc;
             renderSummary(selectedBook);
