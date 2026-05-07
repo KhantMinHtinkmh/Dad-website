@@ -51,7 +51,19 @@
                 <div class="mobile-nav-section">
                     <div class="mobile-nav-title">Menu</div>
                     <a href="#" class="nav-link active" role="menuitem">Home</a>
-                    <a href="#categories" class="nav-link" role="menuitem">Categories</a>
+                    <button id="mobileCategoriesBtn" type="button" class="nav-link w-full text-left flex items-center justify-between" aria-expanded="false" aria-controls="mobileCategoriesMenu">
+                        <span>Categories</span>
+                        <span aria-hidden="true">▾</span>
+                    </button>
+                    <div id="mobileCategoriesMenu" class="hidden pl-3 pb-2" role="menu" aria-label="Categories">
+                        <a href="#cat-coaching" class="nav-link block" role="menuitem">🎯 Coaching</a>
+                        <a href="#cat-business" class="nav-link block" role="menuitem">💼 Business</a>
+                        <a href="#cat-psychology" class="nav-link block" role="menuitem">🧠 Psychology</a>
+                        <a href="#cat-growth" class="nav-link block" role="menuitem">🌱 Growth</a>
+                        <a href="#cat-digital" class="nav-link block" role="menuitem">📱 Digital</a>
+                        <a href="#cat-self-help" class="nav-link block" role="menuitem">✨ Self-Help</a>
+                        <a href="#cat-sales" class="nav-link block" role="menuitem">📈 Sales</a>
+                    </div>
                     <a href="booklist.html" class="nav-link" role="menuitem">Booklist</a>
                     <a href="#business" class="nav-link" role="menuitem">Business Coach</a>
                     <a href="#psychology" class="nav-link" role="menuitem">Personality Test</a>
@@ -383,25 +395,25 @@
                 coverShadowClass: "shadow-rose-100",
                 books: [
                     {
-                        id: "subtle-art",
-                        title: "The Subtle Art of Not Giving a F*ck",
-                        author: "Mark Manson",
-                        href: "summary.html?book=subtle-art",
-                        img: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=400"
+                        id: "Do This Before Bed",
+                        title: "Do This Before Bed",
+                        author: "Oliver Nino",
+                        href: "summary.html?book=Do This Before Bed",
+                        img: "/bookcovers/do-this-before-bed.jpg"
                     },
                     {
-                        id: "you-are-a-badass",
-                        title: "You Are a Badass",
-                        author: "Jen Sincero",
-                        href: "summary.html?book=you-are-a-badass",
-                        img: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=400"
+                        id: "Future Fit",
+                        title: "Future Fit",
+                        author: "Andrea Clarke",
+                        href: "summary.html?book=Future Fit",
+                        img: "/bookcovers/future-fit.jpg"
                     },
                     {
-                        id: "awaken-the-giant-within",
-                        title: "Awaken the Giant Within",
-                        author: "Tony Robbins",
-                        href: "summary.html?book=awaken-the-giant-within",
-                        img: "https://images.unsplash.com/photo-1474932430478-367dbb6832c1?q=80&w=400"
+                        id: "How To Be Enought",
+                        title: "How To Be Enought",
+                        author: "Ellen Hendriksen",
+                        href: "summary.html?book=How To Be Enought",
+                        img: "/bookcover/how-to-be-enought"
                     },
                     {
                         id: "cant-hurt-me",
@@ -598,6 +610,8 @@
         // Mobile nav dropdown
         const mobileNavBtn = document.getElementById("mobileNavBtn");
         const mobileNavPanel = document.getElementById("mobileNavPanel");
+        const mobileCategoriesBtn = document.getElementById("mobileCategoriesBtn");
+        const mobileCategoriesMenu = document.getElementById("mobileCategoriesMenu");
 
         function closeMobileNav() {
             if (!mobileNavPanel || !mobileNavBtn) return;
@@ -605,11 +619,20 @@
             mobileNavBtn.setAttribute("aria-expanded", "false");
         }
 
+        function setMobileCategoriesOpen(open) {
+            if (!mobileCategoriesBtn || !mobileCategoriesMenu) return;
+            mobileCategoriesMenu.classList.toggle("hidden", !open);
+            mobileCategoriesBtn.setAttribute("aria-expanded", open ? "true" : "false");
+        }
+
         function toggleMobileNav() {
             if (!mobileNavPanel || !mobileNavBtn) return;
             const isHidden = mobileNavPanel.classList.contains("hidden");
             mobileNavPanel.classList.toggle("hidden", !isHidden);
             mobileNavBtn.setAttribute("aria-expanded", isHidden ? "true" : "false");
+            if (!isHidden) {
+                setMobileCategoriesOpen(false);
+            }
         }
 
         if (mobileNavBtn && mobileNavPanel) {
@@ -618,10 +641,20 @@
                 toggleMobileNav();
             });
 
+            if (mobileCategoriesBtn) {
+                mobileCategoriesBtn.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    const isOpen = mobileCategoriesBtn.getAttribute("aria-expanded") === "true";
+                    setMobileCategoriesOpen(!isOpen);
+                });
+            }
+
             mobileNavPanel.addEventListener("click", function (event) {
                 const link = event.target && event.target.closest ? event.target.closest("a") : null;
                 if (link) {
                     closeMobileNav();
+                    setMobileCategoriesOpen(false);
                 }
             });
 
