@@ -155,6 +155,7 @@ body {
 
 /* Hero Section */
 .hero-section { padding: 100px 0; background: radial-gradient(circle at top right, #f5f3ff, #ffffff); }
+.hero-section.hero-section--image { padding: 48px 0; }
 .hero-title { line-height: 1.1; letter-spacing: -0.03em; }
 .badge { display: inline-block; padding: 6px 16px; background: #eef2ff; color: var(--primary); border-radius: 99px; font-size: 0.8rem; font-weight: 700; margin-bottom: 20px; }
 
