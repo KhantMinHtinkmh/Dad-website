@@ -159,6 +159,139 @@ body {
 .hero-title { line-height: 1.1; letter-spacing: -0.03em; }
 .badge { display: inline-block; padding: 6px 16px; background: #eef2ff; color: var(--primary); border-radius: 99px; font-size: 0.8rem; font-weight: 700; margin-bottom: 20px; }
 
+.hero-section.hero-section--banner {
+    padding: 0;
+    background: none;
+}
+
+.hero-banner {
+    position: relative;
+    min-height: 560px;
+    background: url("assets/hero.png") center center / cover no-repeat;
+}
+
+.hero-banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0, 77, 81, 0.92) 0%, rgba(0, 77, 81, 0.78) 45%, rgba(0, 77, 81, 0.18) 100%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 92px 56px 56px;
+    color: #ffffff;
+    font-family: "Padauk", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.hero-main-title {
+    margin: 0;
+    font-size: 4.4rem;
+    line-height: 1.12;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
+    -webkit-text-stroke: 1.4px rgba(0, 0, 0, 0.34);
+}
+
+.hero-main-title .highlight {
+    color: #f4a536;
+}
+
+.hero-subtitle {
+    margin-top: 20px;
+    font-size: 1.92rem;
+    line-height: 1.4;
+    text-shadow: 0 3px 8px rgba(0, 0, 0, 0.42);
+    -webkit-text-stroke: 0.8px rgba(0, 0, 0, 0.25);
+}
+
+.hero-subtitle .orange-text {
+    color: #f4a536;
+    font-weight: 700;
+}
+
+.hero-cta-button {
+    margin-top: 32px;
+    display: inline-block;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    padding: 12px 34px;
+    border-radius: 16px;
+    border: 3px solid #e8b24f;
+    background: rgba(16, 124, 136, 0.86);
+    box-shadow: inset 0 0 0 1px rgba(255, 238, 196, 0.55), 0 8px 18px rgba(0, 0, 0, 0.35);
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.hero-cta-button:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+}
+
+@media (max-width: 768px) {
+    .hero-banner {
+        min-height: 410px;
+        background-position: 62% center;
+    }
+
+    .hero-banner::before {
+        background: linear-gradient(90deg, rgba(0, 77, 81, 0.92) 0%, rgba(0, 77, 81, 0.74) 52%, rgba(0, 77, 81, 0.24) 100%);
+    }
+
+    .hero-content {
+        padding: 36px 16px 18px;
+    }
+
+    .hero-main-title {
+        font-size: 2.25rem;
+        line-height: 1.13;
+        -webkit-text-stroke: 1px rgba(0, 0, 0, 0.36);
+    }
+
+    .hero-subtitle {
+        margin-top: 11px;
+        font-size: 1.28rem;
+        line-height: 1.36;
+        -webkit-text-stroke: 0.55px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-cta-button {
+        margin-top: 18px;
+        font-size: 1.35rem;
+        padding: 9px 20px;
+        border-width: 2px;
+        border-radius: 12px;
+    }
+}
+
+@media (max-width: 420px) {
+    .hero-banner {
+        min-height: 375px;
+        background-position: 64% center;
+    }
+
+    .hero-main-title {
+        font-size: 1.95rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.12rem;
+    }
+
+    .hero-cta-button {
+        margin-top: 16px;
+        font-size: 1.2rem;
+        padding: 8px 16px;
+    }
+}
+
 /* Category Pills */
 .cat-pill {
     padding: 14px; border-radius: 12px; text-align: center;

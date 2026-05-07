@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* Minimal transitions for category <-> books view */
         .view-transition {
@@ -41,7 +42,6 @@
                 <a href="#" class="nav-link">About</a>
             </nav>
             <div class="flex items-center gap-3">
-                <button id="openAuthModal" class="btn-get-started">Get Started</button>
                 <button id="mobileNavBtn" type="button" class="nav-hamburger lg:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNavPanel">
                     ☰
                 </button>
@@ -76,15 +76,22 @@
     </header>
 
     <main>
-        <section class="hero-section hero-section--image px-0">
-            <div class="w-full mx-0 px-0">
-                <img
-                    src="assets/hero.png"
-                    alt="Hero image"
-                    class="w-full h-[340px] md:h-[420px] object-cover"
-                    loading="eager"
-                    decoding="async"
-                >
+        <section class="hero-section hero-section--banner px-0">
+            <div class="hero-banner">
+                <div class="hero-content">
+                    <h1 class="hero-main-title">
+                        သင့်ဘဝရဲ့ <span class="highlight">အကောင်းဆုံး</span><br>
+                        Version ကို<br>
+                        တည်ဆောက်လိုက်ပါ။
+                    </h1>
+                    <p class="hero-subtitle">
+                        မြန်မာနိုင်ငံက Growth Community အတွက်<br>
+                        သီးသန့်စီစဉ်ထားတဲ့ <span class="orange-text">ကမ္ဘာ့အကောင်းဆုံး</span><br>
+                        စာအုပ်တွေဆီကနေ အဖိုးတန်<br>
+                        အတွေးအခေါ်တွေကို ရယူလိုက်ပါ။
+                    </p>
+                    <a href="#" id="heroCtaBtn" class="hero-cta-button">အခုပဲ စတင်လိုက်ပါ</a>
+                </div>
             </div>
         </section>
 
@@ -602,6 +609,7 @@
         }
 
         const openAuthModalBtn = document.getElementById("openAuthModal");
+        const heroCtaBtn = document.getElementById("heroCtaBtn");
         const authModal = document.getElementById("authModal");
         const closeAuthModalBtn = document.getElementById("closeAuthModal");
         const loginTabBtn = document.getElementById("loginTabBtn");
@@ -635,7 +643,15 @@
             document.body.style.overflow = "";
         }
 
-        openAuthModalBtn.addEventListener("click", openModal);
+        if (openAuthModalBtn) {
+            openAuthModalBtn.addEventListener("click", openModal);
+        }
+        if (heroCtaBtn) {
+            heroCtaBtn.addEventListener("click", function (event) {
+                event.preventDefault();
+                openModal();
+            });
+        }
         closeAuthModalBtn.addEventListener("click", closeModal);
         loginTabBtn.addEventListener("click", showLoginTab);
         signupTabBtn.addEventListener("click", showSignupTab);
