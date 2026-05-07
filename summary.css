@@ -12,6 +12,100 @@ body {
     color: var(--text-main);
 }
 
+.reading-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #334155;
+    user-select: none;
+}
+
+.reading-switch input {
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    width: 2.35rem;
+    height: 1.35rem;
+    border-radius: 999px;
+    border: 1px solid #cbd5e1;
+    background: #e2e8f0;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease, transform 120ms ease;
+}
+
+.reading-switch input::before {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 999px;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.28);
+    transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.reading-switch input:active {
+    transform: scale(0.97);
+}
+
+.reading-switch input:checked {
+    background: #f59e0b;
+    border-color: #d97706;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.22);
+}
+
+.reading-switch input:checked::before {
+    transform: translateX(1rem);
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);
+}
+
+.reading-switch input:focus-visible {
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.24);
+}
+
+body.reading-mode-on {
+    background: #f1e6c8;
+    color: #3f3423;
+}
+
+body.reading-mode-on .top-bar {
+    background: rgba(243, 231, 196, 0.95) !important;
+    border-bottom-color: #d8c59b !important;
+}
+
+body.reading-mode-on .top-bar a {
+    color: #8a5b07 !important;
+}
+
+body.reading-mode-on .top-bar > div > div {
+    color: #4a3a1d;
+}
+
+body.reading-mode-on main > section {
+    background: #f8eed2 !important;
+    border-color: #d8c59b !important;
+}
+
+body.reading-mode-on #bookAuthor,
+body.reading-mode-on #bookDescription,
+body.reading-mode-on #audioStatus {
+    color: #5b4a2b !important;
+}
+
+body.reading-mode-on .audio-player {
+    background: rgba(248, 238, 210, 0.96);
+    border-top-color: #d8c59b;
+}
+
+body.reading-mode-on .progress-track {
+    background: #e5d6ad;
+}
+
 .top-bar {
     backdrop-filter: blur(10px);
 }

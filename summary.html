@@ -13,7 +13,10 @@
         <div class="max-w-5xl mx-auto h-16 px-4 md:px-6 grid grid-cols-3 items-center">
             <a href="index.html" class="text-sm md:text-base text-indigo-600 font-700 hover:underline justify-self-start">Back to Library</a>
             <div class="text-center text-sm md:text-base font-800 tracking-wide">PHATH MAT TWAY</div>
-            <div></div>
+            <label for="readingModeToggle" class="reading-switch justify-self-end">
+                <input id="readingModeToggle" type="checkbox" aria-label="Toggle reading mode">
+                <span>Reading mode</span>
+            </label>
         </div>
     </header>
 
@@ -65,7 +68,7 @@
                 title: "Triggers",
                 author: "Marshall Goldsmith",
                 description: "ဤစာအုပ်သည် ကမ္ဘာကျော် စီမံခန့်ခွဲမှုပညာရှင် Marshall Goldsmith ရေးသားထားသော 'Triggers' ဖြစ်ပြီး လူသားတို့၏ အမူအကျင့် ပြောင်းလဲခြင်း ဆိုင်ရာ အခက်အခဲများကို ဆွေးနွေးတင်ပြထားပါသည်။ ကျွန်ုပ်တို့၏ အတွေးနှင့် လုပ်ရပ်များကို ပုံဖော်ပေးနေသော ပတ်ဝန်းကျင်မှ လှုံ့ဆော်မှုများ (Triggers) ကို မည်သို့သိရှိနားလည်ပြီး ထိန်းချုပ်ရမည်ကို ရှင်းလင်းထားသည်။ စာရေးသူက လူတို့သည် မိမိဖြစ်ချင်သော ပုံစံသို့ ပြောင်းလဲရန် ကြိုးစားရာတွင် နောင်တ နှင့် အဟန့်အတားများ ကို မည်သို့ကျော်လွှားရမည်ကို လက်တွေ့ကျသော နည်းလမ်းများဖြင့် လမ်းညွှန်ပေးထားပါသည်။ အောင်မြင်သော ခေါင်းဆောင်များ၏ အတွေ့အကြုံများကို အခြေခံ၍ မိမိကိုယ်ကိုယ် ဆန်းစစ်ခြင်း နှင့် စနစ်တကျ ပြောင်းလဲခြင်း တို့၏ အရေးပါမှုကို ဖော်ပြထားပါသည်။ နောက်ဆုံးတွင် ဤစာအုပ်သည် လူတစ်ဦးချင်းစီအား မိမိအမှန်တကယ် ဖြစ်ချင်သောသူ ဖြစ်လာစေရန်နှင့် ဘဝတွင် နောင်တကင်းစွာ နေထိုင်နိုင်ရန် ကူညီပေးသည့် လမ်းညွှန်ချက်တစ်ခု ဖြစ်ပါသည်။",
-                cover: "/bookcovers/Triggers.png",
+                cover: "/bookcovers/Triggers.jpg",
                 audio: "audio/the-coaching-habit.mp3",
                 summaryHeading: "<h2>ကိုယ်ဖြစ်ချင်တဲ့သူ အမှန်တကယ်ဖြစ်လာစေဖို့ ပတ်ဝန်းကျင်ရဲ့ လွှမ်းမိုးမှုတွေကို ကျော်လွှားခြင်း</h2>",
                 summaryParagraphs: [
@@ -598,6 +601,22 @@
         const summaryContent = document.getElementById("summaryContent");
         const audioStatus = document.getElementById("audioStatus");
         const playPauseBtn = document.getElementById("playPauseBtn");
+        const readingModeToggle = document.getElementById("readingModeToggle");
+
+        function applyReadingMode(enabled) {
+            document.body.classList.toggle("reading-mode-on", enabled);
+        }
+
+        const savedReadingMode = localStorage.getItem("summaryReadingMode") === "on";
+        applyReadingMode(savedReadingMode);
+        if (readingModeToggle) {
+            readingModeToggle.checked = savedReadingMode;
+            readingModeToggle.addEventListener("change", function () {
+                const enabled = readingModeToggle.checked;
+                applyReadingMode(enabled);
+                localStorage.setItem("summaryReadingMode", enabled ? "on" : "off");
+            });
+        }
 
         function escapeHtml(value) {
             return String(value)
