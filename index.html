@@ -553,6 +553,7 @@
 
         const categoryViewEl = document.getElementById("categoryView");
         const allBooksContainerEl = document.getElementById("allBooksContainer");
+        const INITIAL_VISIBLE_BOOKS = 3;
 
         function escapeHtml(value) {
             return String(value)
@@ -563,29 +564,51 @@
                 .replaceAll("'", "&#039;");
         }
 
+        function renderBookTile(book, coverShadowClass) {
+            return `
+                <a class="book-tile" href="${escapeHtml(book.href)}">
+                    <div class="tile-cover ${escapeHtml(coverShadowClass)}">
+                        <img src="${escapeHtml(book.img)}" alt="${escapeHtml(book.title)} cover">
+                    </div>
+                    <div class="tile-title">${escapeHtml(book.title)}</div>
+                    <div class="tile-author">${escapeHtml(book.author)}</div>
+                </a>
+            `;
+        }
+
         function renderAllBooks() {
             if (!allBooksContainerEl) return;
 
             allBooksContainerEl.innerHTML = HOME_BOOK_CATEGORIES
                 .map((category) => {
-                    const booksHtml = category.books
-                        .map((book) => {
-                            return `
-                                <a class="book-tile" href="${escapeHtml(book.href)}">
-                                    <div class="tile-cover ${escapeHtml(category.coverShadowClass)}">
-                                        <img src="${escapeHtml(book.img)}" alt="${escapeHtml(book.title)} cover">
-                                    </div>
-                                    <div class="tile-title">${escapeHtml(book.title)}</div>
-                                    <div class="tile-author">${escapeHtml(book.author)}</div>
-                                </a>
-                            `;
-                        })
+                    const visibleBooks = category.books.slice(0, INITIAL_VISIBLE_BOOKS);
+                    const hiddenBooks = category.books.slice(INITIAL_VISIBLE_BOOKS);
+                    const visibleBooksHtml = visibleBooks
+                        .map((book) => renderBookTile(book, category.coverShadowClass))
                         .join("");
+                    const hiddenBooksHtml = hiddenBooks
+                        .map((book) => renderBookTile(book, category.coverShadowClass))
+                        .join("");
+                    const showSeeMore = hiddenBooks.length > 0;
 
                     return `
                         <section id="cat-${escapeHtml(category.id)}">
                             <h3 class="text-2xl font-800 mb-5">${escapeHtml(category.heading)}</h3>
-                            <div class="book-grid-tiles">${booksHtml}</div>
+                            <div class="book-grid-tiles">${visibleBooksHtml}</div>
+                            ${showSeeMore ? `
+                            <div id="more-books-${escapeHtml(category.id)}" class="book-grid-tiles hidden mt-6">
+                                ${hiddenBooksHtml}
+                            </div>
+                            <button
+                                type="button"
+                                class="mt-6 mx-auto flex items-center justify-center rounded-full bg-transparent px-5 py-2.5 text-sm font-semibold text-indigo-600 transition hover:text-indigo-700"
+                                data-action="toggle-more"
+                                data-category-id="${escapeHtml(category.id)}"
+                                aria-expanded="false"
+                            >
+                                See more
+                            </button>
+                            ` : ""}
                         </section>
                     `;
                 })
@@ -600,6 +623,24 @@
                 target.scrollIntoView({ behavior: "smooth", block: "start" });
             }
         });
+
+        if (allBooksContainerEl) {
+            allBooksContainerEl.addEventListener("click", (event) => {
+                const btn = event.target && event.target.closest ? event.target.closest('[data-action="toggle-more"]') : null;
+                if (!btn) return;
+
+                const categoryId = btn.dataset.categoryId;
+                if (!categoryId) return;
+
+                const moreBooksEl = document.getElementById("more-books-" + categoryId);
+                if (!moreBooksEl) return;
+
+                const isExpanded = btn.getAttribute("aria-expanded") === "true";
+                moreBooksEl.classList.toggle("hidden", isExpanded);
+                btn.setAttribute("aria-expanded", isExpanded ? "false" : "true");
+                btn.textContent = isExpanded ? "See more" : "See less";
+            });
+        }
 
         // On first load, show the hero/top (do not auto-open a category).
         // If a URL hash is present (e.g. #categories), keep normal browser behavior.
