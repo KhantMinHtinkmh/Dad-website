@@ -113,7 +113,9 @@ body.reading-mode-on .progress-track {
 .book-cover {
     width: 200px;
     height: 300px;
+    max-width: 100%;
     object-fit: cover;
+    aspect-ratio: 2 / 3;
     border-radius: 16px;
     box-shadow: 0 16px 35px rgba(15, 23, 42, 0.18);
 }
@@ -197,6 +199,11 @@ body.reading-mode-on .progress-track {
 }
 
 @media (max-width: 768px) {
+    .book-cover {
+        width: 160px;
+        height: 240px;
+    }
+
     .reading-mode p {
         font-size: 0.88rem;
     }
