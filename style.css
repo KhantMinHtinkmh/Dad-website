@@ -345,12 +345,7 @@ body {
     grid-template-columns: repeat(2, minmax(0, 180px));
 }
 
-@media (min-width: 640px) {
-    .book-grid-tiles {
-        grid-template-columns: repeat(3, minmax(0, 190px));
-    }
-}
-
+/* Stay 2 columns below md so four visible tiles stay 2×2 on phones / small tablets. */
 @media (min-width: 768px) {
     .book-grid-tiles {
         grid-template-columns: repeat(4, minmax(0, 200px));
