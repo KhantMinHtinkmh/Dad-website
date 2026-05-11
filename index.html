@@ -59,14 +59,14 @@
                         <span aria-hidden="true">▾</span>
                     </button>
                     <div id="mobileCategoriesMenu" class="hidden pl-3 pb-2" role="menu" aria-label="Categories">
-                        <a href="#cat-coaching" class="nav-link block" role="menuitem">🎯 Coaching</a>
-                        <a href="#cat-business" class="nav-link block" role="menuitem">💼 Business</a>
-                        <a href="#cat-psychology" class="nav-link block" role="menuitem">🧠 Psychology</a>
                         <a href="#cat-growth" class="nav-link block" role="menuitem">🌱 Personal Growth</a>
-                        <a href="#cat-digital" class="nav-link block" role="menuitem">📱 Digital Lifestyle</a>
-                        <a href="#cat-self-help" class="nav-link block" role="menuitem">✨ Self-Help</a>
-                        <a href="#cat-sales" class="nav-link block" role="menuitem">📈 Sales &amp; Marketing</a>
-                        <a href="#cat-parenting" class="nav-link block" role="menuitem">👨‍👩‍👧 Parenting</a>
+                        <a href="#cat-self-help" class="nav-link block" role="menuitem">✨ Psychological Self-Help</a>
+                        <a href="#cat-digital" class="nav-link block" role="menuitem">📱 Digital Lifestyle &amp; AI</a>
+                        <a href="#cat-coaching" class="nav-link block" role="menuitem">🎯 Coaching &amp; NLP</a>
+                        <a href="#cat-parenting" class="nav-link block" role="menuitem">👨‍👩‍👧 Families &amp; Parents</a>
+                        <a href="#cat-psychology" class="nav-link block" role="menuitem">🧠 Psychology</a>
+                        <a href="#cat-sales" class="nav-link block" role="menuitem">📈 Business &amp; Economic</a>
+                        <a href="#cat-emotional-healing" class="nav-link block" role="menuitem">Emotional &amp; Healing</a>
                     </div>
                     <a href="booklist.html" class="nav-link" role="menuitem">Booklist</a>
                     <a href="#business" class="nav-link" role="menuitem">Business Coach</a>
@@ -102,14 +102,14 @@
             <div class="max-w-7xl mx-auto px-6">
                 <div id="categoryView" class="view-transition">
                     <div class="grid grid-cols-4 gap-2 sm:gap-4">
-                        <button type="button" data-category="coaching" class="cat-pill bg-blue-50 text-blue-700">🎯 Coaching</button>
-                        <button type="button" data-category="business" class="cat-pill bg-emerald-50 text-emerald-700">💼 Business</button>
-                        <button type="button" data-category="psychology" class="cat-pill bg-purple-50 text-purple-700">🧠 Psychology</button>
                         <button type="button" data-category="growth" class="cat-pill bg-orange-50 text-orange-700">🌱 Personal Growth</button>
-                        <button type="button" data-category="digital" class="cat-pill bg-cyan-50 text-cyan-700">📱 Digital Lifestyle</button>
-                        <button type="button" data-category="self-help" class="cat-pill bg-rose-50 text-rose-700">✨ Self-Help</button>
-                        <button type="button" data-category="sales" class="cat-pill bg-amber-50 text-amber-700">📈 Sales &amp; Marketing</button>
-                        <button type="button" data-category="parenting" class="cat-pill bg-teal-50 text-teal-700">👨‍👩‍👧 Parenting</button>
+                        <button type="button" data-category="self-help" class="cat-pill bg-rose-50 text-rose-700">✨ Psychological Self-Help</button>
+                        <button type="button" data-category="digital" class="cat-pill bg-cyan-50 text-cyan-700">📱 Digital Lifestyle &amp; AI</button>
+                        <button type="button" data-category="coaching" class="cat-pill bg-blue-50 text-blue-700">🎯 Coaching &amp; NLP</button>
+                        <button type="button" data-category="parenting" class="cat-pill bg-teal-50 text-teal-700">👨‍👩‍👧 Families &amp; Parents</button>
+                        <button type="button" data-category="psychology" class="cat-pill bg-purple-50 text-purple-700">🧠 Psychology</button>
+                        <button type="button" data-category="sales" class="cat-pill bg-amber-50 text-amber-700">📈 Business &amp; Economic</button>
+                        <button type="button" data-category="emotional-healing" class="cat-pill bg-violet-50 text-violet-700">Emotional &amp; Healing</button>
                     </div>
                 </div>
             </div>
@@ -160,153 +160,7 @@
 
     <script>
         const HOME_BOOK_CATEGORIES = [
-            {
-                id: "coaching",
-                heading: "🎯 Coaching",
-                coverShadowClass: "shadow-blue-100",
-                books: [
-                    {
-                        id: "Triggers",
-                        title: "Triggers",
-                        author: "Marshall Goldsmith",
-                        href: "summary.html?book=Triggers",
-                        img: "/bookcovers/Triggers.jpg"
-                    },
-                    {
-                        id: "What You Got Here Wont't Get You There",
-                        title: "What You Got Here Wont't Get You There",
-                        author: "Marshall Goldsmith",
-                        href: "summary.html?book=What You Got Here Wont't Get You There",
-                        img: "bookcovers/what-you-got-here.jpg"
-                    },
-                    {
-                        id: "The Earned Life",
-                        title: "The Earned Life",
-                        author: "Marshall Goldsmith",
-                        href: "summary.html?book=The Earned Life",
-                        img: "/bookcovers/the-earned-life.jpg"
-                    },
-                    {
-                        id: "the-advice-trap",
-                        title: "The Advice Trap",
-                        author: "Michael Bungay Stanier",
-                        href: "summary.html?book=the-advice-trap",
-                        img: "https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?q=80&w=400"
-                    },
-                    {
-                        id: "leaders-eat-last",
-                        title: "Leaders Eat Last",
-                        author: "Simon Sinek",
-                        href: "summary.html?book=leaders-eat-last",
-                        img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=400"
-                    },
-                    {
-                        id: "multipliers",
-                        title: "Multipliers",
-                        author: "Liz Wiseman",
-                        href: "summary.html?book=multipliers",
-                        img: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=400"
-                    }
-                ]
-            },
-            {
-                id: "business",
-                heading: "💼 Business",
-                coverShadowClass: "shadow-emerald-100",
-                books: [
-                    {
-                        id: "zero-to-one",
-                        title: "Zero to One",
-                        author: "Peter Thiel",
-                        href: "summary.html?book=zero-to-one",
-                        img: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=400"
-                    },
-                    {
-                        id: "the-lean-startup",
-                        title: "The Lean Startup",
-                        author: "Eric Ries",
-                        href: "summary.html?book=the-lean-startup",
-                        img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=400"
-                    },
-                    {
-                        id: "good-to-great",
-                        title: "Good to Great",
-                        author: "Jim Collins",
-                        href: "summary.html?book=good-to-great",
-                        img: "https://images.unsplash.com/photo-1454165833267-028cc21e767c?q=80&w=400"
-                    },
-                    {
-                        id: "the-hard-thing-about-hard-things",
-                        title: "The Hard Thing About Hard Things",
-                        author: "Ben Horowitz",
-                        href: "summary.html?book=the-hard-thing-about-hard-things",
-                        img: "https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=400"
-                    },
-                    {
-                        id: "the-e-myth-revisited",
-                        title: "The E-Myth Revisited",
-                        author: "Michael E. Gerber",
-                        href: "summary.html?book=the-e-myth-revisited",
-                        img: "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=400"
-                    },
-                    {
-                        id: "measure-what-matters",
-                        title: "Measure What Matters",
-                        author: "John Doerr",
-                        href: "summary.html?book=measure-what-matters",
-                        img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=400"
-                    }
-                ]
-            },
-            {
-                id: "psychology",
-                heading: "🧠 Psychology",
-                coverShadowClass: "shadow-purple-100",
-                books: [
-                    {
-                        id: "thinking-fast-and-slow",
-                        title: "Thinking, Fast and Slow",
-                        author: "Daniel Kahneman",
-                        href: "summary.html?book=thinking-fast-and-slow",
-                        img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=400"
-                    },
-                    {
-                        id: "influence",
-                        title: "Influence",
-                        author: "Robert Cialdini",
-                        href: "summary.html?book=influence",
-                        img: "https://images.unsplash.com/photo-1575402511411-9e7939339396?q=80&w=400"
-                    },
-                    {
-                        id: "flow",
-                        title: "Flow",
-                        author: "Mihaly Csikszentmihalyi",
-                        href: "summary.html?book=flow",
-                        img: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?q=80&w=400"
-                    },
-                    {
-                        id: "emotional-intelligence",
-                        title: "Emotional Intelligence",
-                        author: "Daniel Goleman",
-                        href: "summary.html?book=emotional-intelligence",
-                        img: "https://images.unsplash.com/photo-1521791055366-0d553872125f?q=80&w=400"
-                    },
-                    {
-                        id: "predictably-irrational",
-                        title: "Predictably Irrational",
-                        author: "Dan Ariely",
-                        href: "summary.html?book=predictably-irrational",
-                        img: "https://images.unsplash.com/photo-1456324504439-367cee3b3c32?q=80&w=400"
-                    },
-                    {
-                        id: "the-power-of-habit",
-                        title: "The Power of Habit",
-                        author: "Charles Duhigg",
-                        href: "summary.html?book=the-power-of-habit",
-                        img: "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?q=80&w=400"
-                    }
-                ]
-            },
+           
             {
                 id: "growth",
                 heading: "🌱 Personal Growth",
@@ -357,8 +211,57 @@
                 ]
             },
             {
+                id: "self-help",
+                heading: "✨ Psychological Self-Help",
+                coverShadowClass: "shadow-rose-100",
+                books: [
+                    {
+                        id: "Do This Before Bed",
+                        title: "Do This Before Bed",
+                        author: "Oliver Nino",
+                        href: "summary.html?book=Do This Before Bed",
+                        img: "/bookcovers/do-this-before-bed.jpg"
+                    },
+                    {
+                        id: "Future Fit",
+                        title: "Future Fit",
+                        author: "Andrea Clarke",
+                        href: "summary.html?book=Future Fit",
+                        img: "/bookcovers/future-fit.jpg"
+                    },
+                    {
+                        id: "How To Be Enought",
+                        title: "How To Be Enought",
+                        author: "Ellen Hendriksen",
+                        href: "summary.html?book=How To Be Enought",
+                        img: "/bookcovers/how-to-be-enought.jpg"
+                    },
+                    {
+                        id: "The 5 Reset",
+                        title: "The 5 Reset",
+                        author: "Aditi Nerurkar",
+                        href: "summary.html?book=The 5 Reset",
+                        img: "/bookcovers/the-5-reset.jpg"
+                    },
+                    {
+                        id: "how-to-win-friends",
+                        title: "How to Win Friends and Influence People",
+                        author: "Dale Carnegie",
+                        href: "summary.html?book=how-to-win-friends",
+                        img: "https://images.unsplash.com/photo-1473186578172-c141e6798cf4?q=80&w=400"
+                    },
+                    {
+                        id: "the-power-of-positive-thinking",
+                        title: "The Power of Positive Thinking",
+                        author: "Norman Vincent Peale",
+                        href: "summary.html?book=the-power-of-positive-thinking",
+                        img: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=400"
+                    }
+                ]
+            },
+            {
                 id: "digital",
-                heading: "📱 Digital Lifestyle",
+                heading: "📱 Digital Lifestyle & AI",
                 coverShadowClass: "shadow-cyan-100",
                 books: [
                    {
@@ -420,57 +323,155 @@
                 ]
             },
             {
-                id: "self-help",
-                heading: "✨ Self-Help",
-                coverShadowClass: "shadow-rose-100",
+                id: "coaching",
+                heading: "🎯 Coaching & NLP",
+                coverShadowClass: "shadow-blue-100",
                 books: [
                     {
-                        id: "Do This Before Bed",
-                        title: "Do This Before Bed",
-                        author: "Oliver Nino",
-                        href: "summary.html?book=Do This Before Bed",
-                        img: "/bookcovers/do-this-before-bed.jpg"
+                        id: "Triggers",
+                        title: "Triggers",
+                        author: "Marshall Goldsmith",
+                        href: "summary.html?book=Triggers",
+                        img: "/bookcovers/Triggers.jpg"
                     },
                     {
-                        id: "Future Fit",
-                        title: "Future Fit",
-                        author: "Andrea Clarke",
-                        href: "summary.html?book=Future Fit",
-                        img: "/bookcovers/future-fit.jpg"
+                        id: "What You Got Here Wont't Get You There",
+                        title: "What You Got Here Wont't Get You There",
+                        author: "Marshall Goldsmith",
+                        href: "summary.html?book=What You Got Here Wont't Get You There",
+                        img: "bookcovers/what-you-got-here.jpg"
                     },
                     {
-                        id: "How To Be Enought",
-                        title: "How To Be Enought",
-                        author: "Ellen Hendriksen",
-                        href: "summary.html?book=How To Be Enought",
-                        img: "/bookcovers/how-to-be-enought.jpg"
+                        id: "The Earned Life",
+                        title: "The Earned Life",
+                        author: "Marshall Goldsmith",
+                        href: "summary.html?book=The Earned Life",
+                        img: "/bookcovers/the-earned-life.jpg"
                     },
                     {
-                        id: "The 5 Reset",
-                        title: "The 5 Reset",
-                        author: "Aditi Nerurkar",
-                        href: "summary.html?book=The 5 Reset",
-                        img: "/bookcovers/the-5-reset.jpg"
+                        id: "the-advice-trap",
+                        title: "The Advice Trap",
+                        author: "Michael Bungay Stanier",
+                        href: "summary.html?book=the-advice-trap",
+                        img: "https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?q=80&w=400"
                     },
                     {
-                        id: "how-to-win-friends",
-                        title: "How to Win Friends and Influence People",
-                        author: "Dale Carnegie",
-                        href: "summary.html?book=how-to-win-friends",
-                        img: "https://images.unsplash.com/photo-1473186578172-c141e6798cf4?q=80&w=400"
+                        id: "leaders-eat-last",
+                        title: "Leaders Eat Last",
+                        author: "Simon Sinek",
+                        href: "summary.html?book=leaders-eat-last",
+                        img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=400"
                     },
                     {
-                        id: "the-power-of-positive-thinking",
-                        title: "The Power of Positive Thinking",
-                        author: "Norman Vincent Peale",
-                        href: "summary.html?book=the-power-of-positive-thinking",
-                        img: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=400"
+                        id: "multipliers",
+                        title: "Multipliers",
+                        author: "Liz Wiseman",
+                        href: "summary.html?book=multipliers",
+                        img: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=400"
+                    }
+                ]
+            },
+            {
+                id: "parenting",
+                heading: "👨‍👩‍👧 Families & Parents",
+                coverShadowClass: "shadow-teal-100",
+                books: [
+                    {
+                        id: "you-are-not-a-shitty-parent",
+                        title: "You Are Not a Shitty Parent",
+                        author: "Carla Naumburg",
+                        href: "summary.html?book=You Are Not a Shitty Parent",
+                        img: "/bookcovers/You are not shitty parents.jpg"
+                    },
+                    {
+                        id: "the-tapping-solution",
+                        title: "The Tapping Solution",
+                        author: "Nick Ortner",
+                        href: "summary.html?book=The Tapping Solution",
+                        img: "/bookcovers/tapping solution.jpg"
+                    },
+                    {
+                        id: "the-power-of-parenting",
+                        title: "The Power Of Parenting",
+                        author: "Eamon Dolan",
+                        href: "summary.html?book=The Power Of Parenting",
+                        img: "/bookcovers/power of parenting book cover.jpg"
+                    },
+                    {
+                        id: "simplicity-parenting",
+                        title: "Simplicity Parenting",
+                        author: "Kim John Payne",
+                        href: "summary.html?book=simplicity-parenting",
+                        img: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?q=80&w=400"
+                    },
+                    {
+                        id: "love-and-logic",
+                        title: "Parenting with Love and Logic",
+                        author: "Foster Cline & Jim Fay",
+                        href: "summary.html?book=love-and-logic",
+                        img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400"
+                    },
+                    {
+                        id: "the-montessori-toddler",
+                        title: "The Montessori Toddler",
+                        author: "Simone Davies",
+                        href: "summary.html?book=the-montessori-toddler",
+                        img: "https://images.unsplash.com/photo-1503455637927-730bce8583c0?q=80&w=400"
+                    }
+                ]
+            },
+            {
+                id: "psychology",
+                heading: "🧠 Psychology",
+                coverShadowClass: "shadow-purple-100",
+                books: [
+                    {
+                        id: "thinking-fast-and-slow",
+                        title: "Thinking, Fast and Slow",
+                        author: "Daniel Kahneman",
+                        href: "summary.html?book=thinking-fast-and-slow",
+                        img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=400"
+                    },
+                    {
+                        id: "influence",
+                        title: "Influence",
+                        author: "Robert Cialdini",
+                        href: "summary.html?book=influence",
+                        img: "https://images.unsplash.com/photo-1575402511411-9e7939339396?q=80&w=400"
+                    },
+                    {
+                        id: "flow",
+                        title: "Flow",
+                        author: "Mihaly Csikszentmihalyi",
+                        href: "summary.html?book=flow",
+                        img: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?q=80&w=400"
+                    },
+                    {
+                        id: "emotional-intelligence",
+                        title: "Emotional Intelligence",
+                        author: "Daniel Goleman",
+                        href: "summary.html?book=emotional-intelligence",
+                        img: "https://images.unsplash.com/photo-1521791055366-0d553872125f?q=80&w=400"
+                    },
+                    {
+                        id: "predictably-irrational",
+                        title: "Predictably Irrational",
+                        author: "Dan Ariely",
+                        href: "summary.html?book=predictably-irrational",
+                        img: "https://images.unsplash.com/photo-1456324504439-367cee3b3c32?q=80&w=400"
+                    },
+                    {
+                        id: "the-power-of-habit",
+                        title: "The Power of Habit",
+                        author: "Charles Duhigg",
+                        href: "summary.html?book=the-power-of-habit",
+                        img: "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?q=80&w=400"
                     }
                 ]
             },
             {
                 id: "sales",
-                heading: "📈 Sales & Marketing",
+                heading: "📈 Business & Economic",
                 coverShadowClass: "shadow-amber-100",
                 books: [
                     {
@@ -518,54 +519,54 @@
                 ]
             },
             {
-                id: "parenting",
-                heading: "👨‍👩‍👧 Parenting",
-                coverShadowClass: "shadow-teal-100",
+                id: "emotional-healing",
+                heading: "Emotional & Healing",
+                coverShadowClass: "shadow-violet-100",
                 books: [
                     {
-                        id: "you-are-not-a-shitty-parent",
-                        title: "You Are Not a Shitty Parent",
-                        author: "Carla Naumburg",
-                        href: "summary.html?book=You Are Not a Shitty Parent",
-                        img: "/bookcovers/You are not shitty parents.jpg"
+                        id: "thinking-fast-and-slow",
+                        title: "Thinking, Fast and Slow",
+                        author: "Daniel Kahneman",
+                        href: "summary.html?book=thinking-fast-and-slow",
+                        img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=400"
                     },
                     {
-                        id: "the-tapping-solution",
-                        title: "The Tapping Solution",
-                        author: "Nick Ortner",
-                        href: "summary.html?book=The Tapping Solution",
-                        img: "/bookcovers/tapping solution.jpg"
+                        id: "influence",
+                        title: "Influence",
+                        author: "Robert Cialdini",
+                        href: "summary.html?book=influence",
+                        img: "https://images.unsplash.com/photo-1575402511411-9e7939339396?q=80&w=400"
                     },
                     {
-                        id: "the-power-of-parenting",
-                        title: "The Power Of Parenting",
-                        author: "Eamon Dolan",
-                        href: "summary.html?book=The Power Of Parenting",
-                        img: "/bookcovers/power of parenting book cover.jpg"
+                        id: "flow",
+                        title: "Flow",
+                        author: "Mihaly Csikszentmihalyi",
+                        href: "summary.html?book=flow",
+                        img: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?q=80&w=400"
                     },
                     {
-                        id: "simplicity-parenting",
-                        title: "Simplicity Parenting",
-                        author: "Kim John Payne",
-                        href: "summary.html?book=simplicity-parenting",
-                        img: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?q=80&w=400"
+                        id: "emotional-intelligence",
+                        title: "Emotional Intelligence",
+                        author: "Daniel Goleman",
+                        href: "summary.html?book=emotional-intelligence",
+                        img: "https://images.unsplash.com/photo-1521791055366-0d553872125f?q=80&w=400"
                     },
                     {
-                        id: "love-and-logic",
-                        title: "Parenting with Love and Logic",
-                        author: "Foster Cline & Jim Fay",
-                        href: "summary.html?book=love-and-logic",
-                        img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400"
+                        id: "predictably-irrational",
+                        title: "Predictably Irrational",
+                        author: "Dan Ariely",
+                        href: "summary.html?book=predictably-irrational",
+                        img: "https://images.unsplash.com/photo-1456324504439-367cee3b3c32?q=80&w=400"
                     },
                     {
-                        id: "the-montessori-toddler",
-                        title: "The Montessori Toddler",
-                        author: "Simone Davies",
-                        href: "summary.html?book=the-montessori-toddler",
-                        img: "https://images.unsplash.com/photo-1503455637927-730bce8583c0?q=80&w=400"
+                        id: "the-power-of-habit",
+                        title: "The Power of Habit",
+                        author: "Charles Duhigg",
+                        href: "summary.html?book=the-power-of-habit",
+                        img: "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?q=80&w=400"
                     }
                 ]
-            }
+            },
         ];
 
         const categoryViewEl = document.getElementById("categoryView");
