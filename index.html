@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpeg" href="https://www.phathmattway.com/assets/logo%20icon.jpg">
+    <link rel="shortcut icon" type="image/jpeg" href="https://www.phathmattway.com/assets/logo%20icon.jpg">
+    <link rel="apple-touch-icon" href="https://www.phathmattway.com/assets/logo%20icon.jpg">
+    <title>Phat Hmat Tway | Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Minimal transitions for category <-> books view */
+        .view-transition {
+            transition: opacity 220ms ease, transform 220ms ease;
+            will-change: opacity, transform;
+        }
+        .view-hidden {
+            opacity: 0;
+            transform: translateY(8px);
+            pointer-events: none;
+            height: 0;
+            overflow: hidden;
+        }
+        .cat-pill.is-active {
+            outline: 2px solid rgba(79, 70, 229, 0.35);
+            box-shadow: 0 10px 24px rgba(79, 70, 229, 0.12);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar-glass">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between relative">
+            <div class="logo text-xl font-800">Phat Hmat <span class="text-indigo-600">Tway</span></div>
+            <nav class="hidden lg:flex items-center space-x-6">
+                <a href="#" class="nav-link active">Home</a>
+                <a href="booklist.html" class="nav-link">Booklist</a>
+                <a href="#business" class="nav-link">Business Coach</a>
+                <a href="#psychology" class="nav-link">Personality Test</a>
+                <a href="#" class="nav-link">Training</a>
+                <a href="#" class="nav-link">About</a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <button id="mobileNavBtn" type="button" class="nav-hamburger lg:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNavPanel">
+                    ☰
+                </button>
+            </div>
+
+            <div id="mobileNavPanel" class="mobile-nav-panel hidden lg:hidden" role="menu" aria-label="Mobile navigation">
+                <div class="mobile-nav-section">
+                    <div class="mobile-nav-title">Menu</div>
+                    <a href="#" class="nav-link active" role="menuitem">Home</a>
+                    <button id="mobileCategoriesBtn" type="button" class="nav-link w-full text-left flex items-center justify-between" aria-expanded="false" aria-controls="mobileCategoriesMenu">
+                        <span>Categories</span>
+                        <span aria-hidden="true">▾</span>
+                    </button>
+                    <div id="mobileCategoriesMenu" class="hidden pl-3 pb-2" role="menu" aria-label="Categories">
+                        <a href="#cat-growth" class="nav-link block" role="menuitem">🌱 Personal Growth</a>
+                        <a href="#cat-self-help" class="nav-link block" role="menuitem">✨ Psychological Self-Help</a>
+                        <a href="#cat-digital" class="nav-link block" role="menuitem">📱 Digital Lifestyle &amp; AI</a>
+                        <a href="#cat-coaching" class="nav-link block" role="menuitem">🎯 Coaching &amp; NLP</a>
+                        <a href="#cat-parenting" class="nav-link block" role="menuitem">👨‍👩‍👧 Families &amp; Parents</a>
+                        <a href="#cat-psychology" class="nav-link block" role="menuitem">🏛️ Politics &amp; Philosophy</a>
+                        <a href="#cat-sales" class="nav-link block" role="menuitem">📈 Business &amp; Economic</a>
+                        <a href="#cat-emotional-healing" class="nav-link block" role="menuitem">💜 Emotional &amp; Healing</a>
+                    </div>
+                    <a href="booklist.html" class="nav-link" role="menuitem">Booklist</a>
+                    <a href="#business" class="nav-link" role="menuitem">Business Coach</a>
+                    <a href="#psychology" class="nav-link" role="menuitem">Personality Test</a>
+                    <a href="#" class="nav-link" role="menuitem">Training</a>
+                    <a href="#" class="nav-link" role="menuitem">About</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section hero-section--banner px-0">
+            <div class="hero-banner">
+                <div class="hero-content">
+                    <h1 class="hero-main-title">
+                        သင့်ဘဝရဲ့ <span class="highlight">အကောင်းဆုံး</span><br>
+                        <span class="highlight">Version </span>ကို<br>
+                        တည်ဆောက်လိုက်ပါ။
+                    </h1>
+                    <p class="hero-subtitle">
+                        မြန်မာနိုင်ငံက Growth Community အတွက်<br>
+                        သီးသန့်စီစဉ်ထားတဲ့ <span class="orange-text">ကမ္ဘာ့အကောင်းဆုံး</span><br>
+                        စာအုပ်တွေဆီကနေ အဖိုးတန်<br>
+                        အတွေးအခေါ်တွေကို ရယူလိုက်ပါ။
+                    </p>
+                    <a href="#" id="heroCtaBtn" class="hero-cta-button">အခုပဲ စတင်လိုက်ပါ</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="categories" class="pt-6 pb-6 bg-white border-y border-slate-100">
+            <div class="max-w-7xl mx-auto px-6">
+                <div id="categoryView" class="view-transition">
+                    <div class="grid grid-cols-4 gap-2 sm:gap-4">
+                        <button type="button" data-category="growth" class="cat-pill bg-orange-50 text-orange-700">🌱 Personal Growth</button>
+                        <button type="button" data-category="self-help" class="cat-pill bg-rose-50 text-rose-700">✨ Psychological Self-Help</button>
+                        <button type="button" data-category="digital" class="cat-pill bg-cyan-50 text-cyan-700">📱 Digital Lifestyle &amp; AI</button>
+                        <button type="button" data-category="coaching" class="cat-pill bg-blue-50 text-blue-700">🎯 Coaching &amp; NLP</button>
+                        <button type="button" data-category="parenting" class="cat-pill bg-teal-50 text-teal-700">👨‍👩‍👧 Families &amp; Parents</button>
+                        <button type="button" data-category="psychology" class="cat-pill bg-purple-50 text-purple-700">🏛️ Politics &amp; Philosophy</button>
+                        <button type="button" data-category="sales" class="cat-pill bg-amber-50 text-amber-700">📈 Business &amp; Economic</button>
+                        <button type="button" data-category="emotional-healing" class="cat-pill bg-violet-50 text-violet-700">💜 Emotional &amp; Healing</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="max-w-7xl mx-auto px-6 pt-6 pb-12 md:pb-14">
+            <section id="allBooks" class="view-transition" aria-live="polite">
+                <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-5">
+                    <h2 class="section-heading mb-0">All Books</h2>
+                    <a href="#categories" class="nav-link">↑ Back to Categories</a>
+                </div>
+                <div id="allBooksContainer" class="space-y-6"></div>
+            </section>
+        </div>
+    </main>
+
+    <div id="authModal" class="auth-modal hidden" aria-hidden="true">
+        <div class="auth-overlay" data-close-modal="true"></div>
+        <div class="auth-panel" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+            <button class="auth-close-btn" id="closeAuthModal" aria-label="Close">✕</button>
+            <h2 id="authModalTitle" class="text-2xl font-800 mb-2">Welcome Back</h2>
+            <p class="text-slate-500 mb-6">Login or create your account to continue.</p>
+
+            <div class="auth-tabs mb-5">
+                <button id="loginTabBtn" class="auth-tab active" type="button">Login</button>
+                <button id="signupTabBtn" class="auth-tab" type="button">Sign Up</button>
+            </div>
+
+            <form id="loginForm" class="auth-form">
+                <label class="auth-label" for="loginEmail">Email</label>
+                <input id="loginEmail" class="auth-input" type="email" placeholder="you@example.com" required>
+                <label class="auth-label" for="loginPassword">Password</label>
+                <input id="loginPassword" class="auth-input" type="password" placeholder="••••••••" required>
+                <button class="btn-primary w-full py-3 mt-2" type="submit">Login</button>
+            </form>
+
+            <form id="signupForm" class="auth-form hidden">
+                <label class="auth-label" for="signupName">Full Name</label>
+                <input id="signupName" class="auth-input" type="text" placeholder="Your full name" required>
+                <label class="auth-label" for="signupEmail">Email</label>
+                <input id="signupEmail" class="auth-input" type="email" placeholder="you@example.com" required>
+                <label class="auth-label" for="signupPassword">Password</label>
+                <input id="signupPassword" class="auth-input" type="password" placeholder="Create password" required>
+                <button class="btn-primary w-full py-3 mt-2" type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const HOME_BOOK_CATEGORIES = [
+           
+            {
+                id: "growth",
+                heading: "🌱 Personal Growth",
+                coverShadowClass: "shadow-orange-100",
+                books: [
+                {
+                "id": "A Year of Nothing",
+                "title": "A Year of Nothing",
+                "author": "Emma Gannon",
+                "href": "summary.html?book=A Year of Nothing",
+                "img": "/bookcovers/a_year_of_nothing.jpg"
+            },
+                {
+                "id": "How We Think",
+                "title": "How We Think",
+                "author": "Marius Ostrowski",
+                "href": "summary.html?book=How We Think",
+                "img": "/bookcovers/how_we_think.jpg"
+            },
+                {
+                    "id": "Self-Help Pioneers",
+                    "title": "Self-Help Pioneers",
+                    "author": "Don M. Green",
+                    "href": "summary.html?book=Self-Help Pioneers",
+                    "img": "/bookcovers/self_help_pioneers.jpg"
+                },
+                            {
+                "id": "The Secret Language of Work",
+                "title": "The Secret Language of Work",
+                "author": "Erin McGoff",
+                "href": "summary.html?book=The Secret Language of Work",
+                "img": "/bookcovers/the_secret_language_of_work.jpg"
+            },
+                                    {
+                        "id": "The Permission Mission",
+                        "title": "The Permission Mission",
+                        "author": "Dr. Cindy McGovern",
+                        "href": "summary.html?book=The Permission Mission",
+                        "img": "/bookcovers/the_permission_mission.jpg"
+                    },
+                                    {
+                        "id": "How to Live a Meaningful Life",
+                        "title": "How to Live a Meaningful Life",
+                        "author": "Bill Burnett & Dave Evans",
+                        "href": "summary.html?book=How to Live a Meaningful Life",
+                        "img": "/bookcovers/how-to-live-a-meaningful-life.jpg"
+                    },
+                    {
+                        id: "From Mindfulness to Wakefulness",
+                        title: "From Mindfulness to Wakefulness",
+                        author: "Michael Chaskalson",
+                        href: "summary.html?book=From Mindfulness to Wakefulness",
+                        img: "/bookcovers/from_mindfulness_to_wakefulness.jpg",
+                    },
+                    {
+                        id: "Change Your Questions, Change Your Life",
+                        title: "Change Your Questions, Change Your Life",
+                        author: "Marilee Adams",
+                        href: "summary.html?book=Change Your Questions, Change Your Life",
+                        img: "/bookcovers/change_your_question_change_your_life.jpg"
+                    },
+                    {
+                        id: "Beyond Belief",
+                        title: "Beyond Belief",
+                        author: "Nir Eyal",
+                        href: "summary.html?book=Beyond Belief",
+                        img: "/bookcovers/beyond_belief.jpg",
+                    },
+                    {
+                        id: "How to Get a Return on Failure",
+                        title: "How to Get a Return on Failure",
+                        author: "John C. Maxwell",
+                        href: "summary.html?book=How to Get a Return on Failure",
+                        img: "/bookcovers/how_to _get_a_return_on_faliure.jpg"
+                    },
+                    {
+                        id: "Speak Up",
+                        title: "Speak Up",
+                        author: "Hayley Mulenda Record",
+                        href: "summary.html?book=Speak Up",
+                        img: "/bookcovers/speak_up.jpg"
+                    },
+                    {
+                        id: "Predator Mindset",
+                        title: "Predator Mindset",
+                        author: "Unknown",
+                        href: "summary.html?book=Predator Mindset",
+                        img: "/bookcovers/predator_mindset.jpg"
+                    }
+                ]
+            },
+            {
+                id: "self-help",
+                heading: "✨ Psychological Self-Help",
+                coverShadowClass: "shadow-rose-100",
+                books: [
+                {
+                        "id": "Out of Our Minds",
+                        "title": "Out of Our Minds",
+                        "author": "Sir Ken Robinson & Kate Robinson",
+                        "href": "summary.html?book=Out of Our Minds",
+                        "img": "/bookcovers/out_of_our_minds.jpg"
+                    }
+                                        {
+                        "id": "Brain Fuked",
+                        "title": "Brain Fuked",
+                        "author": "Jocko Willink",
+                        "href": "summary.html?book=Brain Fuked",
+                        "img": "/bookcovers/brain_fucked.jpg"
+                    },
+                                        {
+                        id: "Do This Before Bed",
+                        title: "Do This Before Bed",
+                        author: "Oliver Nino",
+                        href: "summary.html?book=Do This Before Bed",
+                        img: "/bookcovers/do-this-before-bed.jpg"
+                    },
+                    {
+                        id: "Future Fit",
+                        title: "Future Fit",
+                        author: "Andrea Clarke",
+                        href: "summary.html?book=Future Fit",
+                        img: "/bookcovers/future-fit.jpg"
+                    },
+                    {
+                        id: "How To Be Enought",
+                        title: "How To Be Enought",
+                        author: "Ellen Hendriksen",
+                        href: "summary.html?book=How To Be Enought",
+                        img: "/bookcovers/how-to-be-enought.jpg"
+                    },
+                    {
+                        id: "The 5 Reset",
+                        title: "The 5 Reset",
+                        author: "Aditi Nerurkar",
+                        href: "summary.html?book=The 5 Reset",
+                        img: "/bookcovers/the-5-reset.jpg"
+                    },
+                   
+                   
+                ]
+            },
+            {
+                id: "digital",
+                heading: "📱 Digital Lifestyle & AI",
+                coverShadowClass: "shadow-cyan-100",
+                books: [
+                   {
+                        id: "second-life",
+                        title: "Second Life",
+                        author: "Amanda Hess",
+                        href: "summary.html?book=Second Life",
+                        img: "/bookcovers/Second life bookcover.jpg"
+                    },
+                    {
+                        id: "growing-up-digital",
+                        title: "Growing Up Ditial",
+                        author: "Susan McLEAN",
+                        href: "summary.html?book=Growing Up Digital",
+                        img: "/bookcovers/growing up digital coverphoto.jpg"
+                    },
+                    {
+                        id: "digital-exhaustion",
+                        title: "Digital Exhaustion",
+                        author: "Paul Leonardi",
+                        href: "summary.html?book=Digital Exhaustion",
+                        img: "/bookcovers/Digital exhaustion.jpg"
+                    },
+                    {
+                        id: "AI For Good",
+                        title: "AI For Good",
+                        author: "Nicholas Carr",
+                        href: "summary.html?book=AI For Good",
+                        img: "/bookcovers/Ai for good bookcover.jpg",
+                    },
+                    {
+                        id: "Human Compatible",
+                        title: "Human Compatible",
+                        author: "Stuart Russell",
+                        href: "summary.html?book=uman Compatible",
+                        img: "/bookcovers/human compitable bookcover.jpg",
+                    },
+                    {
+                        id: "Chip War",
+                        title: "Chip War",
+                        author: "Chris Miller",
+                        href: "summary.html?book=Chip War",
+                        img:"/bookcovers/Chip war.jpg",
+                    },
+                    {
+                        id: "Ai Superpower",
+                        title: "Ai Superpower",
+                        author: "Kai-Fu Lee",
+                        href: "summary.html?book=Ai Superpower",
+                        img:"/bookcovers/ai superpowers.jpg"
+                    },
+                    {
+                        id: "Ai 2041",
+                        title: "Ai 2041",
+                        author: "Kai-Fu Lee",
+                        href: "summary.html?book=Ai 2041",
+                        img:"/bookcovers/ai 2024.jpg"
+                    },
+                ]
+            },
+            {
+                id: "coaching",
+                heading: "🎯 Coaching & NLP",
+                coverShadowClass: "shadow-blue-100",
+                books: [
+                    {
+                        id: "Triggers",
+                        title: "Triggers",
+                        author: "Marshall Goldsmith",
+                        href: "summary.html?book=Triggers",
+                        img: "/bookcovers/Triggers.jpg"
+                    },
+                    {
+                        id: "What You Got Here Wont't Get You There",
+                        title: "What You Got Here Wont't Get You There",
+                        author: "Marshall Goldsmith",
+                        href: "summary.html?book=What You Got Here Wont't Get You There",
+                        img: "bookcovers/what-you-got-here.jpg"
+                    },
+                    {
+                        id: "The Earned Life",
+                        title: "The Earned Life",
+                        author: "Marshall Goldsmith",
+                        href: "summary.html?book=The Earned Life",
+                        img: "/bookcovers/the-earned-life.jpg"
+                    },
+                    {
+                        id: "the-advice-trap",
+                        title: "The Advice Trap",
+                        author: "Michael Bungay Stanier",
+                        href: "summary.html?book=the-advice-trap",
+                        img: "https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?q=80&w=400"
+                    },
+                    {
+                        id: "leaders-eat-last",
+                        title: "Leaders Eat Last",
+                        author: "Simon Sinek",
+                        href: "summary.html?book=leaders-eat-last",
+                        img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=400"
+                    },
+                    {
+                        id: "multipliers",
+                        title: "Multipliers",
+                        author: "Liz Wiseman",
+                        href: "summary.html?book=multipliers",
+                        img: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=400"
+                    }
+                ]
+            },
+            {
+                id: "parenting",
+                heading: "👨‍👩‍👧 Families & Parents",
+                coverShadowClass: "shadow-teal-100",
+                books: [
+                    {
+                        id: "you-are-not-a-shitty-parent",
+                        title: "You Are Not a Shitty Parent",
+                        author: "Carla Naumburg",
+                        href: "summary.html?book=You Are Not a Shitty Parent",
+                        img: "/bookcovers/You are not shitty parents.jpg"
+                    },
+                    {
+                        id: "the-tapping-solution",
+                        title: "The Tapping Solution",
+                        author: "Nick Ortner",
+                        href: "summary.html?book=The Tapping Solution",
+                        img: "/bookcovers/tapping solution.jpg"
+                    },
+                    {
+                        id: "the-power-of-parenting",
+                        title: "The Power Of Parenting",
+                        author: "Eamon Dolan",
+                        href: "summary.html?book=The Power Of Parenting",
+                        img: "/bookcovers/power of parenting book cover.jpg"
+                    },
+                    {
+                        id: "simplicity-parenting",
+                        title: "Simplicity Parenting",
+                        author: "Kim John Payne",
+                        href: "summary.html?book=simplicity-parenting",
+                        img: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?q=80&w=400"
+                    },
+                    {
+                        id: "love-and-logic",
+                        title: "Parenting with Love and Logic",
+                        author: "Foster Cline & Jim Fay",
+                        href: "summary.html?book=love-and-logic",
+                        img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400"
+                    },
+                    {
+                        id: "the-montessori-toddler",
+                        title: "The Montessori Toddler",
+                        author: "Simone Davies",
+                        href: "summary.html?book=the-montessori-toddler",
+                        img: "https://images.unsplash.com/photo-1503455637927-730bce8583c0?q=80&w=400"
+                    }
+                ]
+            },
+            {
+                id: "psychology",
+                heading: "🏛️ Politics & Philosophy",
+                coverShadowClass: "shadow-purple-100",
+                books: [
+                    {
+                        id: "thinking-fast-and-slow",
+                        title: "Thinking, Fast and Slow",
+                        author: "Daniel Kahneman",
+                        href: "summary.html?book=thinking-fast-and-slow",
+                        img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=400"
+                    },
+                    {
+                        id: "influence",
+                        title: "Influence",
+                        author: "Robert Cialdini",
+                        href: "summary.html?book=influence",
+                        img: "https://images.unsplash.com/photo-1575402511411-9e7939339396?q=80&w=400"
+                    },
+                    {
+                        id: "flow",
+                        title: "Flow",
+                        author: "Mihaly Csikszentmihalyi",
+                        href: "summary.html?book=flow",
+                        img: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?q=80&w=400"
+                    },
+                    {
+                        id: "emotional-intelligence",
+                        title: "Emotional Intelligence",
+                        author: "Daniel Goleman",
+                        href: "summary.html?book=emotional-intelligence",
+                        img: "https://images.unsplash.com/photo-1521791055366-0d553872125f?q=80&w=400"
+                    },
+                    {
+                        id: "predictably-irrational",
+                        title: "Predictably Irrational",
+                        author: "Dan Ariely",
+                        href: "summary.html?book=predictably-irrational",
+                        img: "https://images.unsplash.com/photo-1456324504439-367cee3b3c32?q=80&w=400"
+                    },
+                    {
+                        id: "the-power-of-habit",
+                        title: "The Power of Habit",
+                        author: "Charles Duhigg",
+                        href: "summary.html?book=the-power-of-habit",
+                        img: "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?q=80&w=400"
+                    }
+                ]
+            },
+            {
+                id: "sales",
+                heading: "📈 Business & Economic",
+                coverShadowClass: "shadow-amber-100",
+                books: [
+                    {
+                        id: "marketing-and-ai",
+                        title: "Marketing and AI",
+                        author: "Vincent Jeseo",
+                        href: "summary.html?book=Marketing and AI",
+                        img: "/bookcovers/marketing and Ai.jpg"
+                    },
+                    {
+                        id: "how-to-use-ai-in-b2b-marketing",
+                        title: "How to Use AI in B2B Marketing",
+                        author: "Spike Tucker",
+                        href: "summary.html?book=How to Use AI in B2B Marketing",
+                        img: "/bookcovers/how to use ai.jpg"
+                    },
+                    {
+                        id: "advances-in-digital-marketing-ai",
+                        title: "Advances In Digital Marketing",
+                        author: "Moez Ltifi",
+                        href: "summary.html?book=Advances In Digital Marketing In The Era Of Artificial Intelligence",
+                        img: "/bookcovers/advance in digital marketing.jpg"
+                    },
+                    {
+                        id: "second-life",
+                        title: "Second Life",
+                        author: "Amanda Hess",
+                        href: "summary.html?book=Second Life",
+                        img: "/bookcovers/Second life bookcover.jpg"
+                    },
+                    {
+                        id: "growing-up-digital",
+                        title: "Growing Up Digital",
+                        author: "Susan McLEAN",
+                        href: "summary.html?book=Growing Up Digital",
+                        img: "/bookcovers/growing up digital coverphoto.jpg"
+                    },
+                    {
+                        id: "digital-exhaustion",
+                        title: "Digital Exhaustion",
+                        author: "Paul Leonardi",
+                        href: "summary.html?book=Digital Exhaustion",
+                        img: "/bookcovers/Digital exhaustion.jpg"
+                    }
+                ]
+            },
+            {
+                id: "emotional-healing",
+                heading: "💜 Emotional & Healing",
+                coverShadowClass: "shadow-violet-100",
+                books: [
+                    {
+                        id: "thinking-fast-and-slow",
+                        title: "Thinking, Fast and Slow",
+                        author: "Daniel Kahneman",
+                        href: "summary.html?book=thinking-fast-and-slow",
+                        img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=400"
+                    },
+                    {
+                        id: "influence",
+                        title: "Influence",
+                        author: "Robert Cialdini",
+                        href: "summary.html?book=influence",
+                        img: "https://images.unsplash.com/photo-1575402511411-9e7939339396?q=80&w=400"
+                    },
+                    {
+                        id: "flow",
+                        title: "Flow",
+                        author: "Mihaly Csikszentmihalyi",
+                        href: "summary.html?book=flow",
+                        img: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?q=80&w=400"
+                    },
+                    {
+                        id: "emotional-intelligence",
+                        title: "Emotional Intelligence",
+                        author: "Daniel Goleman",
+                        href: "summary.html?book=emotional-intelligence",
+                        img: "https://images.unsplash.com/photo-1521791055366-0d553872125f?q=80&w=400"
+                    },
+                    {
+                        id: "predictably-irrational",
+                        title: "Predictably Irrational",
+                        author: "Dan Ariely",
+                        href: "summary.html?book=predictably-irrational",
+                        img: "https://images.unsplash.com/photo-1456324504439-367cee3b3c32?q=80&w=400"
+                    },
+                    {
+                        id: "the-power-of-habit",
+                        title: "The Power of Habit",
+                        author: "Charles Duhigg",
+                        href: "summary.html?book=the-power-of-habit",
+                        img: "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?q=80&w=400"
+                    }
+                ]
+            },
+        ];
+
+        const categoryViewEl = document.getElementById("categoryView");
+        const allBooksContainerEl = document.getElementById("allBooksContainer");
+
+        function escapeHtml(value) {
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        function renderBookTile(book, coverShadowClass) {
+            return `
+                <a class="book-tile" href="${escapeHtml(book.href)}">
+                    <div class="tile-cover ${escapeHtml(coverShadowClass)}">
+                        <img src="${escapeHtml(book.img)}" alt="${escapeHtml(book.title)} cover">
+                    </div>
+                    <div class="tile-title">${escapeHtml(book.title)}</div>
+                    <div class="tile-author">${escapeHtml(book.author)}</div>
+                </a>
+            `;
+        }
+
+        function renderAllBooks() {
+            if (!allBooksContainerEl) return;
+
+            allBooksContainerEl.innerHTML = HOME_BOOK_CATEGORIES
+                .map((category) => {
+                    const booksHtml = category.books
+                        .map((book) => renderBookTile(book, category.coverShadowClass))
+                        .join("");
+
+                    const stripClass =
+                        category.books.length > 3
+                            ? "category-books-strip"
+                            : "category-books-strip category-books-strip--compact";
+
+                    return `
+                        <section id="cat-${escapeHtml(category.id)}">
+                            <h3 class="text-2xl font-800 mb-5">${escapeHtml(category.heading)}</h3>
+                            <div class="category-books-strip-shell">
+                                <div
+                                    class="${stripClass}"
+                                    role="region"
+                                    aria-label="${escapeHtml(category.heading)} — scroll sideways for more books"
+                                >
+                                    <div class="category-books-strip__track">
+                                        ${booksHtml}
+                                    </div>
+                                </div>
+                                <button
+                                    type="button"
+                                    class="category-books-strip__next"
+                                    aria-label="Show more books in this category"
+                                    hidden
+                                >
+                                    <svg class="category-books-strip__next-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                        <path d="m10 7 5 5-5 5" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </section>
+                    `;
+                })
+                .join("");
+        }
+
+        categoryViewEl.addEventListener("click", (event) => {
+            const btn = event.target && event.target.closest ? event.target.closest("[data-category]") : null;
+            if (!btn) return;
+            const target = document.getElementById("cat-" + btn.dataset.category);
+            if (target) {
+                target.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        });
+
+        // On first load, show the hero/top (do not auto-open a category).
+        // If a URL hash is present (e.g. #categories), keep normal browser behavior.
+        renderAllBooks();
+
+        function initCategoryBookStrips() {
+            document.querySelectorAll(".category-books-strip-shell").forEach((shell) => {
+                const strip = shell.querySelector(".category-books-strip");
+                const btn = shell.querySelector(".category-books-strip__next");
+                if (!strip || !btn) return;
+
+                function updateStripChrome() {
+                    const canScrollX = strip.scrollWidth > strip.clientWidth + 2;
+                    const atEnd = strip.scrollLeft >= strip.scrollWidth - strip.clientWidth - 2;
+                    const showNext = canScrollX && !atEnd;
+                    btn.hidden = !showNext;
+                    shell.classList.toggle("category-books-strip-shell--at-end", canScrollX && atEnd);
+                }
+
+                strip.addEventListener("scroll", updateStripChrome, { passive: true });
+                window.addEventListener("resize", updateStripChrome);
+                btn.addEventListener("click", function () {
+                    strip.scrollBy({ left: Math.max(120, strip.clientWidth * 0.72), behavior: "smooth" });
+                });
+
+                if ("ResizeObserver" in window) {
+                    const ro = new ResizeObserver(updateStripChrome);
+                    ro.observe(strip);
+                }
+
+                updateStripChrome();
+            });
+        }
+
+        initCategoryBookStrips();
+
+        if (!window.location.hash) {
+            window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+        }
+
+        const openAuthModalBtn = document.getElementById("openAuthModal");
+        const heroCtaBtn = document.getElementById("heroCtaBtn");
+        const authModal = document.getElementById("authModal");
+        const closeAuthModalBtn = document.getElementById("closeAuthModal");
+        const loginTabBtn = document.getElementById("loginTabBtn");
+        const signupTabBtn = document.getElementById("signupTabBtn");
+        const loginForm = document.getElementById("loginForm");
+        const signupForm = document.getElementById("signupForm");
+
+        function showLoginTab() {
+            loginTabBtn.classList.add("active");
+            signupTabBtn.classList.remove("active");
+            loginForm.classList.remove("hidden");
+            signupForm.classList.add("hidden");
+        }
+
+        function showSignupTab() {
+            signupTabBtn.classList.add("active");
+            loginTabBtn.classList.remove("active");
+            signupForm.classList.remove("hidden");
+            loginForm.classList.add("hidden");
+        }
+
+        function openModal() {
+            authModal.classList.remove("hidden");
+            authModal.setAttribute("aria-hidden", "false");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal() {
+            authModal.classList.add("hidden");
+            authModal.setAttribute("aria-hidden", "true");
+            document.body.style.overflow = "";
+        }
+
+        if (openAuthModalBtn) {
+            openAuthModalBtn.addEventListener("click", openModal);
+        }
+        if (heroCtaBtn) {
+            heroCtaBtn.addEventListener("click", function (event) {
+                event.preventDefault();
+                openModal();
+            });
+        }
+        closeAuthModalBtn.addEventListener("click", closeModal);
+        loginTabBtn.addEventListener("click", showLoginTab);
+        signupTabBtn.addEventListener("click", showSignupTab);
+
+        authModal.addEventListener("click", function (event) {
+            if (event.target && event.target.dataset && event.target.dataset.closeModal === "true") {
+                closeModal();
+            }
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape" && !authModal.classList.contains("hidden")) {
+                closeModal();
+            }
+        });
+
+        loginForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            closeModal();
+        });
+
+        signupForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            closeModal();
+        });
+
+        // Mobile nav dropdown
+        const mobileNavBtn = document.getElementById("mobileNavBtn");
+        const mobileNavPanel = document.getElementById("mobileNavPanel");
+        const mobileCategoriesBtn = document.getElementById("mobileCategoriesBtn");
+        const mobileCategoriesMenu = document.getElementById("mobileCategoriesMenu");
+
+        function closeMobileNav() {
+            if (!mobileNavPanel || !mobileNavBtn) return;
+            mobileNavPanel.classList.add("hidden");
+            mobileNavBtn.setAttribute("aria-expanded", "false");
+        }
+
+        function setMobileCategoriesOpen(open) {
+            if (!mobileCategoriesBtn || !mobileCategoriesMenu) return;
+            mobileCategoriesMenu.classList.toggle("hidden", !open);
+            mobileCategoriesBtn.setAttribute("aria-expanded", open ? "true" : "false");
+        }
+
+        function toggleMobileNav() {
+            if (!mobileNavPanel || !mobileNavBtn) return;
+            const isHidden = mobileNavPanel.classList.contains("hidden");
+            mobileNavPanel.classList.toggle("hidden", !isHidden);
+            mobileNavBtn.setAttribute("aria-expanded", isHidden ? "true" : "false");
+            if (!isHidden) {
+                setMobileCategoriesOpen(false);
+            }
+        }
+
+        if (mobileNavBtn && mobileNavPanel) {
+            mobileNavBtn.addEventListener("click", function (event) {
+                event.stopPropagation();
+                toggleMobileNav();
+            });
+
+            if (mobileCategoriesBtn) {
+                mobileCategoriesBtn.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    const isOpen = mobileCategoriesBtn.getAttribute("aria-expanded") === "true";
+                    setMobileCategoriesOpen(!isOpen);
+                });
+            }
+
+            mobileNavPanel.addEventListener("click", function (event) {
+                const link = event.target && event.target.closest ? event.target.closest("a") : null;
+                if (link) {
+                    closeMobileNav();
+                    setMobileCategoriesOpen(false);
+                }
+            });
+
+            document.addEventListener("click", function (event) {
+                if (mobileNavPanel.classList.contains("hidden")) return;
+                if (event.target === mobileNavBtn || mobileNavBtn.contains(event.target)) return;
+                if (mobileNavPanel.contains(event.target)) return;
+                closeMobileNav();
+            });
+
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "Escape") {
+                    closeMobileNav();
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>

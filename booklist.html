@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpeg" href="/assets/logo%20icon.jpg">
+    <link rel="shortcut icon" type="image/jpeg" href="/assets/logo%20icon.jpg">
+    <title>Phat Hmat Tway | Booklist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar-glass">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between relative">
+            <div class="logo text-xl font-800">Phat Hmat <span class="text-indigo-600">Tway</span></div>
+            <nav class="hidden lg:flex items-center space-x-6">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="#" class="nav-link active">Booklist</a>
+                <a href="index.html#business" class="nav-link">Business Coach</a>
+                <a href="index.html#psychology" class="nav-link">Personality Test</a>
+                <a href="#" class="nav-link">Training</a>
+                <a href="#" class="nav-link">About</a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="btn-primary px-6 py-2">Back Home</a>
+                <button id="mobileNavBtn" type="button" class="nav-hamburger lg:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNavPanel">
+                    ☰
+                </button>
+            </div>
+
+            <div id="mobileNavPanel" class="mobile-nav-panel hidden lg:hidden" role="menu" aria-label="Mobile navigation">
+                <div class="mobile-nav-section">
+                    <div class="mobile-nav-title">Menu</div>
+                    <a href="index.html" class="nav-link" role="menuitem">Home</a>
+                    <a href="index.html#categories" class="nav-link" role="menuitem">Categories</a>
+                    <a href="#" class="nav-link active" role="menuitem">Booklist</a>
+                    <a href="index.html#business" class="nav-link" role="menuitem">Business Coach</a>
+                    <a href="index.html#psychology" class="nav-link" role="menuitem">Personality Test</a>
+                    <a href="#" class="nav-link" role="menuitem">Training</a>
+                    <a href="#" class="nav-link" role="menuitem">About</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 py-16 space-y-12">
+        <section class="text-center">
+            <span class="badge">Top Picks</span>
+            <h1 class="hero-title text-4xl md:text-5xl font-800 mb-4">Top 3 Books by Category</h1>
+            <p class="text-slate-500 max-w-2xl mx-auto">A quick ranked list of the best books in each category from the Phat Hmat Tway library.</p>
+        </section>
+
+        <section>
+            <h2 class="section-heading">🌱 Personal Growth - Top 3</h2>
+            <div class="grid grid-cols-3 gap-4 md:gap-6">
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=atomic-habits">
+                    <div class="cover">
+                        <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=500&q=80" alt="Atomic Habits book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#1</p>
+                    <h3>Atomic Habits</h3>
+                    <p>James Clear</p>
+                </a>
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=mindset">
+                    <div class="cover">
+                        <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=500&q=80" alt="Mindset book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#2</p>
+                    <h3>Mindset</h3>
+                    <p>Carol S. Dweck</p>
+                </a>
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=seven-habits">
+                    <div class="cover">
+                        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=500&q=80" alt="The 7 Habits of Highly Effective People book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#3</p>
+                    <h3>The 7 Habits of Highly Effective People</h3>
+                    <p>Stephen R. Covey</p>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-heading">✨ Psychological Self-Help - Top 3</h2>
+            <div class="grid grid-cols-3 gap-4 md:gap-6">
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=Do This Before Bed">
+                    <div class="cover">
+                        <img src="/bookcovers/do-this-before-bed.jpg" alt="Do This Before Bed book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#1</p>
+                    <h3>Do This Before Bed</h3>
+                    <p>Oliver Nino</p>
+                </a>
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=Future Fit">
+                    <div class="cover">
+                        <img src="/bookcovers/future-fit.jpg" alt="Future Fit book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#2</p>
+                    <h3>Future Fit</h3>
+                    <p>Andrea Clarke</p>
+                </a>
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=How To Be Enought">
+                    <div class="cover">
+                        <img src="/bookcovers/how-to-be-enought.jpg" alt="How To Be Enought book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#3</p>
+                    <h3>How To Be Enought</h3>
+                    <p>Ellen Hendriksen</p>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-heading">📱 Digital Lifestyle &amp; AI - Top 3</h2>
+            <div class="grid grid-cols-3 gap-4 md:gap-6">
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=Second Life">
+                    <div class="cover">
+                        <img src="/bookcovers/Second life bookcover.jpg" alt="Second Life book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#1</p>
+                    <h3>Second Life</h3>
+                    <p>Amanda Hess</p>
+                </a>
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=Growing Up Digital">
+                    <div class="cover">
+                        <img src="/bookcovers/growing up digital coverphoto.jpg" alt="Growing Up Digital book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#2</p>
+                    <h3>Growing Up Ditial</h3>
+                    <p>Susan McLEAN</p>
+                </a>
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=Digital Exhaustion">
+                    <div class="cover">
+                        <img src="/bookcovers/Digital exhaustion.jpg" alt="Digital Exhaustion book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#3</p>
+                    <h3>Digital Exhaustion</h3>
+                    <p>Paul Leonardi</p>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-heading">🎯 Coaching &amp; NLP - Top 3</h2>
+            <div class="grid grid-cols-3 gap-4 md:gap-6">
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=Triggers">
+                    <div class="cover">
+                        <img src="/bookcovers/Triggers.jpg" alt="Triggers book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#1</p>
+                    <h3>Triggers</h3>
+                    <p>Marshall Goldsmith</p>
+                </a>
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=What You Got Here Wont't Get You There">
+                    <div class="cover">
+                        <img src="/bookcovers/what-you-got-here.jpg" alt="What You Got Here Wont't Get You There book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#2</p>
+                    <h3>What You Got Here Wont't Get You There</h3>
+                    <p>Marshall Goldsmith</p>
+                </a>
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=The Earned Life">
+                    <div class="cover">
+                        <img src="/bookcovers/the-earned-life.jpg" alt="The Earned Life book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#3</p>
+                    <h3>The Earned Life</h3>
+                    <p>Marshall Goldsmith</p>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-heading">👨‍👩‍👧 Families &amp; Parents - Top 3</h2>
+            <div class="grid grid-cols-3 gap-4 md:gap-6">
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=You Are Not a Shitty Parent">
+                    <div class="cover">
+                        <img src="/bookcovers/You are not shitty parents.jpg" alt="You Are Not a Shitty Parent book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#1</p>
+                    <h3>You Are Not a Shitty Parent</h3>
+                    <p>Carla Naumburg</p>
+                </a>
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=The Tapping Solution">
+                    <div class="cover">
+                        <img src="/bookcovers/tapping solution.jpg" alt="The Tapping Solution book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#2</p>
+                    <h3>The Tapping Solution</h3>
+                    <p>Nick Ortner</p>
+                </a>
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=The Power Of Parenting">
+                    <div class="cover">
+                        <img src="/bookcovers/power of parenting book cover.jpg" alt="The Power Of Parenting book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#3</p>
+                    <h3>The Power Of Parenting</h3>
+                    <p>Eamon Dolan</p>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-heading">🧠 Psychology - Top 3</h2>
+            <div class="grid grid-cols-3 gap-4 md:gap-6">
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=thinking-fast-and-slow">
+                    <div class="cover">
+                        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=500&q=80" alt="Thinking, Fast and Slow book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#1</p>
+                    <h3>Thinking, Fast and Slow</h3>
+                    <p>Daniel Kahneman</p>
+                </a>
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=influence">
+                    <div class="cover">
+                        <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=500&q=80" alt="Influence book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#2</p>
+                    <h3>Influence</h3>
+                    <p>Robert Cialdini</p>
+                </a>
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=flow">
+                    <div class="cover">
+                        <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=500&q=80" alt="Flow book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#3</p>
+                    <h3>Flow</h3>
+                    <p>Mihaly Csikszentmihalyi</p>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-heading">📈 Business &amp; Economic - Top 3</h2>
+            <div class="grid grid-cols-3 gap-4 md:gap-6">
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=Marketing and AI">
+                    <div class="cover">
+                        <img src="/bookcovers/marketing and Ai.jpg" alt="Marketing and AI book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#1</p>
+                    <h3>Marketing and AI</h3>
+                    <p>Vincent Jeseo</p>
+                </a>
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=How to Use AI in B2B Marketing">
+                    <div class="cover">
+                        <img src="/bookcovers/how to use ai.jpg" alt="How to Use AI in B2B Marketing book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#2</p>
+                    <h3>How to Use AI in B2B Marketing</h3>
+                    <p>Spike Tucker</p>
+                </a>
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=Advances In Digital Marketing In The Era Of Artificial Intelligence">
+                    <div class="cover">
+                        <img src="/bookcovers/advance in digital marketing.jpg" alt="Advances In Digital Marketing In The Era Of Artificial Intelligence book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#3</p>
+                    <h3>Advances In Digital Marketing In The Era Of Artificial Intelligenc</h3>
+                    <p>Moez Ltifi</p>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-heading">💜 Emotional &amp; Healing - Top 3</h2>
+            <div class="grid grid-cols-3 gap-4 md:gap-6">
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=thinking-fast-and-slow">
+                    <div class="cover">
+                        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=500&q=80" alt="Thinking, Fast and Slow book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#1</p>
+                    <h3>Thinking, Fast and Slow</h3>
+                    <p>Daniel Kahneman</p>
+                </a>
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=influence">
+                    <div class="cover">
+                        <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=500&q=80" alt="Influence book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#2</p>
+                    <h3>Influence</h3>
+                    <p>Robert Cialdini</p>
+                </a>
+                <a class="book-card block bg-white border border-slate-100 rounded-2xl p-5 shadow-sm" href="summary.html?book=flow">
+                    <div class="cover">
+                        <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=500&q=80" alt="Flow book cover">
+                    </div>
+                    <p class="text-indigo-600 font-800 mb-2">#3</p>
+                    <h3>Flow</h3>
+                    <p>Mihaly Csikszentmihalyi</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Mobile nav dropdown
+        const mobileNavBtn = document.getElementById("mobileNavBtn");
+        const mobileNavPanel = document.getElementById("mobileNavPanel");
+
+        function closeMobileNav() {
+            if (!mobileNavPanel || !mobileNavBtn) return;
+            mobileNavPanel.classList.add("hidden");
+            mobileNavBtn.setAttribute("aria-expanded", "false");
+        }
+
+        function toggleMobileNav() {
+            if (!mobileNavPanel || !mobileNavBtn) return;
+            const isHidden = mobileNavPanel.classList.contains("hidden");
+            mobileNavPanel.classList.toggle("hidden", !isHidden);
+            mobileNavBtn.setAttribute("aria-expanded", isHidden ? "true" : "false");
+        }
+
+        if (mobileNavBtn && mobileNavPanel) {
+            mobileNavBtn.addEventListener("click", function (event) {
+                event.stopPropagation();
+                toggleMobileNav();
+            });
+
+            mobileNavPanel.addEventListener("click", function (event) {
+                const link = event.target && event.target.closest ? event.target.closest("a") : null;
+                if (link) {
+                    closeMobileNav();
+                }
+            });
+
+            document.addEventListener("click", function (event) {
+                if (mobileNavPanel.classList.contains("hidden")) return;
+                if (event.target === mobileNavBtn || mobileNavBtn.contains(event.target)) return;
+                if (mobileNavPanel.contains(event.target)) return;
+                closeMobileNav();
+            });
+
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "Escape") {
+                    closeMobileNav();
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>
