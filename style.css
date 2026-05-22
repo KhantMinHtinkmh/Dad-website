@@ -336,6 +336,7 @@ body {
     margin: 0;
 }
 
+<<<<<<< HEAD
 /* Category book rows: horizontal scroll; 3 full covers + ~20% of next + “more” control */
 .category-books-strip-shell {
     position: relative;
@@ -479,6 +480,27 @@ body {
 
     .category-books-strip__next:active {
         transform: translateY(-50%);
+=======
+/* Cover-focused tile grid (like Bookey screenshots) */
+.book-grid-tiles {
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    gap: 18px 14px;
+    grid-template-columns: repeat(2, minmax(0, 180px));
+}
+
+/* Stay 2 columns below md so four visible tiles stay 2×2 on phones / small tablets. */
+@media (min-width: 768px) {
+    .book-grid-tiles {
+        grid-template-columns: repeat(4, minmax(0, 200px));
+    }
+}
+
+@media (min-width: 1024px) {
+    .book-grid-tiles {
+        grid-template-columns: repeat(5, minmax(0, 210px));
+>>>>>>> 4680ffd46a6daa8da9bee72fe68c93c478229573
     }
 }
 
