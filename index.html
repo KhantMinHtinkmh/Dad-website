@@ -43,6 +43,9 @@
                 <a href="#psychology" class="nav-link">Personality Test</a>
                 <a href="#" class="nav-link">Training</a>
                 <a href="#" class="nav-link">About</a>
+                <button id="openAuthModal" type="button" class="nav-link">Login</button>
+                <button id="openAdminEditorBtn" type="button" class="nav-link hidden">Admin</button>
+                <button id="logoutBtn" type="button" class="nav-link hidden">Logout</button>
             </nav>
             <div class="flex items-center gap-3">
                 <button id="mobileNavBtn" type="button" class="nav-hamburger lg:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNavPanel">
@@ -59,57 +62,75 @@
                         <span aria-hidden="true">▾</span>
                     </button>
                     <div id="mobileCategoriesMenu" class="hidden pl-3 pb-2" role="menu" aria-label="Categories">
-                        <a href="#cat-growth" class="nav-link block" role="menuitem">🌱 Personal Growth</a>
-                        <a href="#cat-self-help" class="nav-link block" role="menuitem">✨ Psychological Self-Help</a>
-                        <a href="#cat-digital" class="nav-link block" role="menuitem">📱 Digital Lifestyle &amp; AI</a>
-                        <a href="#cat-coaching" class="nav-link block" role="menuitem">🎯 Coaching &amp; NLP</a>
-                        <a href="#cat-parenting" class="nav-link block" role="menuitem">👨‍👩‍👧 Families &amp; Parents</a>
-                        <a href="#cat-psychology" class="nav-link block" role="menuitem">🏛️ Politics &amp; Philosophy</a>
-                        <a href="#cat-sales" class="nav-link block" role="menuitem">📈 Business &amp; Economic</a>
-                        <a href="#cat-emotional-healing" class="nav-link block" role="menuitem">💜 Emotional &amp; Healing</a>
+                        <a href="#cat-personal-growth" class="nav-link block" role="menuitem">🌱 Personal Growth</a>
+                        <a href="#cat-psychology-self-help" class="nav-link block" role="menuitem">✨ Psychology &amp; Self-Help</a>
+                        <a href="#cat-digital-ai" class="nav-link block" role="menuitem">📱 Digital Lifestyle &amp; AI</a>
+                        <a href="#cat-techpreneurship" class="nav-link block" role="menuitem">🚀 Techpreneurship &amp; Startups</a>
+                        <a href="#cat-coaching-nlp" class="nav-link block" role="menuitem">🎯 Coaching &amp; NLP</a>
+                        <a href="#cat-mindfulness-health" class="nav-link block" role="menuitem">🧘 Mindfulness &amp; Holistic Health</a>
+                        <a href="#cat-business-economics" class="nav-link block" role="menuitem">📈 Business &amp; Economics</a>
+                        <a href="#cat-society-politics" class="nav-link block" role="menuitem">🏛️ Society, Politics &amp; Philosophy</a>
+                        <a href="#cat-family-parenting" class="nav-link block" role="menuitem">👨‍👩‍👧 Family &amp; Parenting</a>
+                        <a href="#cat-copywriting" class="nav-link block" role="menuitem">✍️ Copywriting &amp; Content Writing</a>
+                        <a href="#cat-career-productivity" class="nav-link block" role="menuitem">💼 Career &amp; Productivity</a>
                     </div>
                     <a href="booklist.html" class="nav-link" role="menuitem">Booklist</a>
                     <a href="#business" class="nav-link" role="menuitem">Business Coach</a>
                     <a href="#psychology" class="nav-link" role="menuitem">Personality Test</a>
                     <a href="#" class="nav-link" role="menuitem">Training</a>
                     <a href="#" class="nav-link" role="menuitem">About</a>
+                    <button id="mobileOpenAuthModal" type="button" class="nav-link w-full text-left" role="menuitem">Login</button>
+                    <button id="mobileOpenAdminEditor" type="button" class="nav-link w-full text-left hidden" role="menuitem">Admin</button>
+                    <button id="mobileLogoutBtn" type="button" class="nav-link w-full text-left hidden" role="menuitem">Logout</button>
                 </div>
             </div>
         </div>
     </header>
 
+    <aside id="adminEditorMenu" class="admin-editor-menu hidden" aria-label="Admin editor menu">
+        <button id="adminMenuToggle" type="button" class="admin-editor-menu__toggle" aria-expanded="false">
+            Admin Menu
+        </button>
+        <div id="adminMenuPanel" class="admin-editor-menu__panel hidden">
+            <div class="admin-editor-menu__title">Editor Tools</div>
+            <form id="adminBookForm" class="admin-editor-form">
+                <input id="adminBookTitle" class="admin-editor-input" type="text" placeholder="Book title" required>
+                <input id="adminBookAuthor" class="admin-editor-input" type="text" placeholder="Author name" required>
+                <textarea id="adminBookSummary" class="admin-editor-input admin-editor-textarea" placeholder="Book summary" required></textarea>
+                <input id="adminBookImageFile" class="admin-editor-input" type="file" accept="image/*">
+                <input id="adminBookImageUrl" class="admin-editor-input" type="url" placeholder="Or paste image URL">
+                <button id="adminBookSubmitBtn" type="submit" class="admin-editor-menu__action">Add Book</button>
+                <button id="adminBookCancelEditBtn" type="button" class="admin-editor-menu__action hidden">Cancel Edit</button>
+                <p id="adminBookFormMsg" class="admin-editor-message hidden"></p>
+            </form>
+            <div id="adminBooksList" class="admin-editor-list"></div>
+            <button id="adminMenuSignOut" type="button" class="admin-editor-menu__action">Sign Out</button>
+        </div>
+    </aside>
+
     <main>
-        <section class="hero-section hero-section--banner px-0">
-            <div class="hero-banner">
-                <div class="hero-content">
-                    <h1 class="hero-main-title">
-                        သင့်ဘဝရဲ့ <span class="highlight">အကောင်းဆုံး</span><br>
-                        <span class="highlight">Version </span>ကို<br>
-                        တည်ဆောက်လိုက်ပါ။
-                    </h1>
-                    <p class="hero-subtitle">
-                        မြန်မာနိုင်ငံက Growth Community အတွက်<br>
-                        သီးသန့်စီစဉ်ထားတဲ့ <span class="orange-text">ကမ္ဘာ့အကောင်းဆုံး</span><br>
-                        စာအုပ်တွေဆီကနေ အဖိုးတန်<br>
-                        အတွေးအခေါ်တွေကို ရယူလိုက်ပါ။
-                    </p>
-                    <a href="#" id="heroCtaBtn" class="hero-cta-button">အခုပဲ စတင်လိုက်ပါ</a>
-                </div>
+        <section class="px-0 relative inline-block w-full">
+            <img src="/assets/new.jpg" alt="Hero Banner" style="width: 100%; height: auto; display: block;">
+            <div style="position: absolute; bottom: 30px; left: 95px; z-index: 10;">
+                <a href="#" id="heroCtaBtn" class="hero-cta-button" style="font-size: 1.006rem; padding: 10px 20px;">အခုပဲ စတင်လိုက်ပါ</a>
             </div>
         </section>
 
         <section id="categories" class="pt-6 pb-6 bg-white border-y border-slate-100">
             <div class="max-w-7xl mx-auto px-6">
                 <div id="categoryView" class="view-transition">
-                    <div class="grid grid-cols-4 gap-2 sm:gap-4">
-                        <button type="button" data-category="growth" class="cat-pill bg-orange-50 text-orange-700">🌱 Personal Growth</button>
-                        <button type="button" data-category="self-help" class="cat-pill bg-rose-50 text-rose-700">✨ Psychological Self-Help</button>
-                        <button type="button" data-category="digital" class="cat-pill bg-cyan-50 text-cyan-700">📱 Digital Lifestyle &amp; AI</button>
-                        <button type="button" data-category="coaching" class="cat-pill bg-blue-50 text-blue-700">🎯 Coaching &amp; NLP</button>
-                        <button type="button" data-category="parenting" class="cat-pill bg-teal-50 text-teal-700">👨‍👩‍👧 Families &amp; Parents</button>
-                        <button type="button" data-category="psychology" class="cat-pill bg-purple-50 text-purple-700">🏛️ Politics &amp; Philosophy</button>
-                        <button type="button" data-category="sales" class="cat-pill bg-amber-50 text-amber-700">📈 Business &amp; Economic</button>
-                        <button type="button" data-category="emotional-healing" class="cat-pill bg-violet-50 text-violet-700">💜 Emotional &amp; Healing</button>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-4">
+                        <button type="button" data-category="personal-growth" class="cat-pill bg-orange-50 text-orange-700">🌱 Personal Growth</button>
+                        <button type="button" data-category="psychology-self-help" class="cat-pill bg-rose-50 text-rose-700">✨ Psychology &amp; Self-Help</button>
+                        <button type="button" data-category="digital-ai" class="cat-pill bg-cyan-50 text-cyan-700">📱 Digital Lifestyle &amp; AI</button>
+                        <button type="button" data-category="techpreneurship" class="cat-pill bg-green-50 text-green-700">🚀 Techpreneurship &amp; Startups</button>
+                        <button type="button" data-category="coaching-nlp" class="cat-pill bg-blue-50 text-blue-700">🎯 Coaching &amp; NLP</button>
+                        <button type="button" data-category="mindfulness-health" class="cat-pill bg-purple-50 text-purple-700">🧘 Mindfulness &amp; Holistic Health</button>
+                        <button type="button" data-category="business-economics" class="cat-pill bg-amber-50 text-amber-700">📈 Business &amp; Economics</button>
+                        <button type="button" data-category="society-politics" class="cat-pill bg-indigo-50 text-indigo-700">🏛️ Society, Politics &amp; Philosophy</button>
+                        <button type="button" data-category="family-parenting" class="cat-pill bg-teal-50 text-teal-700">👨‍👩‍👧 Family &amp; Parenting</button>
+                        <button type="button" data-category="copywriting" class="cat-pill bg-pink-50 text-pink-700">✍️ Copywriting &amp; Content Writing</button>
+                        <button type="button" data-category="career-productivity" class="cat-pill bg-sky-50 text-sky-700">💼 Career &amp; Productivity</button>
                     </div>
                 </div>
             </div>
@@ -124,6 +145,73 @@
                 <div id="allBooksContainer" class="space-y-6"></div>
             </section>
         </div>
+
+        <section id="about" class="bg-slate-50 py-12 md:py-16 border-y border-slate-100">
+            <div class="max-w-4xl mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-800 mb-8 text-slate-900">About</h2>
+                
+                <div class="space-y-8">
+                    <!-- Introduction -->
+                    <div class="bg-white rounded-lg p-6 md:p-8 shadow-sm border border-slate-200">
+                        <h3 class="text-xl font-700 text-indigo-600 mb-3">၁။ မိတ်ဆက်</h3>
+                        <p class="text-slate-700 leading-relaxed">
+                            'ဖတ်မှတ်တွေး' ဝက်ဘ်ဆိုက်မှ နွေးထွေးစွာ ကြိုဆိုပါတယ်။ ဤနေရာလေးသည် ကိုယ်ပိုင်စီးပွားရေး လုပ်ငန်းရှင်များ၊ စတင်ပျိုးထောင်ဆဲ လုပ်ငန်းရှင်များ နှင့် မိမိဘဝကို အစဉ်မပြတ် တိုးတက်လိုသူများအတွက် ရည်ရွယ်တည်ထောင်ထားသော အသိပညာမျှဝေရာ နေရာတစ်ခု ဖြစ်ပါသည်။
+                        </p>
+                    </div>
+
+                    <!-- Vision & Mission -->
+                    <div class="bg-white rounded-lg p-6 md:p-8 shadow-sm border border-slate-200">
+                        <h3 class="text-xl font-700 text-indigo-600 mb-3">၂။ ရည်ရွယ်ချက်</h3>
+                        <p class="text-slate-700 leading-relaxed">
+                            ကျွန်ုပ်တို့၏ ရည်ရွယ်ချက်မှာ ခိုင်မာသော စီးပွားရေးလုပ်ငန်းသစ်များ တည်ဆောက်ရာတွင် လိုအပ်သည့် ခေါင်းဆောင်မှုစွမ်းရည်နှင့် စိတ်ပိုင်းဆိုင်ရာ ကြံ့ခိုင်မှုများကို ပံ့ပိုးပေးရန် ဖြစ်ပါသည်။
+                        </p>
+                    </div>
+
+                    <!-- What You Will Find -->
+                    <div class="bg-white rounded-lg p-6 md:p-8 shadow-sm border border-slate-200">
+                        <h3 class="text-xl font-700 text-indigo-600 mb-4">၃။ အဓိက ဖတ်ရှုနိုင်မည့် အကြောင်းအရာများ</h3>
+                        <div class="space-y-4">
+                            <div class="flex gap-3">
+                                <span class="text-indigo-600 font-bold text-lg">🎯</span>
+                                <div>
+                                    <h4 class="font-600 text-slate-900 mb-1">Coaching & Personal Growth</h4>
+                                    <p class="text-slate-700 text-sm">ဘဝရည်မှန်းချက်များ ချမှတ်ခြင်း၊ အတားအဆီးများကို ကျော်လွှားခြင်းနှင့် မိမိကိုယ်ကို အကောင်းဆုံး မြှင့်တင်နိုင်မည့် လမ်းညွှန်ချက်များ။</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <span class="text-indigo-600 font-bold text-lg">🧠</span>
+                                <div>
+                                    <h4 class="font-600 text-slate-900 mb-1">Neuro-Linguistic Programming (NLP)</h4>
+                                    <p class="text-slate-700 text-sm">အောင်မြင်သူများ၏ တွေးခေါ်မှုပုံစံများ၊ ထိရောက်သော ဆက်သွယ်ပြောဆိုရေး စွမ်းရည်များနှင့် အပြုသဘောဆောင်သော စိတ်ပိုင်းဆိုင်ရာ ပြောင်းလဲမှု နည်းစနစ်များ။</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <span class="text-indigo-600 font-bold text-lg">💼</span>
+                                <div>
+                                    <h4 class="font-600 text-slate-900 mb-1">Entrepreneurship & Business Strategies</h4>
+                                    <p class="text-slate-700 text-sm">ကိုယ်ပိုင်စီးပွားရေး စတင်ခြင်း၊ စီးပွားရေးပုံစံ ဖန်တီးခြင်းနှင့် လက်တွေ့အသုံးချနိုင်သော ဈေးကွက်ထိုးဖောက်မှု ဗျူဟာများ။</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <span class="text-indigo-600 font-bold text-lg">🚀</span>
+                                <div>
+                                    <h4 class="font-600 text-slate-900 mb-1">Startup Ecosystem</h4>
+                                    <p class="text-slate-700 text-sm">ဆန်းသစ်သော စိတ်ကူးများ၊ Startup လောက၏ စိန်ခေါ်မှုများနှင့် ကျော်လွှားနိုင်မည့် အခွင့်အလမ်းများ။</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Join Community -->
+                    <div class="bg-indigo-50 rounded-lg p-6 md:p-8 border border-indigo-200">
+                        <h3 class="text-xl font-700 text-indigo-600 mb-3">၄။ အတူတကွ ပူးပေါင်းပါဝင်ရန်</h3>
+                        <p class="text-slate-700 leading-relaxed">
+                            'ဖတ်မှတ်တွေး' သည် သီအိုရီများကိုသာမက လက်တွေ့အသုံးချနိုင်သော အတွေ့အကြုံများကိုပါ ဖလှယ်ရာ ကွန်ရက် တစ်ခု ဖြစ်ပါသည်။ သင့်လုပ်ငန်း၊ သင့်ဘဝအတွက် အကျိုးရှိစေမည့် အကြောင်းအရာများကို ဖတ်ရှုပြီးနောက် သင်၏ အတွေးအမြင်များနှင့် အတွေ့အကြုံများကိုလည်း မှတ်ချက်များမှတစ်ဆင့် လွတ်လပ်စွာ ဝင်ရောက်ဆွေးနွေးရန် ဖိတ်ခေါ်အပ်ပါသည်။
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <div id="authModal" class="auth-modal hidden" aria-hidden="true">
@@ -143,6 +231,7 @@
                 <input id="loginEmail" class="auth-input" type="email" placeholder="you@example.com" required>
                 <label class="auth-label" for="loginPassword">Password</label>
                 <input id="loginPassword" class="auth-input" type="password" placeholder="••••••••" required>
+                <p id="loginError" class="text-sm text-rose-600 hidden mt-2"></p>
                 <button class="btn-primary w-full py-3 mt-2" type="submit">Login</button>
             </form>
 
@@ -153,12 +242,35 @@
                 <input id="signupEmail" class="auth-input" type="email" placeholder="you@example.com" required>
                 <label class="auth-label" for="signupPassword">Password</label>
                 <input id="signupPassword" class="auth-input" type="password" placeholder="Create password" required>
+                <p id="signupError" class="text-sm text-rose-600 hidden mt-2"></p>
                 <button class="btn-primary w-full py-3 mt-2" type="submit">Sign Up</button>
             </form>
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        import {
+            auth,
+            db,
+            storage,
+            onAuthStateChanged,
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
+            signOut,
+            collection,
+            addDoc,
+            getDocs,
+            updateDoc,
+            deleteDoc,
+            doc,
+            serverTimestamp,
+            ref,
+            uploadBytes,
+            getDownloadURL,
+            query,
+            where,
+        } from "./firebase-init.js";
+
         const HOME_BOOK_CATEGORIES = [
            
             {
@@ -772,6 +884,116 @@
         const categoryViewEl = document.getElementById("categoryView");
         const allBooksContainerEl = document.getElementById("allBooksContainer");
 
+        // Category definitions for display
+        const CATEGORIES_CONFIG = [
+            { id: "personal-growth", heading: "🌱 Personal Growth", coverShadowClass: "shadow-orange-100" },
+            { id: "psychology-self-help", heading: "✨ Psychology & Self-Help", coverShadowClass: "shadow-rose-100" },
+            { id: "digital-ai", heading: "📱 Digital Lifestyle & AI", coverShadowClass: "shadow-cyan-100" },
+            { id: "techpreneurship", heading: "🚀 Techpreneurship & Startups", coverShadowClass: "shadow-green-100" },
+            { id: "coaching-nlp", heading: "🎯 Coaching & NLP", coverShadowClass: "shadow-blue-100" },
+            { id: "mindfulness-health", heading: "🧘 Mindfulness & Holistic Health", coverShadowClass: "shadow-purple-100" },
+            { id: "business-economics", heading: "📈 Business & Economics", coverShadowClass: "shadow-amber-100" },
+            { id: "society-politics", heading: "🏛️ Society, Politics & Philosophy", coverShadowClass: "shadow-indigo-100" },
+            { id: "family-parenting", heading: "👨‍👩‍👧 Family & Parenting", coverShadowClass: "shadow-teal-100" },
+            { id: "copywriting", heading: "✍️ Copywriting & Content Writing", coverShadowClass: "shadow-pink-100" },
+            { id: "career-productivity", heading: "💼 Career & Productivity", coverShadowClass: "shadow-sky-100" },
+        ];
+
+        // Fetch books from Firestore organized by category (PARALLEL for speed)
+        async function fetchBooksFromFirestore() {
+            const CACHE_KEY = "phathmattway_books_cache_v2"; // Updated version to clear old cache
+            const CACHE_TTL = 3600000; // 1 hour in milliseconds
+            
+            // Check localStorage cache first
+            const cachedData = localStorage.getItem(CACHE_KEY);
+            const cacheTimestamp = localStorage.getItem(CACHE_KEY + "_timestamp");
+            
+            if (cachedData && cacheTimestamp) {
+                const age = Date.now() - parseInt(cacheTimestamp);
+                if (age < CACHE_TTL) {
+                    console.log("Loading books from cache");
+                    return JSON.parse(cachedData);
+                }
+            }
+            
+            // Mapping of old category IDs to new category IDs (for backward compatibility)
+            const oldCategoryMapping = {
+                "personal-growth": ["personal-growth", "growth"],
+                "psychology-self-help": ["psychology-self-help", "self-help"],
+                "digital-ai": ["digital-ai", "digital"],
+                "techpreneurship": ["techpreneurship"], // new category, no old ID
+                "coaching-nlp": ["coaching-nlp", "coaching"],
+                "mindfulness-health": ["mindfulness-health", "emotional-healing"],
+                "business-economics": ["business-economics", "sales"],
+                "society-politics": ["society-politics", "psychology"],
+                "family-parenting": ["family-parenting", "parenting"],
+                "copywriting": ["copywriting"], // new category, no old ID
+                "career-productivity": ["career-productivity"] // new category, no old ID
+            };
+            
+            // Fetch all categories in PARALLEL instead of sequentially
+            const fetchPromises = CATEGORIES_CONFIG.map(async (category) => {
+                try {
+                    // Query for both old and new category IDs
+                    const possibleIds = oldCategoryMapping[category.id] || [category.id];
+                    const queries = possibleIds.map(id => 
+                        query(collection(db, "books"), where("category", "==", id))
+                    );
+                    
+                    // Fetch from all possible IDs and merge results
+                    const allBooks = [];
+                    const seenIds = new Set();
+                    
+                    for (const q of queries) {
+                        const querySnapshot = await getDocs(q);
+                        querySnapshot.docs.forEach(docSnap => {
+                            // Avoid duplicates
+                            if (!seenIds.has(docSnap.id)) {
+                                seenIds.add(docSnap.id);
+                                allBooks.push(docSnap);
+                            }
+                        });
+                    }
+                    
+                    const books = allBooks.map(docSnap => {
+                        const data = docSnap.data();
+                        return {
+                            id: docSnap.id,
+                            title: data.title || "",
+                            author: data.author || "",
+                            img: data.coverUrl || data.coverImageUrl || data.img || "/assets/default-book-cover.svg",
+                            href: `summary.html?id=${encodeURIComponent(docSnap.id)}`
+                        };
+                    });
+                    
+                    if (books.length > 0) {
+                        return {
+                            ...category,
+                            books: books
+                        };
+                    }
+                    return null;
+                } catch (error) {
+                    console.error(`Error fetching books for category ${category.id}:`, error);
+                    return null;
+                }
+            });
+            
+            // Wait for ALL queries to complete in parallel
+            const results = await Promise.all(fetchPromises);
+            const categoriesWithBooks = results.filter(cat => cat !== null);
+            
+            // Cache the results
+            try {
+                localStorage.setItem(CACHE_KEY, JSON.stringify(categoriesWithBooks));
+                localStorage.setItem(CACHE_KEY + "_timestamp", Date.now().toString());
+            } catch (e) {
+                console.warn("Could not cache books:", e);
+            }
+            
+            return categoriesWithBooks;
+        }
+
         function escapeHtml(value) {
             return String(value)
                 .replaceAll("&", "&amp;")
@@ -785,7 +1007,7 @@
             return `
                 <a class="book-tile" href="${escapeHtml(book.href)}">
                     <div class="tile-cover ${escapeHtml(coverShadowClass)}">
-                        <img src="${escapeHtml(book.img)}" alt="${escapeHtml(book.title)} cover">
+                        <img src="${escapeHtml(book.img)}" alt="${escapeHtml(book.title)} cover" loading="lazy" decoding="async" onerror="this.src='/assets/default-book-cover.svg'">
                     </div>
                     <div class="tile-title">${escapeHtml(book.title)}</div>
                     <div class="tile-author">${escapeHtml(book.author)}</div>
@@ -793,10 +1015,19 @@
             `;
         }
 
-        function renderAllBooks() {
+        async function renderAllBooks() {
             if (!allBooksContainerEl) return;
 
-            allBooksContainerEl.innerHTML = HOME_BOOK_CATEGORIES
+            // Show loading state immediately
+            allBooksContainerEl.innerHTML = '<div class="text-center py-12"><p class="text-slate-500">Loading books...</p></div>';
+
+            // Fetch books from Firestore (now in parallel)
+            const categoriesWithBooks = await fetchBooksFromFirestore();
+            
+            // If no books found in Firestore, show all categories as empty
+            const categoriesToRender = categoriesWithBooks.length > 0 ? categoriesWithBooks : CATEGORIES_CONFIG;
+
+            allBooksContainerEl.innerHTML = categoriesToRender
                 .map((category) => {
                     const booksHtml = category.books
                         .map((book) => renderBookTile(book, category.coverShadowClass))
@@ -848,7 +1079,11 @@
 
         // On first load, show the hero/top (do not auto-open a category).
         // If a URL hash is present (e.g. #categories), keep normal browser behavior.
-        renderAllBooks();
+        renderAllBooks().catch(error => {
+            console.error("Error rendering books:", error);
+            // Fallback: render with fallback message if there's an error
+            allBooksContainerEl.innerHTML = `<p class="text-center text-slate-500">Unable to load books. Please try again later.</p>`;
+        });
 
         function initCategoryBookStrips() {
             document.querySelectorAll(".category-books-strip-shell").forEach((shell) => {
@@ -886,6 +1121,11 @@
         }
 
         const openAuthModalBtn = document.getElementById("openAuthModal");
+        const mobileOpenAuthModalBtn = document.getElementById("mobileOpenAuthModal");
+        const openAdminEditorBtn = document.getElementById("openAdminEditorBtn");
+        const mobileOpenAdminEditor = document.getElementById("mobileOpenAdminEditor");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const mobileLogoutBtn = document.getElementById("mobileLogoutBtn");
         const heroCtaBtn = document.getElementById("heroCtaBtn");
         const authModal = document.getElementById("authModal");
         const closeAuthModalBtn = document.getElementById("closeAuthModal");
@@ -893,6 +1133,58 @@
         const signupTabBtn = document.getElementById("signupTabBtn");
         const loginForm = document.getElementById("loginForm");
         const signupForm = document.getElementById("signupForm");
+        const loginErrorEl = document.getElementById("loginError");
+        const signupErrorEl = document.getElementById("signupError");
+        const adminEditorMenu = document.getElementById("adminEditorMenu");
+        const adminMenuToggle = document.getElementById("adminMenuToggle");
+        const adminMenuPanel = document.getElementById("adminMenuPanel");
+        const adminMenuSignOut = document.getElementById("adminMenuSignOut");
+        const adminBookForm = document.getElementById("adminBookForm");
+        const adminBookTitle = document.getElementById("adminBookTitle");
+        const adminBookAuthor = document.getElementById("adminBookAuthor");
+        const adminBookSummary = document.getElementById("adminBookSummary");
+        const adminBookImageFile = document.getElementById("adminBookImageFile");
+        const adminBookImageUrl = document.getElementById("adminBookImageUrl");
+        const adminBookSubmitBtn = document.getElementById("adminBookSubmitBtn");
+        const adminBookCancelEditBtn = document.getElementById("adminBookCancelEditBtn");
+        const adminBookFormMsg = document.getElementById("adminBookFormMsg");
+        const adminBooksList = document.getElementById("adminBooksList");
+        const ADMIN_UID = "iOeLZw42zpdvx966peaBHSJ8Fdr2";
+        // Admin emails (lowercase). Add one or more admin emails here.
+        const ADMIN_EMAILS = ["admin@youremail.com"];
+        // Admin nav button behavior
+        if (openAdminEditorBtn) {
+            openAdminEditorBtn.addEventListener("click", function () {
+                window.location.href = "admin-editor.html";
+            });
+        }
+        if (mobileOpenAdminEditor) {
+            mobileOpenAdminEditor.addEventListener("click", function () {
+                window.location.href = "admin-editor.html";
+            });
+        }
+        let currentAuthUser = null;
+        let editingBookId = null;
+
+        function getAuthErrorMessage(error, mode) {
+            const code = error && error.code ? error.code : "";
+            if (mode === "login") {
+                if (code === "auth/invalid-credential") return "Email or password is incorrect.";
+                if (code === "auth/user-not-found") return "No account found for this email.";
+                if (code === "auth/wrong-password") return "Password is incorrect.";
+                if (code === "auth/too-many-requests") return "Too many attempts. Please wait and try again.";
+                if (code === "auth/user-disabled") return "This account has been disabled.";
+            }
+            if (mode === "signup") {
+                if (code === "auth/email-already-in-use") return "This email is already in use. Try logging in instead.";
+                if (code === "auth/weak-password") return "Password should be at least 6 characters.";
+            }
+            if (code === "auth/network-request-failed") return "Network issue. Check internet connection and try again.";
+            if (code === "auth/invalid-email") return "Please enter a valid email address.";
+            if (code === "auth/unauthorized-domain") return "This website domain is not authorized in Firebase Auth settings.";
+            if (code === "auth/operation-not-allowed") return "Email/password sign-in is not enabled in Firebase.";
+            return (mode === "signup" ? "Signup failed. " : "Login failed. ") + (error && error.message ? error.message : "Please try again.");
+        }
 
         function showLoginTab() {
             loginTabBtn.classList.add("active");
@@ -912,6 +1204,14 @@
             authModal.classList.remove("hidden");
             authModal.setAttribute("aria-hidden", "false");
             document.body.style.overflow = "hidden";
+            if (loginErrorEl) {
+                loginErrorEl.textContent = "";
+                loginErrorEl.classList.add("hidden");
+            }
+            if (signupErrorEl) {
+                signupErrorEl.textContent = "";
+                signupErrorEl.classList.add("hidden");
+            }
         }
 
         function closeModal() {
@@ -922,6 +1222,12 @@
 
         if (openAuthModalBtn) {
             openAuthModalBtn.addEventListener("click", openModal);
+        }
+        if (mobileOpenAuthModalBtn) {
+            mobileOpenAuthModalBtn.addEventListener("click", function () {
+                openModal();
+                closeMobileNav();
+            });
         }
         if (heroCtaBtn) {
             heroCtaBtn.addEventListener("click", function (event) {
@@ -945,14 +1251,272 @@
             }
         });
 
-        loginForm.addEventListener("submit", function (event) {
+        loginForm.addEventListener("submit", async function (event) {
             event.preventDefault();
-            closeModal();
+            if (loginErrorEl) {
+                loginErrorEl.textContent = "";
+                loginErrorEl.classList.add("hidden");
+            }
+
+            const email = document.getElementById("loginEmail").value.trim();
+            const password = document.getElementById("loginPassword").value;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                loginForm.reset();
+                closeModal();
+            } catch (error) {
+                if (loginErrorEl) {
+                    loginErrorEl.textContent = getAuthErrorMessage(error, "login");
+                    loginErrorEl.classList.remove("hidden");
+                }
+                console.error(error);
+            }
         });
 
-        signupForm.addEventListener("submit", function (event) {
+        signupForm.addEventListener("submit", async function (event) {
             event.preventDefault();
-            closeModal();
+            if (signupErrorEl) {
+                signupErrorEl.textContent = "";
+                signupErrorEl.classList.add("hidden");
+            }
+
+            const name = document.getElementById("signupName").value.trim();
+            const email = document.getElementById("signupEmail").value.trim();
+            const password = document.getElementById("signupPassword").value;
+
+            try {
+                await createUserWithEmailAndPassword(auth, email, password);
+                signupForm.reset();
+                closeModal();
+                if (name) {
+                    console.log("Signed up user:", name);
+                }
+            } catch (error) {
+                if (signupErrorEl) {
+                    signupErrorEl.textContent = getAuthErrorMessage(error, "signup");
+                    signupErrorEl.classList.remove("hidden");
+                }
+                console.error(error);
+            }
+        });
+
+        async function handleLogout() {
+            try {
+                await signOut(auth);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        function resetAdminBookForm() {
+            editingBookId = null;
+            if (adminBookForm) adminBookForm.reset();
+            if (adminBookSubmitBtn) adminBookSubmitBtn.textContent = "Add Book";
+            if (adminBookCancelEditBtn) adminBookCancelEditBtn.classList.add("hidden");
+        }
+
+        function showAdminBookMessage(message, isError) {
+            if (!adminBookFormMsg) return;
+            adminBookFormMsg.textContent = message;
+            adminBookFormMsg.classList.remove("hidden");
+            adminBookFormMsg.classList.toggle("admin-editor-message--error", !!isError);
+        }
+
+        function hideAdminBookMessage() {
+            if (!adminBookFormMsg) return;
+            adminBookFormMsg.textContent = "";
+            adminBookFormMsg.classList.add("hidden");
+            adminBookFormMsg.classList.remove("admin-editor-message--error");
+        }
+
+        function renderAdminBooks(books) {
+            if (!adminBooksList) return;
+            if (!books.length) {
+                adminBooksList.innerHTML = '<p class="admin-editor-empty">No books yet.</p>';
+                return;
+            }
+            adminBooksList.innerHTML = books
+                .map(function (book) {
+                    return `
+                        <article class="admin-editor-item">
+                            <div class="admin-editor-item__head">
+                                <h4>${escapeHtml(book.title || "Untitled")}</h4>
+                                <p>${escapeHtml(book.author || "Unknown author")}</p>
+                            </div>
+                            <div class="admin-editor-item__actions">
+                                <button type="button" class="admin-editor-btn" data-admin-action="edit" data-book-id="${escapeHtml(book.id)}">Edit</button>
+                                <button type="button" class="admin-editor-btn admin-editor-btn--danger" data-admin-action="delete" data-book-id="${escapeHtml(book.id)}">Delete</button>
+                            </div>
+                        </article>
+                    `;
+                })
+                .join("");
+        }
+
+        async function fetchBooksForAdmin() {
+            if (!currentAuthUser || currentAuthUser.uid !== ADMIN_UID) return;
+            try {
+                const snap = await getDocs(collection(db, "books"));
+                const books = snap.docs.map(function (docSnap) {
+                    return { id: docSnap.id, ...docSnap.data() };
+                });
+                books.sort(function (a, b) {
+                    return (a.title || "").localeCompare(b.title || "");
+                });
+                renderAdminBooks(books);
+            } catch (error) {
+                console.error(error);
+                showAdminBookMessage("Could not load books. " + (error.message || ""), true);
+            }
+        }
+
+        async function resolveAdminBookImageUrl() {
+            const file = adminBookImageFile && adminBookImageFile.files ? adminBookImageFile.files[0] : null;
+            const directUrl = adminBookImageUrl ? adminBookImageUrl.value.trim() : "";
+            if (file) {
+                const path = "bookcovers/" + Date.now() + "-" + file.name.replace(/\s+/g, "-");
+                const fileRef = ref(storage, path);
+                await uploadBytes(fileRef, file);
+                return getDownloadURL(fileRef);
+            }
+            return directUrl;
+        }
+
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", handleLogout);
+        }
+        if (mobileLogoutBtn) {
+            mobileLogoutBtn.addEventListener("click", async function () {
+                await handleLogout();
+                closeMobileNav();
+            });
+        }
+        if (adminMenuToggle && adminMenuPanel) {
+            adminMenuToggle.addEventListener("click", function () {
+                const isOpen = !adminMenuPanel.classList.contains("hidden");
+                adminMenuPanel.classList.toggle("hidden", isOpen);
+                adminMenuToggle.setAttribute("aria-expanded", isOpen ? "false" : "true");
+            });
+        }
+        if (adminMenuSignOut) {
+            adminMenuSignOut.addEventListener("click", handleLogout);
+        }
+        if (adminBookCancelEditBtn) {
+            adminBookCancelEditBtn.addEventListener("click", function () {
+                hideAdminBookMessage();
+                resetAdminBookForm();
+            });
+        }
+        if (adminBookForm) {
+            adminBookForm.addEventListener("submit", async function (event) {
+                event.preventDefault();
+                hideAdminBookMessage();
+                if (!currentAuthUser || currentAuthUser.uid !== ADMIN_UID) {
+                    showAdminBookMessage("You do not have admin permission.", true);
+                    return;
+                }
+
+                const title = adminBookTitle.value.trim();
+                const author = adminBookAuthor.value.trim();
+                const summary = adminBookSummary.value.trim();
+                if (!title || !author || !summary) {
+                    showAdminBookMessage("Title, author, and summary are required.", true);
+                    return;
+                }
+
+                try {
+                    const imageUrl = await resolveAdminBookImageUrl();
+                    const payload = {
+                        title: title,
+                        author: author,
+                        summary: summary,
+                        img: imageUrl || "",
+                        updatedAt: serverTimestamp(),
+                    };
+                    if (editingBookId) {
+                        await updateDoc(doc(db, "books", editingBookId), payload);
+                        showAdminBookMessage("Book updated.");
+                    } else {
+                        payload.createdAt = serverTimestamp();
+                        await addDoc(collection(db, "books"), payload);
+                        showAdminBookMessage("Book added.");
+                    }
+                    resetAdminBookForm();
+                    await fetchBooksForAdmin();
+                } catch (error) {
+                    console.error(error);
+                    showAdminBookMessage("Save failed. " + (error.message || ""), true);
+                }
+            });
+        }
+        if (adminBooksList) {
+            adminBooksList.addEventListener("click", async function (event) {
+                const button = event.target && event.target.closest ? event.target.closest("[data-admin-action]") : null;
+                if (!button) return;
+                if (!currentAuthUser || currentAuthUser.uid !== ADMIN_UID) return;
+                const action = button.getAttribute("data-admin-action");
+                const bookId = button.getAttribute("data-book-id");
+                if (!action || !bookId) return;
+
+                if (action === "delete") {
+                    const ok = window.confirm("Delete this book?");
+                    if (!ok) return;
+                    try {
+                        await deleteDoc(doc(db, "books", bookId));
+                        if (editingBookId === bookId) resetAdminBookForm();
+                        await fetchBooksForAdmin();
+                    } catch (error) {
+                        console.error(error);
+                        showAdminBookMessage("Delete failed. " + (error.message || ""), true);
+                    }
+                    return;
+                }
+
+                if (action === "edit") {
+                    try {
+                        const snap = await getDocs(collection(db, "books"));
+                        const found = snap.docs.find(function (d) { return d.id === bookId; });
+                        if (!found) return;
+                        const data = found.data();
+                        editingBookId = bookId;
+                        adminBookTitle.value = data.title || "";
+                        adminBookAuthor.value = data.author || "";
+                        adminBookSummary.value = data.summary || "";
+                        adminBookImageUrl.value = data.img || "";
+                        if (adminBookImageFile) adminBookImageFile.value = "";
+                        adminBookSubmitBtn.textContent = "Update Book";
+                        adminBookCancelEditBtn.classList.remove("hidden");
+                    } catch (error) {
+                        console.error(error);
+                        showAdminBookMessage("Could not open this book for edit.", true);
+                    }
+                }
+            });
+        }
+
+        onAuthStateChanged(auth, function (user) {
+            const isLoggedIn = !!user;
+            const userEmail = isLoggedIn && user.email ? user.email.toLowerCase() : "";
+            const isAdmin = isLoggedIn && (user.uid === ADMIN_UID || ADMIN_EMAILS.includes(userEmail));
+            if (isAdmin) console.log("Admin detected:", userEmail || user.uid);
+            currentAuthUser = user || null;
+            if (openAuthModalBtn) openAuthModalBtn.classList.toggle("hidden", isLoggedIn);
+            if (mobileOpenAuthModalBtn) mobileOpenAuthModalBtn.classList.toggle("hidden", isLoggedIn);
+            if (openAdminEditorBtn) openAdminEditorBtn.classList.toggle("hidden", !isAdmin);
+            if (mobileOpenAdminEditor) mobileOpenAdminEditor.classList.toggle("hidden", !isAdmin);
+            if (logoutBtn) logoutBtn.classList.toggle("hidden", !isLoggedIn);
+            if (mobileLogoutBtn) mobileLogoutBtn.classList.toggle("hidden", !isLoggedIn);
+            if (adminEditorMenu) adminEditorMenu.classList.toggle("hidden", !isAdmin);
+            if (adminMenuPanel && !isAdmin) adminMenuPanel.classList.add("hidden");
+            if (adminMenuToggle && !isAdmin) adminMenuToggle.setAttribute("aria-expanded", "false");
+            if (isAdmin) {
+                fetchBooksForAdmin();
+            } else {
+                renderAdminBooks([]);
+                resetAdminBookForm();
+                hideAdminBookMessage();
+            }
         });
 
         // Mobile nav dropdown

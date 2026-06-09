@@ -153,6 +153,169 @@ body {
     margin: 8px 6px;
 }
 
+/* Admin editor menu */
+.admin-editor-menu {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1200;
+}
+
+.admin-editor-menu__toggle {
+    border: 1px solid #c7d2fe;
+    background: linear-gradient(180deg, #eef2ff, #e0e7ff);
+    color: #3730a3;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 999px;
+    padding: 10px 14px;
+    box-shadow: 0 10px 26px rgba(67, 56, 202, 0.25);
+}
+
+.admin-editor-menu__panel {
+    margin-top: 10px;
+    width: min(340px, calc(100vw - 24px));
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    box-shadow: 0 18px 34px rgba(15, 23, 42, 0.2);
+    padding: 10px;
+}
+
+.admin-editor-menu__title {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #94a3b8;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 8px 8px;
+}
+
+.admin-editor-menu__link,
+.admin-editor-menu__action {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 9px 10px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #475569;
+    background: transparent;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.admin-editor-menu__link:hover,
+.admin-editor-menu__action:hover {
+    color: #4f46e5;
+    background: #eef2ff;
+    border-color: #c7d2fe;
+}
+
+.admin-editor-menu__action {
+    margin-top: 4px;
+}
+
+.admin-editor-form {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.admin-editor-input {
+    width: 100%;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    color: #1e293b;
+}
+
+.admin-editor-textarea {
+    min-height: 86px;
+    resize: vertical;
+}
+
+.admin-editor-message {
+    font-size: 0.8rem;
+    color: #047857;
+    padding: 2px 2px 0;
+}
+
+.admin-editor-message--error {
+    color: #be123c;
+}
+
+.admin-editor-list {
+    max-height: 240px;
+    overflow: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 6px;
+    margin-top: 6px;
+}
+
+.admin-editor-empty {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin: 4px;
+}
+
+.admin-editor-item {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 8px;
+    margin-bottom: 6px;
+    background: #f8fafc;
+}
+
+.admin-editor-item:last-child {
+    margin-bottom: 0;
+}
+
+.admin-editor-item__head h4 {
+    margin: 0;
+    font-size: 0.86rem;
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.admin-editor-item__head p {
+    margin: 2px 0 0;
+    font-size: 0.78rem;
+    color: #64748b;
+}
+
+.admin-editor-item__actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.admin-editor-btn {
+    border: 1px solid #cbd5e1;
+    background: #fff;
+    color: #334155;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 5px 10px;
+}
+
+.admin-editor-btn--danger {
+    border-color: #fecdd3;
+    color: #be123c;
+    background: #fff1f2;
+}
+
+@media (max-width: 768px) {
+    .admin-editor-menu {
+        right: 12px;
+        bottom: 12px;
+    }
+}
+
 /* Hero Section */
 .hero-section { padding: 100px 0; background: radial-gradient(circle at top right, #f5f3ff, #ffffff); }
 .hero-section.hero-section--image { padding: 48px 0; }
@@ -336,7 +499,6 @@ body {
     margin: 0;
 }
 
-<<<<<<< HEAD
 /* Category book rows: horizontal scroll; 3 full covers + ~20% of next + “more” control */
 .category-books-strip-shell {
     position: relative;
@@ -480,27 +642,6 @@ body {
 
     .category-books-strip__next:active {
         transform: translateY(-50%);
-=======
-/* Cover-focused tile grid (like Bookey screenshots) */
-.book-grid-tiles {
-    display: grid;
-    justify-content: center;
-    justify-items: center;
-    gap: 18px 14px;
-    grid-template-columns: repeat(2, minmax(0, 180px));
-}
-
-/* Stay 2 columns below md so four visible tiles stay 2×2 on phones / small tablets. */
-@media (min-width: 768px) {
-    .book-grid-tiles {
-        grid-template-columns: repeat(4, minmax(0, 200px));
-    }
-}
-
-@media (min-width: 1024px) {
-    .book-grid-tiles {
-        grid-template-columns: repeat(5, minmax(0, 210px));
->>>>>>> 4680ffd46a6daa8da9bee72fe68c93c478229573
     }
 }
 
@@ -521,7 +662,14 @@ body {
     border-radius: 14px;
     overflow: hidden;
     box-shadow: 0 18px 30px rgba(15, 23, 42, 0.10);
-    background: #f8fafc;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading-skeleton 2s infinite;
+}
+
+@keyframes loading-skeleton {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
 }
 
 .book-tile .tile-cover img {
@@ -529,6 +677,16 @@ body {
     height: 100%;
     object-fit: cover;
     display: block;
+    animation: fade-in 0.3s ease-in;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.book-tile .tile-cover img[loading="lazy"] {
+    animation: none;
 }
 
 .book-tile .tile-title {

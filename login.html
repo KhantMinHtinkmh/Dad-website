@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Phat Hmat Tway</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-50 flex items-center justify-center p-6">
+    <main class="w-full max-w-md bg-white rounded-2xl shadow-lg p-6">
+        <h1 class="text-2xl font-bold mb-2">Admin Login</h1>
+        <p class="text-slate-600 mb-6">Sign in to manage website content.</p>
+
+        <form id="loginForm" class="space-y-4">
+            <div>
+                <label for="email" class="block text-sm font-medium text-slate-700 mb-1">Email</label>
+                <input id="email" type="email" required class="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-400">
+            </div>
+            <div>
+                <label for="password" class="block text-sm font-medium text-slate-700 mb-1">Password</label>
+                <input id="password" type="password" required class="w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-400">
+            </div>
+            <p id="errorText" class="text-sm text-rose-600 hidden"></p>
+            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg py-2.5 font-semibold">Login</button>
+        </form>
+
+        <p class="text-sm text-slate-500 mt-4 text-center">
+            <a href="index.html" class="text-indigo-600 hover:underline">Back to home</a>
+        </p>
+    </main>
+
+    <script type="module">
+        import { auth, signInWithEmailAndPassword, onAuthStateChanged } from "./firebase-init.js";
+
+        const loginForm = document.getElementById("loginForm");
+        const errorText = document.getElementById("errorText");
+
+        function getAuthErrorMessage(error) {
+            const code = error && error.code ? error.code : "";
+            if (code === "auth/invalid-credential") return "Email or password is incorrect.";
+            if (code === "auth/user-not-found") return "No account found for this email.";
+            if (code === "auth/wrong-password") return "Password is incorrect.";
+            if (code === "auth/too-many-requests") return "Too many attempts. Please wait and try again.";
+            if (code === "auth/user-disabled") return "This account has been disabled.";
+            if (code === "auth/network-request-failed") return "Network issue. Check internet connection and try again.";
+            if (code === "auth/invalid-email") return "Please enter a valid email address.";
+            if (code === "auth/unauthorized-domain") return "This website domain is not authorized in Firebase Auth settings.";
+            if (code === "auth/operation-not-allowed") return "Email/password login is not enabled in Firebase.";
+            return "Login failed. " + (error && error.message ? error.message : "Please try again.");
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                window.location.href = "index.html";
+            }
+        });
+
+        loginForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            errorText.textContent = "";
+            errorText.classList.add("hidden");
+
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                window.location.href = "index.html";
+            } catch (error) {
+                errorText.textContent = getAuthErrorMessage(error);
+                errorText.classList.remove("hidden");
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+</html>
