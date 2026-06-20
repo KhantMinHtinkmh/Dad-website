@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,8 @@
     <title>Phat Hmat Tway | Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* Minimal transitions for category <-> books view */
@@ -17,6 +19,7 @@
             transition: opacity 220ms ease, transform 220ms ease;
             will-change: opacity, transform;
         }
+
         .view-hidden {
             opacity: 0;
             transform: translateY(8px);
@@ -24,6 +27,7 @@
             height: 0;
             overflow: hidden;
         }
+
         .cat-pill.is-active {
             outline: 2px solid rgba(79, 70, 229, 0.35);
             box-shadow: 0 10px 24px rgba(79, 70, 229, 0.12);
@@ -31,6 +35,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <header class="navbar-glass">
@@ -48,40 +53,56 @@
                 <button id="logoutBtn" type="button" class="nav-link hidden">Logout</button>
             </nav>
             <div class="flex items-center gap-3">
-                <button id="mobileNavBtn" type="button" class="nav-hamburger lg:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNavPanel">
+                <button id="mobileNavBtn" type="button" class="nav-hamburger lg:hidden" aria-label="Open menu"
+                    aria-expanded="false" aria-controls="mobileNavPanel">
                     ☰
                 </button>
             </div>
 
-            <div id="mobileNavPanel" class="mobile-nav-panel hidden lg:hidden" role="menu" aria-label="Mobile navigation">
+            <div id="mobileNavPanel" class="mobile-nav-panel hidden lg:hidden" role="menu"
+                aria-label="Mobile navigation">
                 <div class="mobile-nav-section">
                     <div class="mobile-nav-title">Menu</div>
                     <a href="#" class="nav-link active" role="menuitem">Home</a>
-                    <button id="mobileCategoriesBtn" type="button" class="nav-link w-full text-left flex items-center justify-between" aria-expanded="false" aria-controls="mobileCategoriesMenu">
+                    <button id="mobileCategoriesBtn" type="button"
+                        class="nav-link w-full text-left flex items-center justify-between" aria-expanded="false"
+                        aria-controls="mobileCategoriesMenu">
                         <span>Categories</span>
                         <span aria-hidden="true">▾</span>
                     </button>
                     <div id="mobileCategoriesMenu" class="hidden pl-3 pb-2" role="menu" aria-label="Categories">
                         <a href="#cat-personal-growth" class="nav-link block" role="menuitem">🌱 Personal Growth</a>
-                        <a href="#cat-psychology-self-help" class="nav-link block" role="menuitem">✨ Psychology &amp; Self-Help</a>
-                        <a href="#cat-digital-ai" class="nav-link block" role="menuitem">📱 Digital Lifestyle &amp; AI</a>
-                        <a href="#cat-techpreneurship" class="nav-link block" role="menuitem">🚀 Techpreneurship &amp; Startups</a>
+                        <a href="#cat-psychology-self-help" class="nav-link block" role="menuitem">✨ Psychology &amp;
+                            Self-Help</a>
+                        <a href="#cat-digital-ai" class="nav-link block" role="menuitem">📱 Digital Lifestyle &amp;
+                            AI</a>
+                        <a href="#cat-techpreneurship" class="nav-link block" role="menuitem">🚀 Techpreneurship &amp;
+                            Startups</a>
                         <a href="#cat-coaching-nlp" class="nav-link block" role="menuitem">🎯 Coaching &amp; NLP</a>
-                        <a href="#cat-mindfulness-health" class="nav-link block" role="menuitem">🧘 Mindfulness &amp; Holistic Health</a>
-                        <a href="#cat-business-economics" class="nav-link block" role="menuitem">📈 Business &amp; Economics</a>
-                        <a href="#cat-society-politics" class="nav-link block" role="menuitem">🏛️ Society, Politics &amp; Philosophy</a>
-                        <a href="#cat-family-parenting" class="nav-link block" role="menuitem">👨‍👩‍👧 Family &amp; Parenting</a>
-                        <a href="#cat-copywriting" class="nav-link block" role="menuitem">✍️ Copywriting &amp; Content Writing</a>
-                        <a href="#cat-career-productivity" class="nav-link block" role="menuitem">💼 Career &amp; Productivity</a>
+                        <a href="#cat-mindfulness-health" class="nav-link block" role="menuitem">🧘 Mindfulness &amp;
+                            Holistic Health</a>
+                        <a href="#cat-business-economics" class="nav-link block" role="menuitem">📈 Business &amp;
+                            Economics</a>
+                        <a href="#cat-society-politics" class="nav-link block" role="menuitem">🏛️ Society, Politics
+                            &amp; Philosophy</a>
+                        <a href="#cat-family-parenting" class="nav-link block" role="menuitem">👨‍👩‍👧 Family &amp;
+                            Parenting</a>
+                        <a href="#cat-copywriting" class="nav-link block" role="menuitem">✍️ Copywriting &amp; Content
+                            Writing</a>
+                        <a href="#cat-career-productivity" class="nav-link block" role="menuitem">💼 Career &amp;
+                            Productivity</a>
                     </div>
                     <a href="booklist.html" class="nav-link" role="menuitem">Booklist</a>
                     <a href="#business" class="nav-link" role="menuitem">Business Coach</a>
                     <a href="#psychology" class="nav-link" role="menuitem">Personality Test</a>
                     <a href="#" class="nav-link" role="menuitem">Training</a>
                     <a href="#" class="nav-link" role="menuitem">About</a>
-                    <button id="mobileOpenAuthModal" type="button" class="nav-link w-full text-left" role="menuitem">Login</button>
-                    <button id="mobileOpenAdminEditor" type="button" class="nav-link w-full text-left hidden" role="menuitem">Admin</button>
-                    <button id="mobileLogoutBtn" type="button" class="nav-link w-full text-left hidden" role="menuitem">Logout</button>
+                    <button id="mobileOpenAuthModal" type="button" class="nav-link w-full text-left"
+                        role="menuitem">Login</button>
+                    <button id="mobileOpenAdminEditor" type="button" class="nav-link w-full text-left hidden"
+                        role="menuitem">Admin</button>
+                    <button id="mobileLogoutBtn" type="button" class="nav-link w-full text-left hidden"
+                        role="menuitem">Logout</button>
                 </div>
             </div>
         </div>
@@ -96,11 +117,13 @@
             <form id="adminBookForm" class="admin-editor-form">
                 <input id="adminBookTitle" class="admin-editor-input" type="text" placeholder="Book title" required>
                 <input id="adminBookAuthor" class="admin-editor-input" type="text" placeholder="Author name" required>
-                <textarea id="adminBookSummary" class="admin-editor-input admin-editor-textarea" placeholder="Book summary" required></textarea>
+                <textarea id="adminBookSummary" class="admin-editor-input admin-editor-textarea"
+                    placeholder="Book summary" required></textarea>
                 <input id="adminBookImageFile" class="admin-editor-input" type="file" accept="image/*">
                 <input id="adminBookImageUrl" class="admin-editor-input" type="url" placeholder="Or paste image URL">
                 <button id="adminBookSubmitBtn" type="submit" class="admin-editor-menu__action">Add Book</button>
-                <button id="adminBookCancelEditBtn" type="button" class="admin-editor-menu__action hidden">Cancel Edit</button>
+                <button id="adminBookCancelEditBtn" type="button" class="admin-editor-menu__action hidden">Cancel
+                    Edit</button>
                 <p id="adminBookFormMsg" class="admin-editor-message hidden"></p>
             </form>
             <div id="adminBooksList" class="admin-editor-list"></div>
@@ -112,25 +135,38 @@
         <section class="px-0 relative inline-block w-full">
             <img src="/assets/new.jpg" alt="Hero Banner" style="width: 100%; height: auto; display: block;">
             <div style="position: absolute; bottom: 30px; left: 95px; z-index: 10;">
-                <a href="#" id="heroCtaBtn" class="hero-cta-button" style="font-size: 1.006rem; padding: 10px 20px;">အခုပဲ စတင်လိုက်ပါ</a>
+                <a href="#" id="heroCtaBtn" class="hero-cta-button"
+                    style="font-size: 1.006rem; padding: 10px 20px;">အခုပဲ စတင်လိုက်ပါ</a>
             </div>
         </section>
 
-        <section id="categories" class="pt-6 pb-6 bg-white border-y border-slate-100">
-            <div class="max-w-7xl mx-auto px-6">
+        <section id="categories" class="pt-4 pb-4 bg-white border-y border-slate-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
                 <div id="categoryView" class="view-transition">
-                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-4">
-                        <button type="button" data-category="personal-growth" class="cat-pill bg-orange-50 text-orange-700">🌱 Personal Growth</button>
-                        <button type="button" data-category="psychology-self-help" class="cat-pill bg-rose-50 text-rose-700">✨ Psychology &amp; Self-Help</button>
-                        <button type="button" data-category="digital-ai" class="cat-pill bg-cyan-50 text-cyan-700">📱 Digital Lifestyle &amp; AI</button>
-                        <button type="button" data-category="techpreneurship" class="cat-pill bg-green-50 text-green-700">🚀 Techpreneurship &amp; Startups</button>
-                        <button type="button" data-category="coaching-nlp" class="cat-pill bg-blue-50 text-blue-700">🎯 Coaching &amp; NLP</button>
-                        <button type="button" data-category="mindfulness-health" class="cat-pill bg-purple-50 text-purple-700">🧘 Mindfulness &amp; Holistic Health</button>
-                        <button type="button" data-category="business-economics" class="cat-pill bg-amber-50 text-amber-700">📈 Business &amp; Economics</button>
-                        <button type="button" data-category="society-politics" class="cat-pill bg-indigo-50 text-indigo-700">🏛️ Society, Politics &amp; Philosophy</button>
-                        <button type="button" data-category="family-parenting" class="cat-pill bg-teal-50 text-teal-700">👨‍👩‍👧 Family &amp; Parenting</button>
-                        <button type="button" data-category="copywriting" class="cat-pill bg-pink-50 text-pink-700">✍️ Copywriting &amp; Content Writing</button>
-                        <button type="button" data-category="career-productivity" class="cat-pill bg-sky-50 text-sky-700">💼 Career &amp; Productivity</button>
+                    <div class="cat-grid">
+                        <button type="button" data-category="personal-growth"
+                            class="cat-pill bg-orange-50 text-orange-700">🌱 Personal Growth</button>
+                        <button type="button" data-category="psychology-self-help"
+                            class="cat-pill bg-rose-50 text-rose-700">✨ Psychology &amp; Self-Help</button>
+                        <button type="button" data-category="digital-ai" class="cat-pill bg-cyan-50 text-cyan-700">📱
+                            Digital Lifestyle &amp; AI</button>
+                        <button type="button" data-category="techpreneurship"
+                            class="cat-pill bg-green-50 text-green-700">🚀 Techpreneurship &amp; Startups</button>
+                        <button type="button" data-category="coaching-nlp" class="cat-pill bg-blue-50 text-blue-700">🎯
+                            Coaching &amp; NLP</button>
+                        <button type="button" data-category="mindfulness-health"
+                            class="cat-pill bg-purple-50 text-purple-700">🧘 Mindfulness &amp; Holistic Health</button>
+                        <button type="button" data-category="business-economics"
+                            class="cat-pill bg-amber-50 text-amber-700">📈 Business &amp; Economics</button>
+                        <button type="button" data-category="society-politics"
+                            class="cat-pill bg-indigo-50 text-indigo-700">🏛️ Society, Politics &amp;
+                            Philosophy</button>
+                        <button type="button" data-category="family-parenting"
+                            class="cat-pill bg-teal-50 text-teal-700">👨‍👩‍👧 Family &amp; Parenting</button>
+                        <button type="button" data-category="copywriting" class="cat-pill bg-pink-50 text-pink-700">✍️
+                            Copywriting &amp; Content Writing</button>
+                        <button type="button" data-category="career-productivity"
+                            class="cat-pill bg-sky-50 text-sky-700">💼 Career &amp; Productivity</button>
                     </div>
                 </div>
             </div>
@@ -146,69 +182,121 @@
             </section>
         </div>
 
-        <section id="about" class="bg-slate-50 py-12 md:py-16 border-y border-slate-100">
-            <div class="max-w-4xl mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-800 mb-8 text-slate-900">About</h2>
-                
+        <section id="about" class="about-section py-12 md:py-16 border-y border-slate-100">
+            <div class="max-w-5xl mx-auto px-6">
+
+                <!-- Section Header -->
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl md:text-4xl font-800 text-slate-900 mb-2">မိတ်ဆက်</h2>
+                    <div class="w-16 h-1 bg-indigo-500 mx-auto rounded-full"></div>
+                </div>
+
                 <div class="space-y-8">
-                    <!-- Introduction -->
-                    <div class="bg-white rounded-lg p-6 md:p-8 shadow-sm border border-slate-200">
-                        <h3 class="text-xl font-700 text-indigo-600 mb-3">၁။ မိတ်ဆက်</h3>
-                        <p class="text-slate-700 leading-relaxed">
-                            'ဖတ်မှတ်တွေး' ဝက်ဘ်ဆိုက်မှ နွေးထွေးစွာ ကြိုဆိုပါတယ်။ ဤနေရာလေးသည် ကိုယ်ပိုင်စီးပွားရေး လုပ်ငန်းရှင်များ၊ စတင်ပျိုးထောင်ဆဲ လုပ်ငန်းရှင်များ နှင့် မိမိဘဝကို အစဉ်မပြတ် တိုးတက်လိုသူများအတွက် ရည်ရွယ်တည်ထောင်ထားသော အသိပညာမျှဝေရာ နေရာတစ်ခု ဖြစ်ပါသည်။
+
+                    <!-- Introduction Card -->
+                    <div class="about-card bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200">
+                        <p class="text-slate-700 leading-relaxed text-base mb-4">
+                            <strong class="text-indigo-600">'ဖတ်မှတ်တွေး'</strong> ဝက်ဘ်ဆိုက်မှ နွေးထွေးစွာ
+                            ကြိုဆိုပါတယ်။ ဤနေရာလေးသည် ကိုယ်ပိုင်စီးပွားရေး လုပ်ငန်းရှင်များ နှင့်
+                            စွန့်ဦးတီထွင်လုပ်ငန်းရှင်များ (Entrepreneurs)၊ စတင်ပျိုးထောင်ဆဲ လုပ်ငန်းရှင်များ (Startup
+                            Founders) နှင့် မိမိဘဝကို အစဉ်မပြတ် တိုးတက်လိုသူများအတွက် ရည်ရွယ်တည်ထောင်ထားသော
+                            အသိပညာမျှဝေရာ နေရာတစ်ခု ဖြစ်ပါသည်။
+                        </p>
+                        <p class="text-slate-700 leading-relaxed text-base">
+                            <strong class="text-orange-600">'ဖတ်'</strong> ရန်အတွက် အသုံးဝင်သော ဗဟုသုတများ၊ <strong
+                                class="text-rose-600">'မှတ်'</strong> သားပြီး လက်တွေ့အသုံးချနိုင်သော နည်းဗျူဟာများနှင့်
+                            ဆန်းသစ်သော အကြံဉာဏ်များကို ဖန်တီးနိုင်ရန် <strong class="text-purple-600">'တွေး'</strong>
+                            ခေါ်မှုပုံစံများကို ဤဝက်ဘ်ဆိုက်တွင် စုံလင်စွာ လေ့လာနိုင်မည် ဖြစ်ပါသည်။
                         </p>
                     </div>
 
-                    <!-- Vision & Mission -->
-                    <div class="bg-white rounded-lg p-6 md:p-8 shadow-sm border border-slate-200">
-                        <h3 class="text-xl font-700 text-indigo-600 mb-3">၂။ ရည်ရွယ်ချက်</h3>
-                        <p class="text-slate-700 leading-relaxed">
-                            ကျွန်ုပ်တို့၏ ရည်ရွယ်ချက်မှာ ခိုင်မာသော စီးပွားရေးလုပ်ငန်းသစ်များ တည်ဆောက်ရာတွင် လိုအပ်သည့် ခေါင်းဆောင်မှုစွမ်းရည်နှင့် စိတ်ပိုင်းဆိုင်ရာ ကြံ့ခိုင်မှုများကို ပံ့ပိုးပေးရန် ဖြစ်ပါသည်။
-                        </p>
+                    <!-- Vision & Mission - Side by Side -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                        <!-- Vision -->
+                        <div
+                            class="about-card bg-gradient-to-br from-indigo-50 to-blue-50 rounded-2xl p-6 md:p-8 border border-indigo-100">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span
+                                    class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-indigo-100 text-xl">🔭</span>
+                                <h3 class="text-lg font-700 text-indigo-700">မျှော်မှန်းချက် (Vision)</h3>
+                            </div>
+                            <p class="text-slate-700 leading-relaxed text-sm">
+                                စာဖတ်သူတိုင်း စိတ်ကူးမှသည် လက်တွေ့အောင်မြင်မှုဆီသို့ ယုံကြည်မှုအပြည့်ဖြင့်
+                                လျှောက်လှမ်းနိုင်မည့် <strong>"အသိပညာဗဟိုချက်နှင့် စွမ်းရည်မြှင့်တင်ရေး
+                                    လမ်းပြမြေပုံ"</strong> တစ်ခုအဖြစ် ရေရှည်ရပ်တည်သွားရန်။
+                            </p>
+                        </div>
+
+                        <!-- Mission -->
+                        <div
+                            class="about-card bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 md:p-8 border border-amber-100">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span
+                                    class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-amber-100 text-xl">🎯</span>
+                                <h3 class="text-lg font-700 text-amber-700">လုပ်ငန်းတာဝန် (Mission)</h3>
+                            </div>
+                            <p class="text-slate-700 leading-relaxed text-sm">
+                                Coaching နှင့် NLP နည်းပညာများကို ပေါင်းစပ်၍ လုပ်ငန်းရှင်များ၏ အတွင်းစိတ်စွမ်းရည်ကို
+                                နှိုးဆွပေးရန်၊ စိန်ခေါ်မှုများကို ကျော်လွှားနိုင်မည့် စိတ်ဓာတ်ပိုင်းဆိုင်ရာ
+                                ကြံ့ခိုင်မှုကို တည်ဆောက်ပေးရန်နှင့် ရေရှည်တည်တံ့သော စီးပွားရေးအောင်မြင်မှုဗျူဟာများကို
+                                ပံ့ပိုးပေးရန်။
+                            </p>
+                        </div>
                     </div>
 
-                    <!-- What You Will Find -->
-                    <div class="bg-white rounded-lg p-6 md:p-8 shadow-sm border border-slate-200">
-                        <h3 class="text-xl font-700 text-indigo-600 mb-4">၃။ အဓိက ဖတ်ရှုနိုင်မည့် အကြောင်းအရာများ</h3>
-                        <div class="space-y-4">
-                            <div class="flex gap-3">
-                                <span class="text-indigo-600 font-bold text-lg">🎯</span>
+                    <!-- Content Topics -->
+                    <div class="about-card bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200">
+                        <h3 class="text-xl font-700 text-slate-900 mb-2">အဓိက ဖတ်ရှုနိုင်မည့် အကြောင်းအရာများ</h3>
+                        <p class="text-slate-500 text-sm mb-6">ဤဝက်ဘ်ဆိုက်တွင် အောက်ပါကဏ္ဍများကို အဓိကထား
+                            တင်ဆက်ပေးသွားမည် ဖြစ်ပါသည် -</p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Topic 1 -->
+                            <div class="flex gap-3 p-4 rounded-xl bg-green-50 border border-green-100">
+                                <span class="text-2xl flex-shrink-0 mt-0.5">🌱</span>
                                 <div>
-                                    <h4 class="font-600 text-slate-900 mb-1">Coaching & Personal Growth</h4>
-                                    <p class="text-slate-700 text-sm">ဘဝရည်မှန်းချက်များ ချမှတ်ခြင်း၊ အတားအဆီးများကို ကျော်လွှားခြင်းနှင့် မိမိကိုယ်ကို အကောင်းဆုံး မြှင့်တင်နိုင်မည့် လမ်းညွှန်ချက်များ။</p>
+                                    <h4 class="font-700 text-green-800 mb-1 text-sm">Coaching & Personal Growth</h4>
+                                    <p class="text-slate-600 text-xs leading-relaxed">ဘဝရည်မှန်းချက်များ စနစ်တကျ
+                                        ချမှတ်ခြင်း၊ အတားအဆီးများကို ကျော်လွှားခြင်းနှင့် မိမိကိုယ်ကို အကောင်းဆုံး
+                                        ဗားရှင်းဖြစ်အောင် မြှင့်တင်နိုင်မည့် လမ်းညွှန်ချက်များ။</p>
                                 </div>
                             </div>
-                            <div class="flex gap-3">
-                                <span class="text-indigo-600 font-bold text-lg">🧠</span>
+                            <!-- Topic 2 -->
+                            <div class="flex gap-3 p-4 rounded-xl bg-purple-50 border border-purple-100">
+                                <span class="text-2xl flex-shrink-0 mt-0.5">🧠</span>
                                 <div>
-                                    <h4 class="font-600 text-slate-900 mb-1">Neuro-Linguistic Programming (NLP)</h4>
-                                    <p class="text-slate-700 text-sm">အောင်မြင်သူများ၏ တွေးခေါ်မှုပုံစံများ၊ ထိရောက်သော ဆက်သွယ်ပြောဆိုရေး စွမ်းရည်များနှင့် အပြုသဘောဆောင်သော စိတ်ပိုင်းဆိုင်ရာ ပြောင်းလဲမှု နည်းစနစ်များ။</p>
+                                    <h4 class="font-700 text-purple-800 mb-1 text-sm">Neuro-Linguistic Programming (NLP)
+                                    </h4>
+                                    <p class="text-slate-600 text-xs leading-relaxed">အောင်မြင်သူများ၏
+                                        တွေးခေါ်မှုပုံစံများ၊ ထိရောက်သော ဆက်သွယ်ပြောဆိုရေး စွမ်းရည်များနှင့်
+                                        အပြုသဘောဆောင်သော စိတ်ပိုင်းဆိုင်ရာ ပြောင်းလဲမှု နည်းစနစ်များ။</p>
                                 </div>
                             </div>
-                            <div class="flex gap-3">
-                                <span class="text-indigo-600 font-bold text-lg">💼</span>
+                            <!-- Topic 3 -->
+                            <div class="flex gap-3 p-4 rounded-xl bg-blue-50 border border-blue-100">
+                                <span class="text-2xl flex-shrink-0 mt-0.5">💼</span>
                                 <div>
-                                    <h4 class="font-600 text-slate-900 mb-1">Entrepreneurship & Business Strategies</h4>
-                                    <p class="text-slate-700 text-sm">ကိုယ်ပိုင်စီးပွားရေး စတင်ခြင်း၊ စီးပွားရေးပုံစံ ဖန်တီးခြင်းနှင့် လက်တွေ့အသုံးချနိုင်သော ဈေးကွက်ထိုးဖောက်မှု ဗျူဟာများ။</p>
+                                    <h4 class="font-700 text-blue-800 mb-1 text-sm">Entrepreneurship & Business
+                                        Strategies</h4>
+                                    <p class="text-slate-600 text-xs leading-relaxed">ကိုယ်ပိုင်စီးပွားရေး စတင်ခြင်း၊
+                                        စီးပွားရေးပုံစံ (Business Model) ဖန်တီးခြင်းနှင့် လက်တွေ့အသုံးချနိုင်သော
+                                        ဈေးကွက်ထိုးဖောက်မှု ဗျူဟာများ။</p>
                                 </div>
                             </div>
-                            <div class="flex gap-3">
-                                <span class="text-indigo-600 font-bold text-lg">🚀</span>
+                            <!-- Topic 4 -->
+                            <div class="flex gap-3 p-4 rounded-xl bg-rose-50 border border-rose-100">
+                                <span class="text-2xl flex-shrink-0 mt-0.5">🚀</span>
                                 <div>
-                                    <h4 class="font-600 text-slate-900 mb-1">Startup Ecosystem</h4>
-                                    <p class="text-slate-700 text-sm">ဆန်းသစ်သော စိတ်ကူးများ၊ Startup လောက၏ စိန်ခေါ်မှုများနှင့် ကျော်လွှားနိုင်မည့် အခွင့်အလမ်းများ။</p>
+                                    <h4 class="font-700 text-rose-800 mb-1 text-sm">Startup Ecosystem</h4>
+                                    <p class="text-slate-600 text-xs leading-relaxed">ဆန်းသစ်သော စိတ်ကူးစိတ်သန်းများ၊
+                                        Startup လောက၏ စိန်ခေါ်မှုများနှင့် ၎င်းတို့ကို ကျော်လွှားနိုင်မည့်
+                                        အခွင့်အလမ်းများ။</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Join Community -->
-                    <div class="bg-indigo-50 rounded-lg p-6 md:p-8 border border-indigo-200">
-                        <h3 class="text-xl font-700 text-indigo-600 mb-3">၄။ အတူတကွ ပူးပေါင်းပါဝင်ရန်</h3>
-                        <p class="text-slate-700 leading-relaxed">
-                            'ဖတ်မှတ်တွေး' သည် သီအိုရီများကိုသာမက လက်တွေ့အသုံးချနိုင်သော အတွေ့အကြုံများကိုပါ ဖလှယ်ရာ ကွန်ရက် တစ်ခု ဖြစ်ပါသည်။ သင့်လုပ်ငန်း၊ သင့်ဘဝအတွက် အကျိုးရှိစေမည့် အကြောင်းအရာများကို ဖတ်ရှုပြီးနောက် သင်၏ အတွေးအမြင်များနှင့် အတွေ့အကြုံများကိုလည်း မှတ်ချက်များမှတစ်ဆင့် လွတ်လပ်စွာ ဝင်ရောက်ဆွေးနွေးရန် ဖိတ်ခေါ်အပ်ပါသည်။
-                        </p>
-                    </div>
                 </div>
             </div>
         </section>
@@ -271,618 +359,32 @@
             where,
         } from "./firebase-init.js";
 
-        const HOME_BOOK_CATEGORIES = [
-           
-            {
-                id: "growth",
-                heading: "🌱 Personal Growth",
-                coverShadowClass: "shadow-orange-100",
-                books: [
 
-                          {
-                        "id": "from-mindfulness-to-wakefulness",
-                        "title": "From Mindfulness to Wakefulness",
-                        "author": "Michael Chaskalson",
-                        "href": "summary.html?book=From Mindfulness to Wakefulness: Science and Practices on the Journey to Enlightenment",
-                        "img": "/bookcovers/from-mindfulness-to-wakefulnesst.jpg"
-                        },
-                {
-                        "id": "change-your-questions-change-your-life",
-                        "title": "Change Your Questions, Change Your Life",
-                        "author": "Marilee Adams, PhD",
-                        "href": "summary.html?book=Change Your Questions, Change Your Life",
-                        "img": "/bookcovers/change-your-questions,-change-your-life.jpg"
-                },
-                {
-                        id: "Beyond Belief",
-                        title: "Beyond Belief",
-                        author: "Nir Eyal",
-                        href: "summary.html?book=Beyond Belief",
-                        img: "/bookcovers/beyond_belief.jpg",
-                    },  
-
-                {
-                        id: "How to Get a Return on Failure",
-                        title: "How to Get a Return on Failure",
-                        author: "John C. Maxwell",
-                        href: "summary.html?book=How to Get a Return on Failure",
-                        img: "/bookcovers/how_to _get_a_return_on_faliure.jpg"
-                    },
-                    {
-                        id: "Speak Up",
-                        title: "Speak Up",
-                        author: "Hayley Mulenda Record",
-                        href: "summary.html?book=Speak Up",
-                        img: "/bookcovers/speak_up.jpg"
-                    },
-                    {
-                "id": "The Stoic Habit",
-                "title": "The Stoic Habit",
-                "author": "Dr. Bob Robinson",
-                "href": "summary.html?book=The Stoic Habit",
-                "img": "/bookcovers/the_stoic_habit.jpg"
-                },
-                {
-                "id": "How to Live a Meaningful Life",
-                "title": "How to Live a Meaningful Life",
-                "author": "Bill Burnett & Dave Evans",
-                "href": "summary.html?book=How to Live a Meaningful Life",
-                "img": "/bookcovers/how-to-live-a-meaningful-life.jpg"
-                },
-               {
-                    "id": "The Permission Mission",
-                    "title": "The Permission Mission",
-                    "author": "Dr. Cindy McGovern",
-                    "href": "summary.html?book=The Permission Mission",
-                    "img": "/bookcovers/the_permission_mission.jpg"
-                    },
-                    {
-                "id": "The Secret Language of Work",
-                "title": "The Secret Language of Work",
-                "author": "Erin McGoff",
-                "href": "summary.html?book=The Secret Language of Work",
-                "img": "/bookcovers/the_secret_language_of_work.jpg"
-                 },
-
-                  {
-                    "id": "Self-Help Pioneers",
-                    "title": "Self-Help Pioneers",
-                    "author": "Don M. Green",
-                    "href": "summary.html?book=Self-Help Pioneers",
-                    "img": "/bookcovers/self_help_pioneers.jpg"
-                },
-                 {
-                "id": "How We Think",
-                "title": "How We Think",
-                "author": "Marius Ostrowski",
-                "href": "summary.html?book=How We Think",
-                "img": "/bookcovers/how_we_think.jpg"
-            },
-               
-           
-                                    {
-                        "id": "The Permission Mission",
-                        "title": "The Permission Mission",
-                        "author": "Dr. Cindy McGovern",
-                        "href": "summary.html?book=The Permission Mission",
-                        "img": "/bookcovers/the_permission_mission.jpg"
-                    },
-                     
-                    
-                   
-                  
-                    
-                    {
-                        id: "Speak Up",
-                        title: "Speak Up",
-                        author: "Hayley Mulenda Record",
-                        href: "summary.html?book=Speak Up",
-                        img: "/bookcovers/speak_up.jpg"
-                    },
-                    {
-                        id: "Predator Mindset",
-                        title: "Predator Mindset",
-                        author: "Unknown",
-                        href: "summary.html?book=Predator Mindset",
-                        img: "/bookcovers/predator_mindset.jpg"
-                    }
-                ]
-            },
-            {
-                id: "self-help",
-                heading: "✨ Psychological Self-Help",
-                coverShadowClass: "shadow-rose-100",
-                books: [
-                        {
-                        id: "Do This Before Bed",
-                        title: "Do This Before Bed",
-                        author: "Oliver Nino",
-                        href: "summary.html?book=Do This Before Bed",
-                        img: "/bookcovers/do-this-before-bed.jpg"
-                    },
-                    {
-                        id: "Future Fit",
-                        title: "Future Fit",
-                        author: "Andrea Clarke",
-                        href: "summary.html?book=Future Fit",
-                        img: "/bookcovers/future-fit.jpg"
-                    },
-                      {
-                        id: "How To Be Enought",
-                        title: "How To Be Enought",
-                        author: "Ellen Hendriksen",
-                        href: "summary.html?book=How to Be Enough",
-                        img: "/bookcovers/how-to-be-enought.jpg"
-                    },
-                    
-                    {
-                        id: "The 5 Reset",
-                        title: "The 5 Reset",
-                        author: "Aditi Nerurkar",
-                        href: "summary.html?book=The 5 Resets",
-                        img: "/bookcovers/the-5-reset.jpg"
-                    },
-                     {
-                        "id": "Out of Our Minds",
-                        "title": "Out of Our Minds",
-                        "author": "Sir Ken Robinson & Kate Robinson",
-                        "href": "summary.html?book=Out of Our Minds",
-                        "img": "/bookcovers/out_of_our_minds.jpg",
-                    },
-                     {
-                        "id": "The Psychology of Stress",
-                        "title": "The Psychology of Stress",
-                        "author": "Charlotte Mottram, Alison Woodward, & Shanti Farrington",
-                        "href": "summary.html?book=The Psychology of Stress",
-                        "img": "/bookcovers/the_psychology_of_stress.jpg"
-                    },
-                                    {
-                    "id": "The AI Paradox",
-                    "title": "The AI Paradox",
-                    "author": "Virginia Dignum",
-                    "href": "summary.html?book=The AI Paradox",
-                    "img": "/bookcovers/the_ai_paradox.jpg",
-                },
-                 {
-                "id": "Mental Models At Work",
-                "title": "Mental Models At Work",
-                "author": "Dianna Gene P. Aquino",
-                "href": "summary.html?book=Mental Models At Work",
-                "img": "/bookcovers/mental_models_at_work.jpg"
-            },
-             {
-                    "id": "Revealing",
-                    "title": "Revealing: The Underrated Power of Oversharing",
-                    "author": "Leslie John",
-                    "href": "summary.html?book=Revealing",
-                    "img": "/bookcovers/revealing.jpg"
-                },
-                     
-                
-               
-                {
-                "id": "Guilt Free",
-                "title": "Guilt Free",
-                "author": "Jennifer Reid",
-                "href": "summary.html?book=Guilt Free",
-                "img": "/bookcovers/guilt-free.jpg"
-                },
-                {
-                    "id": "A World Appears",
-                    "title": "A World Appears",
-                    "author": "Michael Pollan",
-                    "href": "summary.html?book=A World Appears",
-                    "img": "/bookcovers/a-world-appears.jpg"
-                    },
-                         {
-                "id": "I Didn't Do the Thing Today",
-                "title": "I Didn't Do the Thing Today",
-                "author": "Madeleine Dore",
-                "href": "summary.html?book=I Didn't Do the Thing Today",
-                "img": "/bookcovers/i-didn’t-do-the-thing-today.jpg"
-                },
-
-                {
-                    "id": "The Four Keys to Mental Health",
-                    "title": "The Four Keys to Mental Health",
-                    "author": "Steve Larson",
-                    "href": "summary.html?book=The Four Keys to Mental Health",
-                    "img": "/bookcovers/the_four_keys_to_mental_health.jpg"
-                },
-                     
-               
-                                        {
-                        "id": "Brain Fuked",
-                        "title": "Brain Fuked",
-                        "author": "Jocko Willink",
-                        "href": "summary.html?book=Brain Fuked",
-                        "img": "/bookcovers/brain_fuked.jpg",
-                    },
-                                    
-                 
-                  
-                   
-                   
-                ]
-            },
-            {
-                id: "digital",
-                heading: "📱 Digital Lifestyle & AI",
-                coverShadowClass: "shadow-cyan-100",
-                books: [
-                      {
-                        id: "digital-exhaustion",
-                        title: "Digital Exhaustion",
-                        author: "Paul Leonardi",
-                        href: "summary.html?book=Digital Exhaustion",
-                        img: "/bookcovers/Digital exhaustion.jpg"
-                    },
-                     {
-                        id: "AI For Good",
-                        title: "AI For Good",
-                        author: "Nicholas Carr",
-                        href: "summary.html?book=AI For Good",
-                        img: "/bookcovers/Ai for good bookcover.jpg",
-                    },
-                      {
-                        id: "growing-up-digital",
-                        title: "Growing Up Ditial",
-                        author: "Susan McLEAN",
-                        href: "summary.html?book=Growing Up Digital",
-                        img: "/bookcovers/growing up digital coverphoto.jpg"
-                    },
-                      {
-                        id: "Human Compatible",
-                        title: "Human Compatible",
-                        author: "Stuart Russell",
-                        href: "summary.html?book=uman Compatible",
-                        img: "/bookcovers/human compitable bookcover.jpg",
-                    },
-                   {
-                        id: "second-life",
-                        title: "Second Life",
-                        author: "Amanda Hess",
-                        href: "summary.html?book=Second Life",
-                        img: "/bookcovers/Second life bookcover.jpg"
-                    },
-                  
-                  {
-                        "id": "digital-empires",
-                        "title": "Digital Empires",
-                        "author": "Anu Bradford",
-                        "href": "summary.html?book=Digital Empires",
-                        "img": "/bookcovers/Digital empires bookcover.jpg"
-                    },
-                    {
-                    "id": "beyond-the-algorithm:-ai,-security,-privacy,-and-ethics",
-                    "title": "Beyond the Algorithm: AI, Security, Privacy, and Ethics",
-                    "author": "Omar Santos and Petar Radanliev",
-                    "href": "summary.html?book=Beyond the Algorithm",
-                    "img": "/bookcovers/Beyond the algorithm.jpg"
-                    },
-                     {
-                        id: "Ai 2041",
-                        title: "Ai 2041",
-                        author: "Kai-Fu Lee",
-                        href: "summary.html?book=AI 2041: Ten Visions for Our Future",
-                        img:"/bookcovers/ai 2024.jpg"
-                    },
-                   {
-                    "id": "the-coming-wave",
-                    "title": "The Coming Wave",
-                    "author": "Mustafa Suleyman and Michael Bhaskar",
-                    "href": "summary.html?book=The Coming Wave",
-                    "img": "/bookcovers/The coming wave bookcover.jpg"
-                    },
-                                    
-                    {
-                        id: "Chip War",
-                        title: "Chip War",
-                        author: "Chris Miller",
-                        href: "summary.html?book=Chip War",
-                        img:"/bookcovers/Chip war.jpg",
-                    },
-                    {
-                        id: "Ai Superpower",
-                        title: "Ai Superpower",
-                        author: "Kai-Fu Lee",
-                        href: "summary.html?book=Ai Superpower",
-                        img:"/bookcovers/ai superpowers.jpg"
-                    },
-                   
-                ]
-            },
-            {
-                id: "coaching",
-                heading: "🎯 Coaching & NLP",
-                coverShadowClass: "shadow-blue-100",
-                books: [
-                        {
-                        id: "The Earned Life",
-                        title: "The Earned Life",
-                        author: "Marshall Goldsmith",
-                        href: "summary.html?book=The Earned Life",
-                        img: "/bookcovers/the-earned-life.jpg"
-                    },
-                    {
-                        id: "Triggers",
-                        title: "Triggers",
-                        author: "Marshall Goldsmith",
-                        href: "summary.html?book=Triggers",
-                        img: "/bookcovers/Triggers.jpg"
-                    },
-                    {
-                        id: "What Got You Here Won't Get You There",
-                        title: "What You Got Here Wont't Get You There",
-                        author: "Marshall Goldsmith",
-                        href: "summary.html?book=What Got You Here Won't Get You There",
-                        img: "bookcovers/what-you-got-here.jpg"
-                    },
-                    {
-                    "id": "high-performance-coaching-for-managers",
-                    "title": "High-Performance Coaching for Managers",
-                    "author": "William J. Rothwell and Behnam Bakhshandeh",
-                    "href": "summary.html?book=High-Performance Coaching for Managers",
-                    "img": "/bookcovers/high-performance-coaching-for-managers.jpg"
-                    },
-                    {
-                        "id": "change-your-questions-change-your-life",
-                        "title": "Change Your Questions, Change Your Life",
-                        "author": "Marilee Adams",
-                        "href": "summary.html?book=Change Your Questions, Change Your Life",
-                        "img": "/bookcovers/change-your-questions-change-your-life.jpg"
-                        },
-                        {
-                        "id": "the-coaching-shift",
-                        "title": "The Coaching Shift",
-                        "author": "Shonna D. Waters နဲ့ Brodie Gregory Riordan",
-                        "href": "summary.html?book=The Coaching Shift",
-                        "img": "/bookcovers/the-coaching-shift.jpg"
-                        },
-                        {
-                    "id": "the-magic-diamond",
-                    "title": "The Magic Diamond",
-                    "author": "Dario Nardi",
-                    "href": "summary.html?book=The Magic Diamond",
-                    "img": "/bookcovers/the-magic-diamond.jpg"
-                    },
-                    {
-                "id": "the-evidence-based-practitioner-coach",
-                "title": "The Evidence-Based Practitioner Coach",
-                "author": "Lloyd Chapman",
-                "href": "summary.html?book=The Evidence-Based Practitioner Coach",
-                "img": "/bookcovers/the-evidence-based-practitioner-coach.jpg"
-                },
-                {
-  "id": "coach-to-coach",
-  "title": "Coach to Coach",
-  "author": "Martin Rooney",
-  "href": "summary.html?book=Coach to Coach",
-  "img": "/bookcovers/coach-to-coach.jpg"
-},
-                                    
-                ]
-            },
-            {
-                id: "parenting",
-                heading: "👨‍👩‍👧 Families & Parents",
-                coverShadowClass: "shadow-teal-100",
-                books: [
-                      {
-                        id: "the-power-of-parenting",
-                        title: "The Power Of Parenting",
-                        author: "Eamon Dolan",
-                        href: "summary.html?book=The Power Of Parenting",
-                        img: "/bookcovers/power of parenting book cover.jpg"
-                    },
-                     {
-                        id: "the-tapping-solution",
-                        title: "The Tapping Solution",
-                        author: "Nick Ortner",
-                        href: "summary.html?book=The Tapping Solution",
-                        img: "/bookcovers/tapping solution.jpg"
-                    },
-                    {
-                        id: "you-are-not-a-shitty-parent",
-                        title: "You Are Not a Shitty Parent",
-                        author: "Carla Naumburg",
-                        href: "summary.html?book=You Are Not a Shitty Parent",
-                        img: "/bookcovers/You are not shitty parents.jpg"
-                    },
-                    {
-                        "id": "customized-parenting",
-                        "title": "Customized Parenting",
-                        "author": "Bailey Gaddis",
-                        "href": "summary.html?book=Customized Parenting",
-                        "img": "/bookcovers/customized parenting.jpg"
-                        },
-                        {
-                        "id": "healthy-kids-happy-kids",
-                        "title": "Healthy Kids, Happy Kids",
-                        "author": "Elisa Song, MD",
-                        "href": "summary.html?book=Healthy Kids, Happy Kids",
-                        "img": "/bookcovers/healthy kids, happy kids.jpg"
-                        },
-                        {
-                        "id": "parent-yourself-first",
-                        "title": "Parent Yourself First",
-                        "author": "Bryana Kappadakunnel",
-                        "href": "summary.html?book=Parent Yourself First",
-                        "img": "/bookcovers/parent yourself first.jpg"
-                        },
-                        {
-                        "id": "a-parents-guide-to-the-science-of-learning",
-                        "title": "A Parent's Guide to The Science of Learning",
-                        "author": "Edward Watson & Bradley Busch",
-                        "href": "summary.html?book=A Parent's Guide to The Science of Learning",
-                        "img": "/bookcovers/a parent's guide to the science of learning.jpg"
-                        },
-                        {
-                        "id": "advanced-parenting",
-                        "title": "Advanced Parenting",
-                        "author": "Kelly Fradin, MD",
-                        "href": "summary.html?book=Advanced Parenting",
-                        "img": "/bookcovers/advanced parenting.jpg"
-                        },
-                        {
-                    "id": "dreams-of-the-overworked",
-                    "title": "Dreams of the Overworked",
-                    "author": "Christine M. Beckman & Melissa Mazmanian",
-                    "href": "summary.html?book=Dreams of the Overworked",
-                    "img": "/bookcovers/dreams of the overworked.jpg"
-                    },
-                    {
-      "id": "generative-ai-in-education-a-guide-for-parents-and-teachers",
-      "title": "Generative AI in Education",
-      "author": "Paolo Narciso",
-      "href": "summary.html?book=Generative AI in Education",
-      "img": "/bookcovers/generative ai in education.jpg"
-    },
-                                    
-                   
-                ]
-            },
-            {
-                id: "psychology",
-                heading: "🏛️ Politics & Philosophy",
-                coverShadowClass: "shadow-purple-100",
-                books: [
-                    {
-                        id: "thinking-fast-and-slow",
-                        title: "Thinking, Fast and Slow",
-                        author: "Daniel Kahneman",
-                        href: "summary.html?book=thinking-fast-and-slow",
-                        img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=400"
-                    },
-                    {
-                        id: "influence",
-                        title: "Influence",
-                        author: "Robert Cialdini",
-                        href: "summary.html?book=influence",
-                        img: "https://images.unsplash.com/photo-1575402511411-9e7939339396?q=80&w=400"
-                    },
-                    {
-                        id: "flow",
-                        title: "Flow",
-                        author: "Mihaly Csikszentmihalyi",
-                        href: "summary.html?book=flow",
-                        img: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?q=80&w=400"
-                    },
-                    {
-                        id: "emotional-intelligence",
-                        title: "Emotional Intelligence",
-                        author: "Daniel Goleman",
-                        href: "summary.html?book=emotional-intelligence",
-                        img: "https://images.unsplash.com/photo-1521791055366-0d553872125f?q=80&w=400"
-                    },
-                    {
-                        id: "predictably-irrational",
-                        title: "Predictably Irrational",
-                        author: "Dan Ariely",
-                        href: "summary.html?book=predictably-irrational",
-                        img: "https://images.unsplash.com/photo-1456324504439-367cee3b3c32?q=80&w=400"
-                    },
-                    {
-                        id: "the-power-of-habit",
-                        title: "The Power of Habit",
-                        author: "Charles Duhigg",
-                        href: "summary.html?book=the-power-of-habit",
-                        img: "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?q=80&w=400"
-                    }
-                ]
-            },
-            {
-                id: "sales",
-                heading: "📈 Business & Economic",
-                coverShadowClass: "shadow-amber-100",
-                books: [
-                    {
-      "id": "advances-in-digital-marketing-in-the-era-of-artificial-intelligence",
-      "title": "Advances in Digital Marketing in the Era of Artificial Intelligence",
-      "author": "Moez Ltifi",
-      "href": "summary.html?book=Advances in Digital Marketing in the Era of Artificial Intelligence",
-      "img": "/bookcovers/advance in digital marketing.jpg"
-    },
-    
-    {
-      "id": "how-to-use-ai-in-b2b-marketing-2025",
-      "title": "How to Use AI in B2B Marketing 2025",
-      "author": "Spike Tucker",
-      "href": "summary.html?book=How to Use AI in B2B Marketing 2025",
-      "img": "/bookcovers/how to use ai.jpg"
-    },
-    {
-      "id": "marketing and ai",
-      "title": "Marketing and AI",
-      "author": "Vincent Jeseo & Jasmine Parajuli",
-      "href": "summary.html?book=Marketing and AI",
-      "img": "/bookcovers/marketing and Ai.jpg"
-    },
-    {
-      "id": "after-the-idea:-what-it-really-takes-to-create-and-scale-a-startup",
-      "title": "After the Idea",
-      "author": "Julia Austin",
-      "href": "summary.html?book=After the Idea",
-      "img": "/bookcovers/after the idea.jpg"
-    },
-                  
-                  
-                 
-                ]
-            },
-            {
-                id: "emotional-healing",
-                heading: "💜 Emotional & Healing",
-                coverShadowClass: "shadow-violet-100",
-                books: [
-                    {
-                        id: "thinking-fast-and-slow",
-                        title: "Thinking, Fast and Slow",
-                        author: "Daniel Kahneman",
-                        href: "summary.html?book=thinking-fast-and-slow",
-                        img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=400"
-                    },
-                    {
-                        id: "influence",
-                        title: "Influence",
-                        author: "Robert Cialdini",
-                        href: "summary.html?book=influence",
-                        img: "https://images.unsplash.com/photo-1575402511411-9e7939339396?q=80&w=400"
-                    },
-                    {
-                        id: "flow",
-                        title: "Flow",
-                        author: "Mihaly Csikszentmihalyi",
-                        href: "summary.html?book=flow",
-                        img: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?q=80&w=400"
-                    },
-                    {
-                        id: "emotional-intelligence",
-                        title: "Emotional Intelligence",
-                        author: "Daniel Goleman",
-                        href: "summary.html?book=emotional-intelligence",
-                        img: "https://images.unsplash.com/photo-1521791055366-0d553872125f?q=80&w=400"
-                    },
-                    {
-                        id: "predictably-irrational",
-                        title: "Predictably Irrational",
-                        author: "Dan Ariely",
-                        href: "summary.html?book=predictably-irrational",
-                        img: "https://images.unsplash.com/photo-1456324504439-367cee3b3c32?q=80&w=400"
-                    },
-                    {
-                        id: "the-power-of-habit",
-                        title: "The Power of Habit",
-                        author: "Charles Duhigg",
-                        href: "summary.html?book=the-power-of-habit",
-                        img: "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?q=80&w=400"
-                    }
-                ]
-            },
-        ];
 
         const categoryViewEl = document.getElementById("categoryView");
         const allBooksContainerEl = document.getElementById("allBooksContainer");
+
+        // Drag-to-scroll for category grid
+        (function initDragScroll() {
+            const grid = document.querySelector('.cat-grid');
+            if (!grid) return;
+            let isDown = false, startX, scrollLeft;
+
+            grid.addEventListener('mousedown', (e) => {
+                isDown = true;
+                grid.classList.add('dragging');
+                startX = e.pageX - grid.offsetLeft;
+                scrollLeft = grid.scrollLeft;
+            });
+            grid.addEventListener('mouseleave', () => { isDown = false; grid.classList.remove('dragging'); });
+            grid.addEventListener('mouseup', () => { isDown = false; grid.classList.remove('dragging'); });
+            grid.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - grid.offsetLeft;
+                grid.scrollLeft = scrollLeft - (x - startX) * 1.5;
+            });
+        })();
 
         // Category definitions for display
         const CATEGORIES_CONFIG = [
@@ -903,11 +405,11 @@
         async function fetchBooksFromFirestore() {
             const CACHE_KEY = "phathmattway_books_cache_v2"; // Updated version to clear old cache
             const CACHE_TTL = 3600000; // 1 hour in milliseconds
-            
+
             // Check localStorage cache first
             const cachedData = localStorage.getItem(CACHE_KEY);
             const cacheTimestamp = localStorage.getItem(CACHE_KEY + "_timestamp");
-            
+
             if (cachedData && cacheTimestamp) {
                 const age = Date.now() - parseInt(cacheTimestamp);
                 if (age < CACHE_TTL) {
@@ -915,7 +417,7 @@
                     return JSON.parse(cachedData);
                 }
             }
-            
+
             // Mapping of old category IDs to new category IDs (for backward compatibility)
             const oldCategoryMapping = {
                 "personal-growth": ["personal-growth", "growth"],
@@ -930,20 +432,20 @@
                 "copywriting": ["copywriting"], // new category, no old ID
                 "career-productivity": ["career-productivity"] // new category, no old ID
             };
-            
+
             // Fetch all categories in PARALLEL instead of sequentially
             const fetchPromises = CATEGORIES_CONFIG.map(async (category) => {
                 try {
                     // Query for both old and new category IDs
                     const possibleIds = oldCategoryMapping[category.id] || [category.id];
-                    const queries = possibleIds.map(id => 
+                    const queries = possibleIds.map(id =>
                         query(collection(db, "books"), where("category", "==", id))
                     );
-                    
+
                     // Fetch from all possible IDs and merge results
                     const allBooks = [];
                     const seenIds = new Set();
-                    
+
                     for (const q of queries) {
                         const querySnapshot = await getDocs(q);
                         querySnapshot.docs.forEach(docSnap => {
@@ -954,7 +456,7 @@
                             }
                         });
                     }
-                    
+
                     const books = allBooks.map(docSnap => {
                         const data = docSnap.data();
                         return {
@@ -965,7 +467,7 @@
                             href: `summary.html?id=${encodeURIComponent(docSnap.id)}`
                         };
                     });
-                    
+
                     if (books.length > 0) {
                         return {
                             ...category,
@@ -978,11 +480,11 @@
                     return null;
                 }
             });
-            
+
             // Wait for ALL queries to complete in parallel
             const results = await Promise.all(fetchPromises);
             const categoriesWithBooks = results.filter(cat => cat !== null);
-            
+
             // Cache the results
             try {
                 localStorage.setItem(CACHE_KEY, JSON.stringify(categoriesWithBooks));
@@ -990,7 +492,7 @@
             } catch (e) {
                 console.warn("Could not cache books:", e);
             }
-            
+
             return categoriesWithBooks;
         }
 
@@ -1023,7 +525,7 @@
 
             // Fetch books from Firestore (now in parallel)
             const categoriesWithBooks = await fetchBooksFromFirestore();
-            
+
             // If no books found in Firestore, show all categories as empty
             const categoriesToRender = categoriesWithBooks.length > 0 ? categoriesWithBooks : CATEGORIES_CONFIG;
 
@@ -1586,4 +1088,5 @@
 
     </script>
 </body>
+
 </html>

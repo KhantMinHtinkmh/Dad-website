@@ -455,12 +455,58 @@ body {
     }
 }
 
+/* About Section */
+.about-section {
+    background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 50%, #f8fafc 100%);
+}
+.about-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.about-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+/* Category Grid – always exactly 2 rows, scroll horizontally */
+.cat-grid {
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    /* Hide scrollbar on all browsers */
+    scrollbar-width: none;           /* Firefox */
+    -ms-overflow-style: none;        /* IE/Edge */
+}
+.cat-grid::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+.cat-grid { cursor: grab; }
+.cat-grid.dragging { cursor: grabbing; }
+.cat-grid.dragging .cat-pill { pointer-events: none; }
+
 /* Category Pills */
 .cat-pill {
-    padding: 14px; border-radius: 12px; text-align: center;
-    font-weight: 700; font-size: 0.85rem; transition: 0.3s;
+    padding: 10px 14px; border-radius: 10px; text-align: center;
+    font-weight: 700; font-size: 0.8rem;
+    white-space: nowrap;
+    scroll-snap-align: start;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+    user-select: none;
 }
-.cat-pill:hover { transform: translateY(-3px); filter: brightness(0.95); }
+.cat-pill:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    filter: brightness(0.97);
+}
+.cat-pill:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: none;
+    filter: brightness(0.92);
+}
 
 /* Book Cards */
 .section-heading { font-size: 1.8rem; font-weight: 800; margin-bottom: 32px; border-left: 5px solid var(--primary); padding-left: 15px; }

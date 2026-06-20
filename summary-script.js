@@ -160,12 +160,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (book.summaryBlocks && Array.isArray(book.summaryBlocks) && book.summaryBlocks.length > 0) {
                 book.summaryBlocks.forEach(block => {
                     const blockText = block.text || '';
-                    const convertedText = convertMarkdownBold(blockText);
                     
                     if (block.type === 'heading') {
                         // Create heading block (h3)
+                        const convertedText = convertMarkdownBold(blockText);
                         const headingElement = document.createElement('h3');
-                        // Check if text contains HTML
                         if (convertedText.includes('<')) {
                             headingElement.innerHTML = convertedText;
                         } else {
@@ -173,15 +172,23 @@ document.addEventListener('DOMContentLoaded', async () => {
                         }
                         summaryContent.appendChild(headingElement);
                     } else if (block.type === 'paragraph') {
-                        // Create paragraph block
-                        const paragraphElement = document.createElement('p');
-                        // Check if text contains HTML
-                        if (convertedText.includes('<')) {
-                            paragraphElement.innerHTML = convertedText;
-                        } else {
-                            paragraphElement.textContent = convertedText;
-                        }
-                        summaryContent.appendChild(paragraphElement);
+                        // Split paragraph text by newlines to create individual <p> elements
+                        // This handles both saved split data and any residual newlines
+                        const subParagraphs = blockText
+                            .split(/\n\s*\n|\n/)  // split on double or single newlines
+                            .map(p => p.trim())
+                            .filter(p => p.length > 0);
+
+                        subParagraphs.forEach(paraText => {
+                            const convertedText = convertMarkdownBold(paraText);
+                            const paragraphElement = document.createElement('p');
+                            if (convertedText.includes('<')) {
+                                paragraphElement.innerHTML = convertedText;
+                            } else {
+                                paragraphElement.textContent = convertedText;
+                            }
+                            summaryContent.appendChild(paragraphElement);
+                        });
                     }
                 });
             } else if (book.summaryParagraphs && Array.isArray(book.summaryParagraphs)) {

@@ -78,7 +78,7 @@ function createSummaryBlockElement(type = "paragraph", text = "") {
     const typeSelect = document.createElement("select");
     typeSelect.className = "block-type-select";
     const optHeading = document.createElement("option"); optHeading.value = "heading"; optHeading.text = "Sub-heading";
-    const optParagraph = document.createElement("option"); optParagraph.value = "paragraph"; optParagraph.text = "Paragraph";
+    const optParagraph = document.createElement("option"); optParagraph.value = "paragraph"; optParagraph.text = "Paragraphs";
     typeSelect.append(optHeading, optParagraph);
     typeSelect.value = type;
 
@@ -90,8 +90,13 @@ function createSummaryBlockElement(type = "paragraph", text = "") {
 
     const textarea = document.createElement("textarea");
     textarea.className = "admin-textarea block-textarea";
-    textarea.placeholder = type === "heading" ? "Sub-heading text..." : "Paragraph content...";
-    textarea.rows = type === "heading" ? 1 : 3;
+    if (type === "heading") {
+        textarea.placeholder = "Sub-heading text...";
+        textarea.rows = 1;
+    } else {
+        textarea.placeholder = "Write multiple paragraphs here...\n\nSeparate each paragraph with a blank line (press Enter twice).\n\nEach separated block will render as its own <p> tag.";
+        textarea.rows = 8;
+    }
     textarea.value = text || "";
 
     const hint = document.createElement("p");
@@ -99,7 +104,16 @@ function createSummaryBlockElement(type = "paragraph", text = "") {
     hint.style.marginTop = "0.5rem";
     hint.innerHTML = 'Tip: Use <code>**text**</code> to make text bold. Example: <code>This is **important**.</code>';
 
-    blockDiv.append(controls, textarea, hint);
+    // Add multi-paragraph hint for paragraph blocks
+    if (type === "paragraph") {
+        const multiHint = document.createElement("p");
+        multiHint.className = "multi-para-hint";
+        multiHint.textContent = "💡 Separate paragraphs with a blank line (double Enter). Each will become its own paragraph on the page.";
+        blockDiv.append(controls, textarea, hint, multiHint);
+    } else {
+        blockDiv.append(controls, textarea, hint);
+    }
+
     return blockDiv;
 }
 
@@ -123,8 +137,24 @@ function collectSummaryBlocks() {
         const typeSelect = blockEl.querySelector(".block-type-select");
         const textarea = blockEl.querySelector("textarea");
         const type = typeSelect ? typeSelect.value : (blockEl.dataset.type || "paragraph");
-        const text = textarea ? textarea.value.trim() : "";
-        if (text) blocks.push({ type, text });
+        const rawText = textarea ? textarea.value.trim() : "";
+        if (!rawText) return;
+
+        if (type === "paragraph") {
+            // Split by double newlines (blank line between paragraphs)
+            // This turns one textarea into multiple individual paragraph blocks
+            const paragraphs = rawText
+                .split(/\n\s*\n/)       // split on blank lines (one or more empty lines)
+                .map(p => p.trim())      // trim whitespace from each paragraph
+                .filter(p => p.length > 0); // remove empty entries
+
+            paragraphs.forEach(paraText => {
+                blocks.push({ type: "paragraph", text: paraText });
+            });
+        } else {
+            // Headings stay as-is (single value)
+            blocks.push({ type, text: rawText });
+        }
     });
     return blocks;
 }
@@ -135,7 +165,22 @@ function populateSummaryBlocks(summaryBlocks) {
         updateNoBlocksMessage();
         return;
     }
-    summaryBlocks.forEach(b => addSummaryBlock(b.type || "paragraph", b.text || ""));
+
+    // Merge consecutive paragraph blocks into a single textarea
+    // so editing is as convenient as creating
+    const merged = [];
+    summaryBlocks.forEach(b => {
+        const type = b.type || "paragraph";
+        const text = b.text || "";
+        if (type === "paragraph" && merged.length > 0 && merged[merged.length - 1].type === "paragraph") {
+            // Append to previous paragraph block with double newline separator
+            merged[merged.length - 1].text += "\n\n" + text;
+        } else {
+            merged.push({ type, text });
+        }
+    });
+
+    merged.forEach(b => addSummaryBlock(b.type, b.text));
     updateNoBlocksMessage();
 }
 
@@ -173,9 +218,26 @@ summaryBlocksContainer.addEventListener("change", (e) => {
     const ta = blockEl.querySelector("textarea");
     const type = sel.value;
     blockEl.dataset.type = type;
+
+    // Add or remove multi-paragraph hint based on type
+    const existingHint = blockEl.querySelector(".multi-para-hint");
+    if (type === "paragraph" && !existingHint) {
+        const multiHint = document.createElement("p");
+        multiHint.className = "multi-para-hint";
+        multiHint.textContent = "💡 Separate paragraphs with a blank line (double Enter). Each will become its own paragraph on the page.";
+        blockEl.appendChild(multiHint);
+    } else if (type !== "paragraph" && existingHint) {
+        existingHint.remove();
+    }
+
     if (ta) {
-        ta.placeholder = type === "heading" ? "Sub-heading text..." : "Paragraph content...";
-        ta.rows = type === "heading" ? 1 : 3;
+        if (type === "heading") {
+            ta.placeholder = "Sub-heading text...";
+            ta.rows = 1;
+        } else {
+            ta.placeholder = "Write multiple paragraphs here...\n\nSeparate each paragraph with a blank line (press Enter twice).";
+            ta.rows = 8;
+        }
         ta.focus();
     }
 });
