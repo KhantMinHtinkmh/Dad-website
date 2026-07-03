@@ -36,6 +36,13 @@ const adminMessageDiv = document.getElementById("adminMessage");
 const cancelEditBtn = document.getElementById("cancelEditBtn");
 const saveBookBtn = document.getElementById("saveBookBtn");
 const saveBookBtnText = document.getElementById("saveBookBtnText");
+const bulkPasteBtn = document.getElementById("bulkPasteBtn");
+const bulkPasteOverlay = document.getElementById("bulkPasteOverlay");
+const bulkPasteTextarea = document.getElementById("bulkPasteTextarea");
+const bulkPreview = document.getElementById("bulkPreview");
+const bulkCancelBtn = document.getElementById("bulkCancelBtn");
+const bulkConfirmBtn = document.getElementById("bulkConfirmBtn");
+const deleteBookBtn = document.getElementById("deleteBookBtn");
 
 // --- Globals ---
 const ADMIN_UID = "iOeLZw42zpdvx966peaBHSJ8Fdr2"; // Replace with your actual admin UID
@@ -68,7 +75,7 @@ function hideAdminMessage() {
 
 function createSummaryBlockElement(type = "paragraph", text = "") {
     const blockDiv = document.createElement("div");
-    blockDiv.className = "summary-block-item";
+    blockDiv.className = `summary-block-item ${type === 'heading' ? 'heading-block' : 'paragraph-block'}`;
     blockDiv.dataset.type = type;
 
     // Controls row
@@ -117,18 +124,57 @@ function createSummaryBlockElement(type = "paragraph", text = "") {
     return blockDiv;
 }
 
-function addSummaryBlock(type = "paragraph", text = "") {
+function addSummaryBlock(type = "paragraph", text = "", autoFocus = true) {
     const newBlock = createSummaryBlockElement(type, text);
     summaryBlocksContainer.appendChild(newBlock);
-    // focus textarea
-    const ta = newBlock.querySelector("textarea");
-    if (ta) ta.focus();
+    // focus textarea only when manually adding (not during bulk pre-population)
+    if (autoFocus) {
+        const ta = newBlock.querySelector("textarea");
+        if (ta) ta.focus();
+    }
     updateNoBlocksMessage();
 }
 
 function updateNoBlocksMessage() {
-    if (!noBlocksMessage) return;
-    noBlocksMessage.classList.toggle("hidden", summaryBlocksContainer.children.length > 0);
+    // Always query the DOM since addDefaultBlocks may recreate this element
+    const msg = summaryBlocksContainer.querySelector('.no-blocks-message') || document.getElementById('noBlocksMessage');
+    if (!msg) return;
+    // Count only actual block items, not the no-blocks message itself
+    const blockCount = summaryBlocksContainer.querySelectorAll('.summary-block-item').length;
+    msg.classList.toggle("hidden", blockCount > 0);
+}
+
+/**
+ * Pre-populate the summary blocks area with the standard
+ * Myanmar subheadings, each followed by an empty multi-paragraph
+ * block ready for the admin to paste content into.
+ */
+const DEFAULT_SUBHEADINGS = [
+    'မိတ်ဆက်နှင့် အဓိကပြဿနာ',
+    'စာအုပ်၏ အနှစ်သာရနှင့် အတွေးအခေါ်များ',
+    '၃ မျိုးသော လက်တွေ့ကျင့်သုံးနိုင်သည့် အလေ့အကျင့်ငယ်များ',
+    'လူသိနည်းသော ခြားနားသည့် အတွေးအခေါ် ၃ ရပ်',
+    'လက်တွေ့ဘဝနှင့် လုပ်ငန်းခွင်တွင် အသုံးချခြင်း',
+    'နိဂုံးနှင့် ရှေ့ဆက်ရန် အကြံပြုချက်',
+];
+
+function addDefaultBlocks() {
+    // Clear existing blocks first
+    summaryBlocksContainer.innerHTML = '';
+    // Re-add the no-blocks message element (hidden)
+    const msg = document.createElement('p');
+    msg.className = 'no-blocks-message hidden';
+    msg.id = 'noBlocksMessage';
+    msg.textContent = 'No content blocks yet. Click the buttons below to add one.';
+    summaryBlocksContainer.appendChild(msg);
+
+    DEFAULT_SUBHEADINGS.forEach((heading) => {
+        // Add a pre-filled sub-heading block
+        addSummaryBlock('heading', heading, false);
+        // Add an empty multi-paragraph block for pasting content
+        addSummaryBlock('paragraph', '', false);
+    });
+    updateNoBlocksMessage();
 }
 
 function collectSummaryBlocks() {
@@ -141,16 +187,59 @@ function collectSummaryBlocks() {
         if (!rawText) return;
 
         if (type === "paragraph") {
-            // Split by double newlines (blank line between paragraphs)
-            // This turns one textarea into multiple individual paragraph blocks
-            const paragraphs = rawText
-                .split(/\n\s*\n/)       // split on blank lines (one or more empty lines)
-                .map(p => p.trim())      // trim whitespace from each paragraph
-                .filter(p => p.length > 0); // remove empty entries
+            // Parse the paragraph text to detect ## headings and ***** underlined headings
+            const lines = rawText.split(/\n/);
+            const isAsterisksLine = (line) => /^\*{3,}$/.test(line.trim());
+            const isMarkdownHeading = (line) => /^#{2,}\s+/.test(line.trim());
 
-            paragraphs.forEach(paraText => {
-                blocks.push({ type: "paragraph", text: paraText });
-            });
+            // Identify asterisk-underlined heading lines
+            const headingLineIndices = new Set();
+            const separatorLineIndices = new Set();
+
+            for (let i = 0; i < lines.length; i++) {
+                if (isAsterisksLine(lines[i])) {
+                    separatorLineIndices.add(i);
+                    for (let j = i - 1; j >= 0; j--) {
+                        if (lines[j].trim().length > 0) {
+                            headingLineIndices.add(j);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            let currentParagraphLines = [];
+
+            function flushParagraph() {
+                if (currentParagraphLines.length > 0) {
+                    const text = currentParagraphLines.join("\n").trim();
+                    if (text) {
+                        const subParas = text.split(/\n\s*\n/).map(p => p.trim()).filter(p => p.length > 0);
+                        subParas.forEach(p => {
+                            blocks.push({ type: "paragraph", text: p });
+                        });
+                    }
+                    currentParagraphLines = [];
+                }
+            }
+
+            for (let i = 0; i < lines.length; i++) {
+                if (separatorLineIndices.has(i)) {
+                    continue;
+                }
+                if (headingLineIndices.has(i)) {
+                    flushParagraph();
+                    blocks.push({ type: "heading", text: lines[i].trim() });
+                } else if (isMarkdownHeading(lines[i])) {
+                    flushParagraph();
+                    const headingText = lines[i].trim().replace(/^#+\s+/, "");
+                    blocks.push({ type: "heading", text: headingText });
+                } else {
+                    currentParagraphLines.push(lines[i]);
+                }
+            }
+
+            flushParagraph();
         } else {
             // Headings stay as-is (single value)
             blocks.push({ type, text: rawText });
@@ -219,6 +308,10 @@ summaryBlocksContainer.addEventListener("change", (e) => {
     const type = sel.value;
     blockEl.dataset.type = type;
 
+    // Update visual distinction class
+    blockEl.classList.remove('heading-block', 'paragraph-block');
+    blockEl.classList.add(type === 'heading' ? 'heading-block' : 'paragraph-block');
+
     // Add or remove multi-paragraph hint based on type
     const existingHint = blockEl.querySelector(".multi-para-hint");
     if (type === "paragraph" && !existingHint) {
@@ -256,12 +349,12 @@ function resetForm() {
     bookForm.reset();
     bookCoverUrlInput.value = "";
     bookAudioUrlInput.value = "";
-    summaryBlocksContainer.innerHTML = "";
     editingBookSlug = null;
     saveBookBtnText.textContent = "Save Book";
     loadBookSlugInput.value = "";
     hideAdminMessage();
-    updateNoBlocksMessage();
+    // Re-populate with default blocks so the admin always has a ready template
+    addDefaultBlocks();
 }
 
 async function populateFormForEdit(bookSlug) {
@@ -311,6 +404,21 @@ async function uploadFile(fileInput, pathPrefix) {
     const file = fileInput.files[0];
     if (!file) return null; // No file selected
 
+    // File size validation (max 10MB for images, 50MB for audio)
+    const maxSize = pathPrefix === "covers" ? 10 * 1024 * 1024 : 50 * 1024 * 1024;
+    const maxLabel = pathPrefix === "covers" ? "10MB" : "50MB";
+    if (file.size > maxSize) {
+        throw new Error(`File "${file.name}" is too large (${(file.size / 1024 / 1024).toFixed(1)}MB). Maximum allowed is ${maxLabel}.`);
+    }
+
+    // File type validation
+    const allowedTypes = pathPrefix === "covers"
+        ? ["image/jpeg", "image/png", "image/webp", "image/gif"]
+        : ["audio/mpeg", "audio/mp3", "audio/wav", "audio/ogg", "audio/m4a", "audio/x-m4a"];
+    if (!allowedTypes.includes(file.type)) {
+        throw new Error(`File "${file.name}" has an unsupported type (${file.type || "unknown"}). Allowed: ${allowedTypes.join(", ")}.`);
+    }
+
     const filePath = `${pathPrefix}/${Date.now()}-${file.name.replace(/\s+/g, "-")}`;
     const fileRef = ref(storage, filePath);
     await uploadBytes(fileRef, file);
@@ -339,7 +447,202 @@ onAuthStateChanged(auth, (user) => {
 
 addHeadingBlockBtn.addEventListener("click", (e) => { e.preventDefault(); addSummaryBlock("heading"); });
 addParagraphBlockBtn.addEventListener("click", (e) => { e.preventDefault(); addSummaryBlock("paragraph"); });
+
+// New "Add Section" button: adds a heading + paragraph pair in one click
+const addSectionPairBtn = document.getElementById("addSectionPairBtn");
+if (addSectionPairBtn) {
+    addSectionPairBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        addSummaryBlock("heading");
+        addSummaryBlock("paragraph");
+    });
+}
+
 cancelEditBtn.addEventListener("click", resetForm);
+
+// --- Bulk Paste System ---
+
+/**
+ * Parses raw bulk text into an array of { type, text } blocks.
+ * Headings are detected by:
+ *   1. An underline of asterisks (***...) on the next line:
+ *        Chapter Title Here
+ *        *********************
+ *   2. A line starting with ## (markdown-style heading):
+ *        ## Chapter Title Here
+ * Everything else is grouped into paragraph blocks (split by blank lines).
+ */
+function parseBulkContent(rawText) {
+    const blocks = [];
+    const lines = rawText.split(/\n/);
+
+    // First pass: identify which lines are heading text and which are *** separator lines
+    const isAsterisksLine = (line) => /^\*{3,}$/.test(line.trim());
+    const isMarkdownHeading = (line) => /^#{2,}\s+/.test(line.trim());
+
+    // Collect heading line indices (a line is a heading if the NEXT non-empty line is all asterisks)
+    const headingLineIndices = new Set();
+    const separatorLineIndices = new Set();
+    const markdownHeadingIndices = new Set();
+
+    for (let i = 0; i < lines.length; i++) {
+        if (isAsterisksLine(lines[i])) {
+            separatorLineIndices.add(i);
+            // The line directly above this (skipping empty lines) is the heading
+            for (let j = i - 1; j >= 0; j--) {
+                if (lines[j].trim().length > 0) {
+                    headingLineIndices.add(j);
+                    break;
+                }
+            }
+        } else if (isMarkdownHeading(lines[i])) {
+            // Lines starting with ## are also headings
+            markdownHeadingIndices.add(i);
+        }
+    }
+
+    // Second pass: build blocks
+    let currentParagraphLines = [];
+
+    function flushParagraph() {
+        if (currentParagraphLines.length > 0) {
+            const text = currentParagraphLines.join("\n").trim();
+            if (text) {
+                // Split by blank lines within the accumulated text to create separate paragraphs
+                const subParas = text.split(/\n\s*\n/).map(p => p.trim()).filter(p => p.length > 0);
+                subParas.forEach(p => {
+                    blocks.push({ type: "paragraph", text: p });
+                });
+            }
+            currentParagraphLines = [];
+        }
+    }
+
+    for (let i = 0; i < lines.length; i++) {
+        // Skip asterisk separator lines entirely
+        if (separatorLineIndices.has(i)) {
+            continue;
+        }
+
+        if (headingLineIndices.has(i)) {
+            // Flush any accumulated paragraphs before the heading
+            flushParagraph();
+            blocks.push({ type: "heading", text: lines[i].trim() });
+        } else if (markdownHeadingIndices.has(i)) {
+            // Flush any accumulated paragraphs before the ## heading
+            flushParagraph();
+            // Strip the leading ## (and any extra #s) and whitespace
+            const headingText = lines[i].trim().replace(/^#+\s+/, "");
+            blocks.push({ type: "heading", text: headingText });
+        } else {
+            currentParagraphLines.push(lines[i]);
+        }
+    }
+
+    // Flush any remaining paragraph text
+    flushParagraph();
+
+    return blocks;
+}
+
+// Open bulk paste modal
+bulkPasteBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    bulkPasteTextarea.value = "";
+    bulkPreview.textContent = "";
+    bulkPasteOverlay.classList.add("active");
+    bulkPasteTextarea.focus();
+});
+
+// Close modal
+bulkCancelBtn.addEventListener("click", () => {
+    bulkPasteOverlay.classList.remove("active");
+});
+
+// Close on overlay click (outside modal)
+bulkPasteOverlay.addEventListener("click", (e) => {
+    if (e.target === bulkPasteOverlay) {
+        bulkPasteOverlay.classList.remove("active");
+    }
+});
+
+// Live preview: show block count as user types
+bulkPasteTextarea.addEventListener("input", () => {
+    const raw = bulkPasteTextarea.value.trim();
+    if (!raw) {
+        bulkPreview.textContent = "";
+        return;
+    }
+    const parsed = parseBulkContent(raw);
+    const headings = parsed.filter(b => b.type === "heading").length;
+    const paragraphs = parsed.filter(b => b.type === "paragraph").length;
+    bulkPreview.textContent = `Preview: ${headings} sub-heading(s) + ${paragraphs} paragraph block(s) detected`;
+});
+
+// Confirm: parse and add blocks
+bulkConfirmBtn.addEventListener("click", () => {
+    const raw = bulkPasteTextarea.value.trim();
+    if (!raw) {
+        bulkPreview.textContent = "⚠️ Nothing to parse. Paste your content first.";
+        return;
+    }
+
+    const parsed = parseBulkContent(raw);
+    if (parsed.length === 0) {
+        bulkPreview.textContent = "⚠️ Could not detect any blocks. Check your formatting.";
+        return;
+    }
+
+    // Clear all existing blocks (including pre-filled defaults) before adding parsed ones
+    summaryBlocksContainer.innerHTML = '';
+    const msg = document.createElement('p');
+    msg.className = 'no-blocks-message hidden';
+    msg.id = 'noBlocksMessage';
+    msg.textContent = 'No content blocks yet. Click the buttons below to add one.';
+    summaryBlocksContainer.appendChild(msg);
+
+    // Add each parsed block to the editor
+    parsed.forEach(block => {
+        addSummaryBlock(block.type, block.text, false);
+    });
+
+    bulkPasteOverlay.classList.remove("active");
+    showAdminMessage(`Bulk paste: replaced with ${parsed.length} block(s) (${parsed.filter(b => b.type === "heading").length} headings, ${parsed.filter(b => b.type === "paragraph").length} paragraphs).`, false);
+});
+
+// Delete book functionality
+if (deleteBookBtn) {
+    deleteBookBtn.addEventListener("click", async () => {
+        if (!editingBookSlug) {
+            showAdminMessage("No book is currently loaded for editing. Load a book first to delete it.", true);
+            return;
+        }
+
+        if (!currentAuthUser || currentAuthUser.uid !== ADMIN_UID) {
+            showAdminMessage("You do not have admin permissions to delete books.", true);
+            return;
+        }
+
+        const confirmDelete = confirm(`Are you sure you want to delete the book "${bookTitleInput.value || editingBookSlug}"? This action cannot be undone.`);
+        if (!confirmDelete) return;
+
+        deleteBookBtn.disabled = true;
+        deleteBookBtn.textContent = "Deleting...";
+
+        try {
+            const bookRef = doc(db, "books", editingBookSlug);
+            await deleteDoc(bookRef);
+            showAdminMessage(`Book "${bookTitleInput.value || editingBookSlug}" has been deleted successfully.`, false);
+            resetForm();
+        } catch (error) {
+            console.error("Error deleting book:", error);
+            showAdminMessage("Error deleting book: " + error.message, true);
+        } finally {
+            deleteBookBtn.disabled = false;
+            deleteBookBtn.textContent = "🗑 Delete Book";
+        }
+    });
+}
 
 loadBookBtn.addEventListener("click", () => {
     const slug = loadBookSlugInput.value.trim();
@@ -380,6 +683,21 @@ bookForm.addEventListener("submit", async (event) => {
         // Determine the slug (new book or existing)
         const bookSlug = editingBookSlug || generateSlug(title);
 
+        // Slug collision check for new books
+        if (!editingBookSlug) {
+            const existingRef = doc(db, "books", bookSlug);
+            const existingSnap = await getDoc(existingRef);
+            if (existingSnap.exists()) {
+                const overwrite = confirm(`A book with the slug "${bookSlug}" already exists ("${existingSnap.data().title}"). Do you want to overwrite it?`);
+                if (!overwrite) {
+                    saveBookBtn.disabled = false;
+                    saveBookBtn.classList.remove("btn-loading");
+                    saveBookBtnText.style.opacity = "1";
+                    return;
+                }
+            }
+        }
+
         // Upload files to Storage and get URLs
         const coverUrl = await uploadFile(bookCoverFileInput, "covers") || bookCoverUrlInput.value.trim();
         const audioUrl = await uploadFile(bookAudioFileInput, "audio") || bookAudioUrlInput.value.trim();
@@ -419,5 +737,5 @@ bookForm.addEventListener("submit", async (event) => {
     }
 });
 
-// Initial setup
-updateNoBlocksMessage();
+// Initial setup: pre-populate with default sub-heading + paragraph blocks
+addDefaultBlocks();

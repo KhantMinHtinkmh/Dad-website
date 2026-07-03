@@ -17,7 +17,7 @@ async function fetchAndRenderBooks() {
 
     try {
         const booksCol = collection(db, "books");
-        const q = query(booksCol, orderBy("timestamp", "desc")); // Order by timestamp, newest first
+        const q = query(booksCol, orderBy("createdAt", "desc")); // Order by createdAt, newest first
         const bookSnapshot = await getDocs(q);
 
         if (bookSnapshot.empty) {
@@ -31,7 +31,7 @@ async function fetchAndRenderBooks() {
             const bookCard = `
                 <a href="summary.html?id=${bookId}" class="block bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 ease-in-out overflow-hidden transform hover:-translate-y-1">
                     <div class="flex items-center p-4">
-                        <img src="${book.coverImageUrl || '/assets/default-book-cover.jpg'}" alt="${book.title} cover" class="w-20 h-28 object-cover rounded-md mr-4 shadow-sm">
+                        <img src="${book.coverUrl || book.coverImageUrl || '/assets/default-book-cover.jpg'}" alt="${book.title} cover" class="w-20 h-28 object-cover rounded-md mr-4 shadow-sm">
                         <div>
                             <h3 class="text-lg font-semibold text-slate-800">${book.title}</h3>
                             <p class="text-sm text-slate-500">${book.author}</p>

@@ -20,6 +20,7 @@ import {
   setDoc,
   query,
   where,
+  orderBy,
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 import {
   getStorage,
@@ -77,4 +78,5 @@ export {
   setDoc,
   query,
   where,
+  orderBy,
 };

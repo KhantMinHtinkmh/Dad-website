@@ -401,99 +401,74 @@
             { id: "career-productivity", heading: "💼 Career & Productivity", coverShadowClass: "shadow-sky-100" },
         ];
 
-        // Fetch books from Firestore organized by category (PARALLEL for speed)
+        // Fetch ALL books from Firestore in a single query, then group by category
         async function fetchBooksFromFirestore() {
-            const CACHE_KEY = "phathmattway_books_cache_v2"; // Updated version to clear old cache
-            const CACHE_TTL = 3600000; // 1 hour in milliseconds
-
-            // Check localStorage cache first
-            const cachedData = localStorage.getItem(CACHE_KEY);
-            const cacheTimestamp = localStorage.getItem(CACHE_KEY + "_timestamp");
-
-            if (cachedData && cacheTimestamp) {
-                const age = Date.now() - parseInt(cacheTimestamp);
-                if (age < CACHE_TTL) {
-                    console.log("Loading books from cache");
-                    return JSON.parse(cachedData);
-                }
-            }
-
-            // Mapping of old category IDs to new category IDs (for backward compatibility)
-            const oldCategoryMapping = {
-                "personal-growth": ["personal-growth", "growth"],
-                "psychology-self-help": ["psychology-self-help", "self-help"],
-                "digital-ai": ["digital-ai", "digital"],
-                "techpreneurship": ["techpreneurship"], // new category, no old ID
-                "coaching-nlp": ["coaching-nlp", "coaching"],
-                "mindfulness-health": ["mindfulness-health", "emotional-healing"],
-                "business-economics": ["business-economics", "sales"],
-                "society-politics": ["society-politics", "psychology"],
-                "family-parenting": ["family-parenting", "parenting"],
-                "copywriting": ["copywriting"], // new category, no old ID
-                "career-productivity": ["career-productivity"] // new category, no old ID
+            // Mapping of old/legacy category values → current category ID
+            const normalizeCategoryMap = {
+                "growth": "personal-growth",
+                "self-help": "psychology-self-help",
+                "digital": "digital-ai",
+                "coaching": "coaching-nlp",
+                "emotional-healing": "mindfulness-health",
+                "sales": "business-economics",
+                "psychology": "society-politics",
+                "parenting": "family-parenting",
             };
 
-            // Fetch all categories in PARALLEL instead of sequentially
-            const fetchPromises = CATEGORIES_CONFIG.map(async (category) => {
-                try {
-                    // Query for both old and new category IDs
-                    const possibleIds = oldCategoryMapping[category.id] || [category.id];
-                    const queries = possibleIds.map(id =>
-                        query(collection(db, "books"), where("category", "==", id))
-                    );
+            // Valid current category IDs (from CATEGORIES_CONFIG)
+            const validCategoryIds = new Set(CATEGORIES_CONFIG.map(c => c.id));
 
-                    // Fetch from all possible IDs and merge results
-                    const allBooks = [];
-                    const seenIds = new Set();
-
-                    for (const q of queries) {
-                        const querySnapshot = await getDocs(q);
-                        querySnapshot.docs.forEach(docSnap => {
-                            // Avoid duplicates
-                            if (!seenIds.has(docSnap.id)) {
-                                seenIds.add(docSnap.id);
-                                allBooks.push(docSnap);
-                            }
-                        });
-                    }
-
-                    const books = allBooks.map(docSnap => {
-                        const data = docSnap.data();
-                        return {
-                            id: docSnap.id,
-                            title: data.title || "",
-                            author: data.author || "",
-                            img: data.coverUrl || data.coverImageUrl || data.img || "/assets/default-book-cover.svg",
-                            href: `summary.html?id=${encodeURIComponent(docSnap.id)}`
-                        };
-                    });
-
-                    if (books.length > 0) {
-                        return {
-                            ...category,
-                            books: books
-                        };
-                    }
-                    return null;
-                } catch (error) {
-                    console.error(`Error fetching books for category ${category.id}:`, error);
-                    return null;
-                }
-            });
-
-            // Wait for ALL queries to complete in parallel
-            const results = await Promise.all(fetchPromises);
-            const categoriesWithBooks = results.filter(cat => cat !== null);
-
-            // Cache the results
             try {
-                localStorage.setItem(CACHE_KEY, JSON.stringify(categoriesWithBooks));
-                localStorage.setItem(CACHE_KEY + "_timestamp", Date.now().toString());
-            } catch (e) {
-                console.warn("Could not cache books:", e);
-            }
+                // Single query: fetch ALL books from the collection (no limit, no cache)
+                const booksCol = collection(db, "books");
+                const querySnapshot = await getDocs(booksCol);
 
-            return categoriesWithBooks;
+                console.log(`Fetched ${querySnapshot.docs.length} books from Firestore`);
+
+                // Group books by their (normalized) category
+                const categoryBooksMap = {}; // categoryId → [book, book, ...]
+
+                querySnapshot.docs.forEach(docSnap => {
+                    const data = docSnap.data();
+                    let category = data.category || "";
+
+                    // Normalize old category values to current ones
+                    if (normalizeCategoryMap[category]) {
+                        category = normalizeCategoryMap[category];
+                    }
+
+                    // If category still doesn't match any known category, put in first matching or skip
+                    if (!validCategoryIds.has(category)) {
+                        console.warn(`Book "${data.title}" (${docSnap.id}) has unknown category "${data.category}". Placing in "personal-growth".`);
+                        category = "personal-growth"; // fallback
+                    }
+
+                    if (!categoryBooksMap[category]) {
+                        categoryBooksMap[category] = [];
+                    }
+
+                    categoryBooksMap[category].push({
+                        id: docSnap.id,
+                        title: data.title || "",
+                        author: data.author || "",
+                        img: data.coverUrl || data.coverImageUrl || data.img || "/assets/default-book-cover.svg",
+                        href: `summary.html?id=${encodeURIComponent(docSnap.id)}`
+                    });
+                });
+
+                // Build the result array in the same format as before (matching CATEGORIES_CONFIG order)
+                // Include ALL categories — those with books get their books, empty ones get an empty array
+                const categoriesWithBooks = CATEGORIES_CONFIG.map(category => ({
+                    ...category,
+                    books: categoryBooksMap[category.id] || []
+                }));
+
+                return categoriesWithBooks;
+
+            } catch (error) {
+                console.error("Error fetching all books:", error);
+                return [];
+            }
         }
 
         function escapeHtml(value) {
@@ -523,11 +498,16 @@
             // Show loading state immediately
             allBooksContainerEl.innerHTML = '<div class="text-center py-12"><p class="text-slate-500">Loading books...</p></div>';
 
-            // Fetch books from Firestore (now in parallel)
+            // Fetch books from Firestore — always fresh, no cache
             const categoriesWithBooks = await fetchBooksFromFirestore();
 
-            // If no books found in Firestore, show all categories as empty
-            const categoriesToRender = categoriesWithBooks.length > 0 ? categoriesWithBooks : CATEGORIES_CONFIG;
+            // Only render categories that have at least one book
+            const categoriesToRender = categoriesWithBooks.filter(cat => cat.books && cat.books.length > 0);
+
+            if (categoriesToRender.length === 0) {
+                allBooksContainerEl.innerHTML = '<div class="text-center py-12"><p class="text-slate-500">No books found.</p></div>';
+                return;
+            }
 
             allBooksContainerEl.innerHTML = categoriesToRender
                 .map((category) => {
