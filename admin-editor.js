@@ -4,6 +4,7 @@ import {
     storage,
     onAuthStateChanged,
     collection,
+    getDocs,
     doc,
     setDoc,
     getDoc,
@@ -48,6 +49,22 @@ const deleteBookBtn = document.getElementById("deleteBookBtn");
 const ADMIN_UID = "iOeLZw42zpdvx966peaBHSJ8Fdr2"; // Replace with your actual admin UID
 let currentAuthUser = null;
 let editingBookSlug = null; // Stores the slug of the book currently being edited
+
+// --- Book Count ---
+async function fetchBookCount() {
+    const countEl = document.getElementById("bookCountNumber");
+    try {
+        const booksSnapshot = await getDocs(collection(db, "books"));
+        const count = booksSnapshot.size;
+        countEl.textContent = count;
+        countEl.classList.remove("loading");
+    } catch (err) {
+        console.error("Failed to fetch book count:", err);
+        countEl.textContent = "?";
+        countEl.classList.remove("loading");
+    }
+}
+fetchBookCount();
 
 // --- Helper Functions ---
 
@@ -149,15 +166,6 @@ function updateNoBlocksMessage() {
  * Myanmar subheadings, each followed by an empty multi-paragraph
  * block ready for the admin to paste content into.
  */
-const DEFAULT_SUBHEADINGS = [
-    'မိတ်ဆက်နှင့် အဓိကပြဿနာ',
-    'စာအုပ်၏ အနှစ်သာရနှင့် အတွေးအခေါ်များ',
-    '၃ မျိုးသော လက်တွေ့ကျင့်သုံးနိုင်သည့် အလေ့အကျင့်ငယ်များ',
-    'လူသိနည်းသော ခြားနားသည့် အတွေးအခေါ် ၃ ရပ်',
-    'လက်တွေ့ဘဝနှင့် လုပ်ငန်းခွင်တွင် အသုံးချခြင်း',
-    'နိဂုံးနှင့် ရှေ့ဆက်ရန် အကြံပြုချက်',
-];
-
 function addDefaultBlocks() {
     // Clear existing blocks first
     summaryBlocksContainer.innerHTML = '';
@@ -168,12 +176,6 @@ function addDefaultBlocks() {
     msg.textContent = 'No content blocks yet. Click the buttons below to add one.';
     summaryBlocksContainer.appendChild(msg);
 
-    DEFAULT_SUBHEADINGS.forEach((heading) => {
-        // Add a pre-filled sub-heading block
-        addSummaryBlock('heading', heading, false);
-        // Add an empty multi-paragraph block for pasting content
-        addSummaryBlock('paragraph', '', false);
-    });
     updateNoBlocksMessage();
 }
 
@@ -474,10 +476,12 @@ cancelEditBtn.addEventListener("click", resetForm);
  */
 function parseBulkContent(rawText) {
     const blocks = [];
-    const lines = rawText.split(/\n/);
+    // Normalize line endings: \r\n → \n, stray \r → \n
+    const normalized = rawText.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+    const lines = normalized.split("\n");
 
     // First pass: identify which lines are heading text and which are *** separator lines
-    const isAsterisksLine = (line) => /^\*{3,}$/.test(line.trim());
+    const isAsterisksLine = (line) => /^[\*•]{3,}$/.test(line.trim());
     const isMarkdownHeading = (line) => /^#{2,}\s+/.test(line.trim());
 
     // Collect heading line indices (a line is a heading if the NEXT non-empty line is all asterisks)
@@ -501,25 +505,21 @@ function parseBulkContent(rawText) {
         }
     }
 
-    // Second pass: build blocks
+    // Second pass: build blocks — each blank line creates a new paragraph block
     let currentParagraphLines = [];
 
     function flushParagraph() {
         if (currentParagraphLines.length > 0) {
             const text = currentParagraphLines.join("\n").trim();
             if (text) {
-                // Split by blank lines within the accumulated text to create separate paragraphs
-                const subParas = text.split(/\n\s*\n/).map(p => p.trim()).filter(p => p.length > 0);
-                subParas.forEach(p => {
-                    blocks.push({ type: "paragraph", text: p });
-                });
+                blocks.push({ type: "paragraph", text: text });
             }
             currentParagraphLines = [];
         }
     }
 
     for (let i = 0; i < lines.length; i++) {
-        // Skip asterisk separator lines entirely
+        // Skip asterisk/dot separator lines entirely
         if (separatorLineIndices.has(i)) {
             continue;
         }
@@ -534,6 +534,9 @@ function parseBulkContent(rawText) {
             // Strip the leading ## (and any extra #s) and whitespace
             const headingText = lines[i].trim().replace(/^#+\s+/, "");
             blocks.push({ type: "heading", text: headingText });
+        } else if (lines[i].trim() === "") {
+            // Blank line = paragraph break
+            flushParagraph();
         } else {
             currentParagraphLines.push(lines[i]);
         }
@@ -633,6 +636,7 @@ if (deleteBookBtn) {
             const bookRef = doc(db, "books", editingBookSlug);
             await deleteDoc(bookRef);
             showAdminMessage(`Book "${bookTitleInput.value || editingBookSlug}" has been deleted successfully.`, false);
+            fetchBookCount();
             resetForm();
         } catch (error) {
             console.error("Error deleting book:", error);
@@ -724,6 +728,7 @@ bookForm.addEventListener("submit", async (event) => {
         await setDoc(bookRef, bookData, { merge: true });
 
         showAdminMessage(`Book '${title}' saved successfully!`, false);
+        fetchBookCount();
         resetForm();
         // After saving, consider loading the newly saved book or updating a list.
         // For now, we just reset the form.

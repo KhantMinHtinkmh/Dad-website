@@ -62,6 +62,52 @@
             background-color: #444c56;
         }
 
+        .book-count-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.1rem;
+            background: linear-gradient(135deg, #1a1e2e, #21263a);
+            border: 1px solid #30363d;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #8b949e;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            cursor: default;
+        }
+
+        .book-count-badge:hover {
+            border-color: #58a6ff;
+            box-shadow: 0 0 12px rgba(88, 166, 255, 0.15);
+        }
+
+        .book-count-badge .count-icon {
+            font-size: 1.1rem;
+        }
+
+        .book-count-badge .count-number {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #58a6ff;
+            min-width: 1.5ch;
+            text-align: center;
+        }
+
+        .book-count-badge .count-label {
+            color: #8b949e;
+            font-weight: 500;
+        }
+
+        .book-count-badge .count-number.loading {
+            animation: pulse-count 1.2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-count {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
         .form-section {
             background-color: #161b22;
             border: 1px solid #30363d;
@@ -518,6 +564,11 @@
         <!-- Page Header -->
         <div class="admin-page-header">
             <h1>Admin Book Editor</h1>
+            <div class="book-count-badge" id="bookCountBadge" title="Total books uploaded to Firestore">
+                <span class="count-icon">📚</span>
+                <span class="count-number loading" id="bookCountNumber">—</span>
+                <span class="count-label">Books Uploaded</span>
+            </div>
             <a href="index.html" class="back-link">← Back to Home</a>
         </div>
 
@@ -583,7 +634,7 @@
                 </div>
 
                 <div class="summary-blocks-section">
-                    <h3 class="form-label">Content Blocks * <span style="font-weight: 400; font-size: 0.85rem; color: #8b949e;">(6 sections pre-loaded — add or remove as needed)</span></h3>
+                    <h3 class="form-label">Content Blocks * <span style="font-weight: 400; font-size: 0.85rem; color: #8b949e;">(add sections using the buttons below)</span></h3>
                     <div id="summaryBlocksContainer" class="summary-blocks-container">
                         <p class="no-blocks-message hidden" id="noBlocksMessage">No content blocks yet. Click the buttons below to add one.</p>
                     </div>
