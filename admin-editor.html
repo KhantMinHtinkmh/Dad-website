@@ -719,6 +719,56 @@ More paragraph content here..."></textarea>
                 <button type="submit" id="saveBookBtn" class="btn btn-primary"><span id="saveBookBtnText">Save Book</span></button>
             </div>
         </form>
+
+        <hr style="border: none; border-top: 1px solid #30363d; margin: 3rem 0;">
+
+        <!-- Top 3 Books Section -->
+        <form id="top3Form">
+            <div class="form-section">
+                <h2 class="form-section-title">🏆 Top 3 Books Configuration</h2>
+                <p style="color: #6e7681; font-size: 0.9rem; margin-bottom: 1rem;">Select the top 3 books to highlight on the booklist page.</p>
+                
+                <div id="top3Message" class="admin-message hidden" style="margin-bottom: 1rem; margin-top: 0;"></div>
+
+                <div class="form-grid full" style="margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #30363d;">
+                    <div class="form-group">
+                        <label for="top3CategorySelect" class="form-label" style="color: #58a6ff;">📌 Select Category to Configure</label>
+                        <select id="top3CategorySelect" class="form-select">
+                            <option value="">Loading categories...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="topBook1" class="form-label">🥇 1st Place Book</label>
+                        <select id="topBook1" class="form-select top3-select">
+                            <option value="">Select a category first...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="topBook2" class="form-label">🥈 2nd Place Book</label>
+                        <select id="topBook2" class="form-select top3-select">
+                            <option value="">Loading books...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="topBook3" class="form-label">🥉 3rd Place Book</label>
+                        <select id="topBook3" class="form-select top3-select">
+                            <option value="">Loading books...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions" style="margin-top: 1rem;">
+                    <button type="submit" id="saveTop3Btn" class="btn btn-primary">Save Top 3 Books</button>
+                </div>
+            </div>
+        </form>
     </div>
 
     <script type="module" src="firebase-init.js"></script>

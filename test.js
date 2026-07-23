@@ -1,341 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/jpeg" href="https://www.phathmattway.com/assets/logo%20icon.jpg">
-    <link rel="shortcut icon" type="image/jpeg" href="https://www.phathmattway.com/assets/logo%20icon.jpg">
-    <link rel="apple-touch-icon" href="https://www.phathmattway.com/assets/logo%20icon.jpg">
-    <title>Phat Hmat Tway | Home</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        /* Minimal transitions for category <-> books view */
-        .view-transition {
-            transition: opacity 220ms ease, transform 220ms ease;
-            will-change: opacity, transform;
-        }
-
-        .view-hidden {
-            opacity: 0;
-            transform: translateY(8px);
-            pointer-events: none;
-            height: 0;
-            overflow: hidden;
-        }
-
-        .cat-pill.is-active {
-            outline: 2px solid rgba(79, 70, 229, 0.35);
-            box-shadow: 0 10px 24px rgba(79, 70, 229, 0.12);
-            transform: translateY(-2px);
-        }
-    </style>
-</head>
-
-<body>
-
-    <header class="navbar-glass">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between relative">
-            <div class="logo text-xl font-800">Phat Hmat <span class="text-indigo-600">Tway</span></div>
-            <nav class="hidden lg:flex items-center space-x-6">
-                <a href="#" class="nav-link active">Home</a>
-                <a href="booklist.html" class="nav-link">Booklist</a>
-                <a href="#business" class="nav-link">Business Coach</a>
-                <a href="enneagram.html" class="nav-link">Enneagram Test</a>
-                <a href="#" class="nav-link">Training</a>
-                <a href="#" class="nav-link">About</a>
-                <button id="openAuthModal" type="button" class="nav-link">Login</button>
-                <button id="openAdminEditorBtn" type="button" class="nav-link hidden">Admin</button>
-                <button id="logoutBtn" type="button" class="nav-link hidden">Logout</button>
-            </nav>
-            <div class="flex items-center gap-3">
-                <button id="mobileNavBtn" type="button" class="nav-hamburger lg:hidden" aria-label="Open menu"
-                    aria-expanded="false" aria-controls="mobileNavPanel">
-                    ☰
-                </button>
-            </div>
-
-            <div id="mobileNavPanel" class="mobile-nav-panel hidden lg:hidden" role="menu"
-                aria-label="Mobile navigation">
-                <div class="mobile-nav-section">
-                    <div class="mobile-nav-title">Menu</div>
-                    <a href="#" class="nav-link active" role="menuitem">Home</a>
-                    <button id="mobileCategoriesBtn" type="button"
-                        class="nav-link w-full text-left flex items-center justify-between" aria-expanded="false"
-                        aria-controls="mobileCategoriesMenu">
-                        <span>Categories</span>
-                        <span aria-hidden="true">▾</span>
-                    </button>
-                    <div id="mobileCategoriesMenu" class="hidden pl-3 pb-2" role="menu" aria-label="Categories">
-                        <a href="#cat-personal-growth" class="nav-link block" role="menuitem">🌱 Personal Growth</a>
-                        <a href="#cat-psychology-self-help" class="nav-link block" role="menuitem">✨ Psychology &amp;
-                            Self-Help</a>
-                        <a href="#cat-digital-ai" class="nav-link block" role="menuitem">📱 Digital Lifestyle &amp;
-                            AI</a>
-                        <a href="#cat-techpreneurship" class="nav-link block" role="menuitem">🚀 Techpreneurship &amp;
-                            Startups</a>
-                        <a href="#cat-coaching-nlp" class="nav-link block" role="menuitem">🎯 Coaching &amp; NLP</a>
-                        <a href="#cat-mindfulness-health" class="nav-link block" role="menuitem">🧘 Mindfulness &amp;
-                            Holistic Health</a>
-                        <a href="#cat-business-economics" class="nav-link block" role="menuitem">📈 Business &amp;
-                            Economics</a>
-                        <a href="#cat-society-politics" class="nav-link block" role="menuitem">🏛️ Society, Politics
-                            &amp; Philosophy</a>
-                        <a href="#cat-family-parenting" class="nav-link block" role="menuitem">👨‍👩‍👧 Family &amp;
-                            Parenting</a>
-                        <a href="#cat-copywriting" class="nav-link block" role="menuitem">✍️ Copywriting &amp; Content
-                            Writing</a>
-                        <a href="#cat-career-productivity" class="nav-link block" role="menuitem">💼 Career &amp;
-                            Productivity</a>
-                    </div>
-                    <a href="booklist.html" class="nav-link" role="menuitem">Booklist</a>
-                    <a href="#business" class="nav-link" role="menuitem">Business Coach</a>
-                    <a href="enneagram.html" class="nav-link" role="menuitem">Enneagram Test</a>
-                    <a href="#" class="nav-link" role="menuitem">Training</a>
-                    <a href="#" class="nav-link" role="menuitem">About</a>
-                    <button id="mobileOpenAuthModal" type="button" class="nav-link w-full text-left"
-                        role="menuitem">Login</button>
-                    <button id="mobileOpenAdminEditor" type="button" class="nav-link w-full text-left hidden"
-                        role="menuitem">Admin</button>
-                    <button id="mobileLogoutBtn" type="button" class="nav-link w-full text-left hidden"
-                        role="menuitem">Logout</button>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <aside id="adminEditorMenu" class="admin-editor-menu hidden" aria-label="Admin editor menu">
-        <button id="adminMenuToggle" type="button" class="admin-editor-menu__toggle" aria-expanded="false">
-            Admin Menu
-        </button>
-        <div id="adminMenuPanel" class="admin-editor-menu__panel hidden">
-            <div class="admin-editor-menu__title">Editor Tools</div>
-            <form id="adminBookForm" class="admin-editor-form">
-                <input id="adminBookTitle" class="admin-editor-input" type="text" placeholder="Book title" required>
-                <input id="adminBookAuthor" class="admin-editor-input" type="text" placeholder="Author name" required>
-                <textarea id="adminBookSummary" class="admin-editor-input admin-editor-textarea"
-                    placeholder="Book summary" required></textarea>
-                <input id="adminBookImageFile" class="admin-editor-input" type="file" accept="image/*">
-                <input id="adminBookImageUrl" class="admin-editor-input" type="url" placeholder="Or paste image URL">
-                <button id="adminBookSubmitBtn" type="submit" class="admin-editor-menu__action">Add Book</button>
-                <button id="adminBookCancelEditBtn" type="button" class="admin-editor-menu__action hidden">Cancel
-                    Edit</button>
-                <p id="adminBookFormMsg" class="admin-editor-message hidden"></p>
-            </form>
-            <div id="adminBooksList" class="admin-editor-list"></div>
-            <button id="adminMenuSignOut" type="button" class="admin-editor-menu__action">Sign Out</button>
-        </div>
-    </aside>
-
-    <main>
-        <section class="px-0 relative inline-block w-full">
-            <img src="/assets/new.jpg" alt="Hero Banner" style="width: 100%; height: auto; display: block;">
-            <div class="hero-cta-wrapper">
-                <a href="#" id="heroCtaBtn" class="hero-cta-button">အခုပဲ စတင်လိုက်ပါ</a>
-            </div>
-        </section>
-
-        <section id="categories" class="pt-4 pb-4 bg-white border-y border-slate-100">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6">
-                <div id="categoryView" class="view-transition">
-                    <div class="cat-grid">
-                        <button type="button" data-category="personal-growth"
-                            class="cat-pill bg-orange-50 text-orange-700">🌱 Personal Growth</button>
-                        <button type="button" data-category="psychology-self-help"
-                            class="cat-pill bg-rose-50 text-rose-700">✨ Psychology &amp; Self-Help</button>
-                        <button type="button" data-category="digital-ai" class="cat-pill bg-cyan-50 text-cyan-700">📱
-                            Digital Lifestyle &amp; AI</button>
-                        <button type="button" data-category="techpreneurship"
-                            class="cat-pill bg-green-50 text-green-700">🚀 Techpreneurship &amp; Startups</button>
-                        <button type="button" data-category="coaching-nlp" class="cat-pill bg-blue-50 text-blue-700">🎯
-                            Coaching &amp; NLP</button>
-                        <button type="button" data-category="mindfulness-health"
-                            class="cat-pill bg-purple-50 text-purple-700">🧘 Mindfulness &amp; Holistic Health</button>
-                        <button type="button" data-category="business-economics"
-                            class="cat-pill bg-amber-50 text-amber-700">📈 Business &amp; Economics</button>
-                        <button type="button" data-category="society-politics"
-                            class="cat-pill bg-indigo-50 text-indigo-700">🏛️ Society, Politics &amp;
-                            Philosophy</button>
-                        <button type="button" data-category="family-parenting"
-                            class="cat-pill bg-teal-50 text-teal-700">👨‍👩‍👧 Family &amp; Parenting</button>
-                        <button type="button" data-category="copywriting" class="cat-pill bg-pink-50 text-pink-700">✍️
-                            Copywriting &amp; Content Writing</button>
-                        <button type="button" data-category="career-productivity"
-                            class="cat-pill bg-sky-50 text-sky-700">💼 Career &amp; Productivity</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="max-w-7xl mx-auto px-6 pt-6 pb-12 md:pb-14">
-            <section id="allBooks" class="view-transition" aria-live="polite">
-                <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between mb-5">
-                    <h2 class="section-heading mb-0">All Books</h2>
-                    <a href="#categories" class="nav-link">↑ Back to Categories</a>
-                </div>
-                <div id="allBooksContainer" class="space-y-6"></div>
-            </section>
-        </div>
-
-        <section id="about" class="about-section py-12 md:py-16 border-y border-slate-100">
-            <div class="max-w-5xl mx-auto px-6">
-
-                <!-- Section Header -->
-                <div class="text-center mb-10">
-                    <h2 class="text-3xl md:text-4xl font-800 text-slate-900 mb-2">မိတ်ဆက်</h2>
-                    <div class="w-16 h-1 bg-indigo-500 mx-auto rounded-full"></div>
-                </div>
-
-                <div class="space-y-8">
-
-                    <!-- Introduction Card -->
-                    <div class="about-card bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200">
-                        <p class="text-slate-700 leading-relaxed text-base mb-4">
-                            <strong class="text-indigo-600">'ဖတ်မှတ်တွေး'</strong> ဝက်ဘ်ဆိုက်မှ နွေးထွေးစွာ
-                            ကြိုဆိုပါတယ်။ ဤနေရာလေးသည် ကိုယ်ပိုင်စီးပွားရေး လုပ်ငန်းရှင်များ နှင့်
-                            စွန့်ဦးတီထွင်လုပ်ငန်းရှင်များ (Entrepreneurs)၊ စတင်ပျိုးထောင်ဆဲ လုပ်ငန်းရှင်များ (Startup
-                            Founders) နှင့် မိမိဘဝကို အစဉ်မပြတ် တိုးတက်လိုသူများအတွက် ရည်ရွယ်တည်ထောင်ထားသော
-                            အသိပညာမျှဝေရာ နေရာတစ်ခု ဖြစ်ပါသည်။
-                        </p>
-                        <p class="text-slate-700 leading-relaxed text-base">
-                            <strong class="text-orange-600">'ဖတ်'</strong> ရန်အတွက် အသုံးဝင်သော ဗဟုသုတများ၊ <strong
-                                class="text-rose-600">'မှတ်'</strong> သားပြီး လက်တွေ့အသုံးချနိုင်သော နည်းဗျူဟာများနှင့်
-                            ဆန်းသစ်သော အကြံဉာဏ်များကို ဖန်တီးနိုင်ရန် <strong class="text-purple-600">'တွေး'</strong>
-                            ခေါ်မှုပုံစံများကို ဤဝက်ဘ်ဆိုက်တွင် စုံလင်စွာ လေ့လာနိုင်မည် ဖြစ်ပါသည်။
-                        </p>
-                    </div>
-
-                    <!-- Vision & Mission - Side by Side -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                        <!-- Vision -->
-                        <div
-                            class="about-card bg-gradient-to-br from-indigo-50 to-blue-50 rounded-2xl p-6 md:p-8 border border-indigo-100">
-                            <div class="flex items-center gap-3 mb-4">
-                                <span
-                                    class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-indigo-100 text-xl">🔭</span>
-                                <h3 class="text-lg font-700 text-indigo-700">မျှော်မှန်းချက် (Vision)</h3>
-                            </div>
-                            <p class="text-slate-700 leading-relaxed text-sm">
-                                စာဖတ်သူတိုင်း စိတ်ကူးမှသည် လက်တွေ့အောင်မြင်မှုဆီသို့ ယုံကြည်မှုအပြည့်ဖြင့်
-                                လျှောက်လှမ်းနိုင်မည့် <strong>"အသိပညာဗဟိုချက်နှင့် စွမ်းရည်မြှင့်တင်ရေး
-                                    လမ်းပြမြေပုံ"</strong> တစ်ခုအဖြစ် ရေရှည်ရပ်တည်သွားရန်။
-                            </p>
-                        </div>
-
-                        <!-- Mission -->
-                        <div
-                            class="about-card bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 md:p-8 border border-amber-100">
-                            <div class="flex items-center gap-3 mb-4">
-                                <span
-                                    class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-amber-100 text-xl">🎯</span>
-                                <h3 class="text-lg font-700 text-amber-700">လုပ်ငန်းတာဝန် (Mission)</h3>
-                            </div>
-                            <p class="text-slate-700 leading-relaxed text-sm">
-                                Coaching နှင့် NLP နည်းပညာများကို ပေါင်းစပ်၍ လုပ်ငန်းရှင်များ၏ အတွင်းစိတ်စွမ်းရည်ကို
-                                နှိုးဆွပေးရန်၊ စိန်ခေါ်မှုများကို ကျော်လွှားနိုင်မည့် စိတ်ဓာတ်ပိုင်းဆိုင်ရာ
-                                ကြံ့ခိုင်မှုကို တည်ဆောက်ပေးရန်နှင့် ရေရှည်တည်တံ့သော စီးပွားရေးအောင်မြင်မှုဗျူဟာများကို
-                                ပံ့ပိုးပေးရန်။
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Content Topics -->
-                    <div class="about-card bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200">
-                        <h3 class="text-xl font-700 text-slate-900 mb-2">အဓိက ဖတ်ရှုနိုင်မည့် အကြောင်းအရာများ</h3>
-                        <p class="text-slate-500 text-sm mb-6">ဤဝက်ဘ်ဆိုက်တွင် အောက်ပါကဏ္ဍများကို အဓိကထား
-                            တင်ဆက်ပေးသွားမည် ဖြစ်ပါသည် -</p>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <!-- Topic 1 -->
-                            <div class="flex gap-3 p-4 rounded-xl bg-green-50 border border-green-100">
-                                <span class="text-2xl flex-shrink-0 mt-0.5">🌱</span>
-                                <div>
-                                    <h4 class="font-700 text-green-800 mb-1 text-sm">Coaching & Personal Growth</h4>
-                                    <p class="text-slate-600 text-xs leading-relaxed">ဘဝရည်မှန်းချက်များ စနစ်တကျ
-                                        ချမှတ်ခြင်း၊ အတားအဆီးများကို ကျော်လွှားခြင်းနှင့် မိမိကိုယ်ကို အကောင်းဆုံး
-                                        ဗားရှင်းဖြစ်အောင် မြှင့်တင်နိုင်မည့် လမ်းညွှန်ချက်များ။</p>
-                                </div>
-                            </div>
-                            <!-- Topic 2 -->
-                            <div class="flex gap-3 p-4 rounded-xl bg-purple-50 border border-purple-100">
-                                <span class="text-2xl flex-shrink-0 mt-0.5">🧠</span>
-                                <div>
-                                    <h4 class="font-700 text-purple-800 mb-1 text-sm">Neuro-Linguistic Programming (NLP)
-                                    </h4>
-                                    <p class="text-slate-600 text-xs leading-relaxed">အောင်မြင်သူများ၏
-                                        တွေးခေါ်မှုပုံစံများ၊ ထိရောက်သော ဆက်သွယ်ပြောဆိုရေး စွမ်းရည်များနှင့်
-                                        အပြုသဘောဆောင်သော စိတ်ပိုင်းဆိုင်ရာ ပြောင်းလဲမှု နည်းစနစ်များ။</p>
-                                </div>
-                            </div>
-                            <!-- Topic 3 -->
-                            <div class="flex gap-3 p-4 rounded-xl bg-blue-50 border border-blue-100">
-                                <span class="text-2xl flex-shrink-0 mt-0.5">💼</span>
-                                <div>
-                                    <h4 class="font-700 text-blue-800 mb-1 text-sm">Entrepreneurship & Business
-                                        Strategies</h4>
-                                    <p class="text-slate-600 text-xs leading-relaxed">ကိုယ်ပိုင်စီးပွားရေး စတင်ခြင်း၊
-                                        စီးပွားရေးပုံစံ (Business Model) ဖန်တီးခြင်းနှင့် လက်တွေ့အသုံးချနိုင်သော
-                                        ဈေးကွက်ထိုးဖောက်မှု ဗျူဟာများ။</p>
-                                </div>
-                            </div>
-                            <!-- Topic 4 -->
-                            <div class="flex gap-3 p-4 rounded-xl bg-rose-50 border border-rose-100">
-                                <span class="text-2xl flex-shrink-0 mt-0.5">🚀</span>
-                                <div>
-                                    <h4 class="font-700 text-rose-800 mb-1 text-sm">Startup Ecosystem</h4>
-                                    <p class="text-slate-600 text-xs leading-relaxed">ဆန်းသစ်သော စိတ်ကူးစိတ်သန်းများ၊
-                                        Startup လောက၏ စိန်ခေါ်မှုများနှင့် ၎င်းတို့ကို ကျော်လွှားနိုင်မည့်
-                                        အခွင့်အလမ်းများ။</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <div id="authModal" class="auth-modal hidden" aria-hidden="true">
-        <div class="auth-overlay" data-close-modal="true"></div>
-        <div class="auth-panel" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
-            <button class="auth-close-btn" id="closeAuthModal" aria-label="Close">✕</button>
-            <h2 id="authModalTitle" class="text-2xl font-800 mb-2">Welcome Back</h2>
-            <p class="text-slate-500 mb-6">Login or create your account to continue.</p>
-
-            <div class="auth-tabs mb-5">
-                <button id="loginTabBtn" class="auth-tab active" type="button">Login</button>
-                <button id="signupTabBtn" class="auth-tab" type="button">Sign Up</button>
-            </div>
-
-            <form id="loginForm" class="auth-form">
-                <label class="auth-label" for="loginEmail">Email</label>
-                <input id="loginEmail" class="auth-input" type="email" placeholder="you@example.com" required>
-                <label class="auth-label" for="loginPassword">Password</label>
-                <input id="loginPassword" class="auth-input" type="password" placeholder="••••••••" required>
-                <p id="loginError" class="text-sm text-rose-600 hidden mt-2"></p>
-                <button class="btn-primary w-full py-3 mt-2" type="submit">Login</button>
-            </form>
-
-            <form id="signupForm" class="auth-form hidden">
-                <label class="auth-label" for="signupName">Full Name</label>
-                <input id="signupName" class="auth-input" type="text" placeholder="Your full name" required>
-                <label class="auth-label" for="signupEmail">Email</label>
-                <input id="signupEmail" class="auth-input" type="email" placeholder="you@example.com" required>
-                <label class="auth-label" for="signupPassword">Password</label>
-                <input id="signupPassword" class="auth-input" type="password" placeholder="Create password" required>
-                <p id="signupError" class="text-sm text-rose-600 hidden mt-2"></p>
-                <button class="btn-primary w-full py-3 mt-2" type="submit">Sign Up</button>
-            </form>
-        </div>
-    </div>
-
-    <script type="module">
         import {
             auth,
             db,
@@ -491,80 +154,95 @@
             `;
         }
 
-        async function renderAllBooks() {
+        let allCategoriesWithBooksCache = null;
+
+        async function getOrFetchBooks() {
+            if (allCategoriesWithBooksCache) return allCategoriesWithBooksCache;
+            allCategoriesWithBooksCache = await fetchBooksFromFirestore();
+            return allCategoriesWithBooksCache;
+        }
+
+        async function renderBooksForCategory(categoryId) {
             if (!allBooksContainerEl) return;
 
             // Show loading state immediately
             allBooksContainerEl.innerHTML = '<div class="text-center py-12"><p class="text-slate-500">Loading books...</p></div>';
 
-            // Fetch books from Firestore — always fresh, no cache
-            const categoriesWithBooks = await fetchBooksFromFirestore();
+            // Fetch books from Firestore or cache
+            const categoriesWithBooks = await getOrFetchBooks();
+            const category = categoriesWithBooks.find(cat => cat.id === categoryId);
 
-            // Only render categories that have at least one book
-            const categoriesToRender = categoriesWithBooks.filter(cat => cat.books && cat.books.length > 0);
-
-            if (categoriesToRender.length === 0) {
-                allBooksContainerEl.innerHTML = '<div class="text-center py-12"><p class="text-slate-500">No books found.</p></div>';
+            if (!category) {
+                allBooksContainerEl.innerHTML = '<div class="text-center py-12"><p class="text-slate-500">Category not found.</p></div>';
                 return;
             }
 
-            allBooksContainerEl.innerHTML = categoriesToRender
-                .map((category) => {
-                    const booksHtml = category.books
-                        .map((book) => renderBookTile(book, category.coverShadowClass))
-                        .join("");
+            const booksSectionTitle = document.getElementById("booksSectionTitle");
+            if (booksSectionTitle) {
+                booksSectionTitle.textContent = "Books in Category";
+            }
 
-                    const stripClass =
-                        category.books.length > 3
-                            ? "category-books-strip"
-                            : "category-books-strip category-books-strip--compact";
+            if (!category.books || category.books.length === 0) {
+                allBooksContainerEl.innerHTML = '<div class="text-center py-12"><p class="text-slate-500">No books found in this category.</p></div>';
+                return;
+            }
 
-                    return `
-                        <section id="cat-${escapeHtml(category.id)}">
-                            <h3 class="text-2xl font-800 mb-5">${escapeHtml(category.heading)}</h3>
-                            <div class="category-books-strip-shell">
-                                <div
-                                    class="${stripClass}"
-                                    role="region"
-                                    aria-label="${escapeHtml(category.heading)} — scroll sideways for more books"
-                                >
-                                    <div class="category-books-strip__track">
-                                        ${booksHtml}
-                                    </div>
-                                </div>
-                                <button
-                                    type="button"
-                                    class="category-books-strip__next"
-                                    aria-label="Show more books in this category"
-                                    hidden
-                                >
-                                    <svg class="category-books-strip__next-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                        <path d="m10 7 5 5-5 5" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </button>
-                            </div>
-                        </section>
-                    `;
-                })
+            const booksHtml = category.books
+                .map((book) => renderBookTile(book, category.coverShadowClass))
                 .join("");
+
+            const stripClass =
+                category.books.length > 3
+                    ? "category-books-strip"
+                    : "category-books-strip category-books-strip--compact";
+
+            allBooksContainerEl.innerHTML = `
+                <section id="cat-${escapeHtml(category.id)}">
+                    <h3 class="text-2xl font-800 mb-5">${escapeHtml(category.heading)}</h3>
+                    <div class="category-books-strip-shell">
+                        <div
+                            class="${stripClass}"
+                            role="region"
+                            aria-label="${escapeHtml(category.heading)} — scroll sideways for more books"
+                        >
+                            <div class="category-books-strip__track">
+                                ${booksHtml}
+                            </div>
+                        </div>
+                        <button
+                            type="button"
+                            class="category-books-strip__next"
+                            aria-label="Show more books in this category"
+                            hidden
+                        >
+                            <svg class="category-books-strip__next-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="m10 7 5 5-5 5" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </section>
+            `;
+
+            initCategoryBookStrips();
         }
 
         categoryViewEl.addEventListener("click", (event) => {
             const btn = event.target && event.target.closest ? event.target.closest("[data-category]") : null;
             if (!btn) return;
-            const target = document.getElementById("cat-" + btn.dataset.category);
-            if (target) {
-                target.scrollIntoView({ behavior: "smooth", block: "start" });
-            }
+            
+            // Highlight active button
+            document.querySelectorAll(".cat-pill").forEach(pill => pill.classList.remove("is-active"));
+            btn.classList.add("is-active");
+
+            const categoryId = btn.dataset.category;
+            renderBooksForCategory(categoryId).catch(error => {
+                console.error("Error rendering category books:", error);
+                allBooksContainerEl.innerHTML = `<p class="text-center text-slate-500">Unable to load books. Please try again later.</p>`;
+            });
         });
 
-        // On first load, show the hero/top (do not auto-open a category).
-        // If a URL hash is present (e.g. #categories), keep normal browser behavior.
-        renderAllBooks().catch(error => {
-            console.error("Error rendering books:", error);
-            // Fallback: render with fallback message if there's an error
-            allBooksContainerEl.innerHTML = `<p class="text-center text-slate-500">Unable to load books. Please try again later.</p>`;
-        });
+        // Pre-fetch books on load, but do not display them automatically
+        getOrFetchBooks().catch(error => console.error("Error pre-fetching books:", error));
 
         function initCategoryBookStrips() {
             document.querySelectorAll(".category-books-strip-shell").forEach((shell) => {
@@ -1065,7 +743,4 @@
             });
         }
 
-    </script>
-</body>
-
-</html>
+    

@@ -744,3 +744,160 @@ bookForm.addEventListener("submit", async (event) => {
 
 // Initial setup: pre-populate with default sub-heading + paragraph blocks
 addDefaultBlocks();
+
+// --- Top 3 Books Section ---
+const top3Form = document.getElementById("top3Form");
+const topBook1 = document.getElementById("topBook1");
+const topBook2 = document.getElementById("topBook2");
+const topBook3 = document.getElementById("topBook3");
+const top3Message = document.getElementById("top3Message");
+const saveTop3Btn = document.getElementById("saveTop3Btn");
+
+function showTop3Message(message, isError = false) {
+    top3Message.textContent = message;
+    top3Message.classList.remove("hidden");
+    top3Message.classList.toggle("admin-message--error", isError);
+    top3Message.classList.toggle("admin-message--success", !isError);
+}
+
+function hideTop3Message() {
+    top3Message.classList.add("hidden");
+}
+
+const CATEGORY_NAMES = {
+    "personal-growth": "🌱 Personal Growth",
+    "psychology-self-help": "✨ Psychology & Self-Help",
+    "digital-ai": "📱 Digital Lifestyle & AI",
+    "techpreneurship": "🚀 Techpreneurship & Startups",
+    "coaching-nlp": "🎯 Coaching & NLP",
+    "mindfulness-health": "🧘 Mindfulness & Holistic Health",
+    "business-economics": "📈 Business & Economics",
+    "society-politics": "🏛️ Society, Politics & Philosophy",
+    "family-parenting": "👨‍👩‍👧 Family & Parenting",
+    "copywriting": "✍️ Copywriting & Content Writing",
+    "career-productivity": "💼 Career & Productivity",
+    "growth": "🌱 Growth (Default)" // Fallback
+};
+
+const top3CategorySelect = document.getElementById("top3CategorySelect");
+
+let allBooksByCategory = {};
+let globalTop3Settings = {};
+
+async function initTop3Books() {
+    try {
+        // 1. Fetch all books
+        const booksSnapshot = await getDocs(collection(db, "books"));
+        const books = [];
+        booksSnapshot.forEach(docSnap => {
+            books.push({ id: docSnap.id, ...docSnap.data() });
+        });
+
+        // Sort books by title
+        books.sort((a, b) => (a.title || "").localeCompare(b.title || ""));
+
+        // Group by category
+        allBooksByCategory = {};
+        books.forEach(book => {
+            const cat = book.category || "growth";
+            if (!allBooksByCategory[cat]) allBooksByCategory[cat] = [];
+            allBooksByCategory[cat].push(book);
+        });
+
+        // 2. Populate Category Select
+        let catOptions = '<option value="">Select a category...</option>';
+        for (const [cat, catName] of Object.entries(CATEGORY_NAMES)) {
+            // Only show categories that have at least one book, or show all? 
+            // Better to show all so they can be prepared.
+            catOptions += `<option value="${cat}">${catName}</option>`;
+        }
+        top3CategorySelect.innerHTML = catOptions;
+
+        // 3. Fetch current selection from settings
+        const settingsSnap = await getDoc(doc(db, "settings", "top3books"));
+        if (settingsSnap.exists()) {
+            globalTop3Settings = settingsSnap.data();
+        } else {
+            globalTop3Settings = {};
+        }
+
+        // Set up listener for category change
+        top3CategorySelect.addEventListener("change", () => {
+            const selectedCat = top3CategorySelect.value;
+            if (!selectedCat) {
+                const emptyOption = '<option value="">Select a category first...</option>';
+                topBook1.innerHTML = emptyOption;
+                topBook2.innerHTML = emptyOption;
+                topBook3.innerHTML = emptyOption;
+                return;
+            }
+
+            const catBooks = allBooksByCategory[selectedCat] || [];
+            let bookOptions = '<option value="">Select a book...</option>';
+            catBooks.forEach(b => {
+                bookOptions += `<option value="${b.id}">${b.title} by ${b.author}</option>`;
+            });
+
+            topBook1.innerHTML = bookOptions;
+            topBook2.innerHTML = bookOptions;
+            topBook3.innerHTML = bookOptions;
+
+            // Load existing settings for this category
+            const catSettings = globalTop3Settings[selectedCat] || {};
+            topBook1.value = catSettings.book1 || "";
+            topBook2.value = catSettings.book2 || "";
+            topBook3.value = catSettings.book3 || "";
+        });
+
+        // Keep it blank initially instead of auto-selecting the first category
+        top3CategorySelect.value = "";
+
+    } catch (err) {
+        console.error("Error initializing Top 3 Books section:", err);
+        showTop3Message("Failed to load books. See console.", true);
+    }
+}
+
+// Call on load
+initTop3Books();
+
+top3Form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    hideTop3Message();
+
+    const selectedCat = top3CategorySelect.value;
+    if (!selectedCat) {
+        showTop3Message("Please select a category first.", true);
+        return;
+    }
+
+    if (!currentAuthUser || currentAuthUser.uid !== ADMIN_UID) {
+        showTop3Message("You do not have admin permissions to save settings.", true);
+        return;
+    }
+
+    saveTop3Btn.disabled = true;
+    saveTop3Btn.textContent = "Saving...";
+
+    try {
+        // Update local object
+        globalTop3Settings[selectedCat] = {
+            book1: topBook1.value,
+            book2: topBook2.value,
+            book3: topBook3.value
+        };
+
+        // Ensure updatedAt is present
+        globalTop3Settings.updatedAt = serverTimestamp();
+
+        // Save entire object to Firebase
+        await setDoc(doc(db, "settings", "top3books"), globalTop3Settings);
+        showTop3Message(`Top 3 Books for category updated successfully!`, false);
+    } catch (err) {
+        console.error("Error saving Top 3 Books:", err);
+        showTop3Message("Error saving settings: " + err.message, true);
+    } finally {
+        saveTop3Btn.disabled = false;
+        saveTop3Btn.textContent = "Save Top 3 Books";
+    }
+});
